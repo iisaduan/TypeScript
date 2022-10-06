@@ -5,7 +5,7 @@ function f<T>(a: T, b: T): boolean {
         return true;
     }
 
-    const c : T = a;
+    const c: T = a;
 
     return c > b ;
 }

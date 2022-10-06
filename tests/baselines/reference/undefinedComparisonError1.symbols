@@ -1,0 +1,25 @@
+=== tests/cases/compiler/undefinedComparisonError1.ts ===
+function f<T>(a: T, b: T): boolean {
+>f : Symbol(f, Decl(undefinedComparisonError1.ts, 0, 0))
+>T : Symbol(T, Decl(undefinedComparisonError1.ts, 0, 11))
+>a : Symbol(a, Decl(undefinedComparisonError1.ts, 0, 14))
+>T : Symbol(T, Decl(undefinedComparisonError1.ts, 0, 11))
+>b : Symbol(b, Decl(undefinedComparisonError1.ts, 0, 19))
+>T : Symbol(T, Decl(undefinedComparisonError1.ts, 0, 11))
+
+    if (a === undefined) {
+>a : Symbol(a, Decl(undefinedComparisonError1.ts, 0, 14))
+>undefined : Symbol(undefined)
+
+        return true;
+    }
+
+    const c: T = a;
+>c : Symbol(c, Decl(undefinedComparisonError1.ts, 5, 9))
+>T : Symbol(T, Decl(undefinedComparisonError1.ts, 0, 11))
+>a : Symbol(a, Decl(undefinedComparisonError1.ts, 0, 14))
+
+    return c > b ;
+>c : Symbol(c, Decl(undefinedComparisonError1.ts, 5, 9))
+>b : Symbol(b, Decl(undefinedComparisonError1.ts, 0, 19))
+}

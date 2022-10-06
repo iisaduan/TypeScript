@@ -1,0 +1,24 @@
+=== tests/cases/compiler/undefinedComparisonError1.ts ===
+function f<T>(a: T, b: T): boolean {
+>f : <T>(a: T, b: T) => boolean
+>a : T
+>b : T
+
+    if (a === undefined) {
+>a === undefined : boolean
+>a : T
+>undefined : undefined
+
+        return true;
+>true : true
+    }
+
+    const c: T = a;
+>c : T
+>a : T
+
+    return c > b ;
+>c > b : boolean
+>c : T
+>b : T
+}
