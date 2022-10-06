@@ -1,30 +1,24 @@
 === tests/cases/compiler/undefinedComparisonError2.ts ===
-export function min<T>(it: Iterable<T>): T | null {
->min : Symbol(min, Decl(undefinedComparisonError2.ts, 0, 0))
->T : Symbol(T, Decl(undefinedComparisonError2.ts, 0, 20))
->it : Symbol(it, Decl(undefinedComparisonError2.ts, 0, 23))
->Iterable : Symbol(Iterable, Decl(lib.es2015.iterable.d.ts, --, --))
->T : Symbol(T, Decl(undefinedComparisonError2.ts, 0, 20))
->T : Symbol(T, Decl(undefinedComparisonError2.ts, 0, 20))
+function g<T>(a: T, b: T): boolean {
+>g : Symbol(g, Decl(undefinedComparisonError2.ts, 0, 0))
+>T : Symbol(T, Decl(undefinedComparisonError2.ts, 0, 11))
+>a : Symbol(a, Decl(undefinedComparisonError2.ts, 0, 14))
+>T : Symbol(T, Decl(undefinedComparisonError2.ts, 0, 11))
+>b : Symbol(b, Decl(undefinedComparisonError2.ts, 0, 19))
+>T : Symbol(T, Decl(undefinedComparisonError2.ts, 0, 11))
 
-    let result: T | null = null;
->result : Symbol(result, Decl(undefinedComparisonError2.ts, 1, 7))
->T : Symbol(T, Decl(undefinedComparisonError2.ts, 0, 20))
+    if (a === undefined) {
+>a : Symbol(a, Decl(undefinedComparisonError2.ts, 0, 14))
+>undefined : Symbol(undefined)
 
-    for (const v of it) {
->v : Symbol(v, Decl(undefinedComparisonError2.ts, 2, 14))
->it : Symbol(it, Decl(undefinedComparisonError2.ts, 0, 23))
-
-        if (result === null || result > v) {
->result : Symbol(result, Decl(undefinedComparisonError2.ts, 1, 7))
->result : Symbol(result, Decl(undefinedComparisonError2.ts, 1, 7))
->v : Symbol(v, Decl(undefinedComparisonError2.ts, 2, 14))
-
-            result = v;
->result : Symbol(result, Decl(undefinedComparisonError2.ts, 1, 7))
->v : Symbol(v, Decl(undefinedComparisonError2.ts, 2, 14))
-        }
+        return a > b;
+>a : Symbol(a, Decl(undefinedComparisonError2.ts, 0, 14))
+>b : Symbol(b, Decl(undefinedComparisonError2.ts, 0, 19))
     }
-    return result;
->result : Symbol(result, Decl(undefinedComparisonError2.ts, 1, 7))
+    else {
+        return a > b ;
+>a : Symbol(a, Decl(undefinedComparisonError2.ts, 0, 14))
+>b : Symbol(b, Decl(undefinedComparisonError2.ts, 0, 19))
+    }
 }
+

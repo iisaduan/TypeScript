@@ -1,33 +1,24 @@
 === tests/cases/compiler/undefinedComparisonError2.ts ===
-export function min<T>(it: Iterable<T>): T | null {
->min : <T>(it: Iterable<T>) => T | null
->it : Iterable<T>
->null : null
+function g<T>(a: T, b: T): boolean {
+>g : <T>(a: T, b: T) => boolean
+>a : T
+>b : T
 
-    let result: T | null = null;
->result : T
->null : null
->null : null
+    if (a === undefined) {
+>a === undefined : boolean
+>a : T
+>undefined : undefined
 
-    for (const v of it) {
->v : T
->it : Iterable<T>
-
-        if (result === null || result > v) {
->result === null || result > v : boolean
->result === null : boolean
->result : T
->null : null
->result > v : boolean
->result : T
->v : T
-
-            result = v;
->result = v : T
->result : T
->v : T
-        }
+        return a > b;
+>a > b : boolean
+>a : T
+>b : T
     }
-    return result;
->result : T
+    else {
+        return a > b ;
+>a > b : boolean
+>a : T
+>b : T
+    }
 }
+
