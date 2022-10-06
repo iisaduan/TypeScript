@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../Test Projects"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "TypeScript\\built\\local"
+	}
+}
