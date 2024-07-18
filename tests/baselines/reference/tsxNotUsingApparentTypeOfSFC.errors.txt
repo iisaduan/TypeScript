@@ -46,7 +46,6 @@ tsxNotUsingApparentTypeOfSFC.tsx(18,14): error TS2769: No overload matches this 
                  ~~~~~
 !!! error TS2322: Type 'P' is not assignable to type 'IntrinsicAttributes & P'.
 !!! error TS2322:   Type 'P' is not assignable to type 'IntrinsicAttributes'.
-!!! related TS2208 tsxNotUsingApparentTypeOfSFC.tsx:5:15: This type parameter might need an `extends JSX.IntrinsicAttributes` constraint.
         let q = <MyComponent {...wrappedProps} /> // should work
                  ~~~~~~~~~~~
 !!! error TS2769: No overload matches this call.
@@ -56,8 +55,4 @@ tsxNotUsingApparentTypeOfSFC.tsx(18,14): error TS2769: No overload matches this 
 !!! error TS2769:   Overload 2 of 2, '(props: P, context?: any): MyComponent', gave the following error.
 !!! error TS2769:     Type 'P' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<MyComponent> & Readonly<{ children?: ReactNode; }> & Readonly<P>'.
 !!! error TS2769:       Type 'P' is not assignable to type 'IntrinsicAttributes'.
-!!! related TS2208 tsxNotUsingApparentTypeOfSFC.tsx:5:15: This type parameter might need an `extends JSX.IntrinsicAttributes` constraint.
-!!! related TS2208 tsxNotUsingApparentTypeOfSFC.tsx:5:15: This type parameter might need an `extends JSX.IntrinsicAttributes & JSX.IntrinsicClassAttributes<MyComponent> & Readonly<{ children?: React.ReactNode; }> & Readonly<P>` constraint.
-!!! related TS2208 tsxNotUsingApparentTypeOfSFC.tsx:5:15: This type parameter might need an `extends JSX.IntrinsicAttributes` constraint.
-!!! related TS2208 tsxNotUsingApparentTypeOfSFC.tsx:5:15: This type parameter might need an `extends JSX.IntrinsicAttributes & JSX.IntrinsicClassAttributes<MyComponent> & Readonly<{ children?: React.ReactNode; }> & Readonly<P>` constraint.
     }

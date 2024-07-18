@@ -4,8 +4,8 @@
 // Repros from #43130
 
 function f1<T>(x: T & string | T & undefined) {
->f1 : <T>(x: (T & string) | (T & undefined)) => void
->   : ^ ^^ ^^^          ^   ^             ^^^^^^^^^^
+>f1 : <T extends unknown>(x: (T & string) | (T & undefined)) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^          ^   ^             ^^^^^^^^^^
 >x : (T & string) | (T & undefined)
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -20,8 +20,8 @@ function f1<T>(x: T & string | T & undefined) {
 }
 
 function f2<T>(x: T & string | T & undefined) {
->f2 : <T>(x: (T & string) | (T & undefined)) => void
->   : ^ ^^ ^^^          ^   ^             ^^^^^^^^^^
+>f2 : <T extends unknown>(x: (T & string) | (T & undefined)) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^          ^   ^             ^^^^^^^^^^
 >x : (T & string) | (T & undefined)
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -45,8 +45,8 @@ function f2<T>(x: T & string | T & undefined) {
 }
 
 function f3<T>(x: T & string | T & number) {
->f3 : <T>(x: (T & string) | (T & number)) => void
->   : ^ ^^ ^^^          ^   ^          ^^^^^^^^^^
+>f3 : <T extends unknown>(x: (T & string) | (T & number)) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^          ^   ^          ^^^^^^^^^^
 >x : (T & string) | (T & number)
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -72,8 +72,8 @@ function f3<T>(x: T & string | T & number) {
 }
 
 function f4<T>(x: T & 1 | T & 2) {
->f4 : <T>(x: (T & 1) | (T & 2)) => void
->   : ^ ^^ ^^^     ^   ^     ^^^^^^^^^^
+>f4 : <T extends unknown>(x: (T & 1) | (T & 2)) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^     ^   ^     ^^^^^^^^^^
 >x : (T & 1) | (T & 2)
 >  : ^^^^^^^^^^^^^^^^^
 

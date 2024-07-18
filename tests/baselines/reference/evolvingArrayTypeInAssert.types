@@ -2,8 +2,8 @@
 
 === evolvingArrayTypeInAssert.ts ===
 export function unsafeCast<T>(_value: unknown): asserts _value is T { }
->unsafeCast : <T>(_value: unknown) => asserts _value is T
->           : ^ ^^      ^^       ^^^^^                   
+>unsafeCast : <T extends unknown>(_value: unknown) => asserts _value is T
+>           : ^ ^^^^^^^^^^^^^^^^^^      ^^       ^^^^^                   
 >_value : unknown
 >       : ^^^^^^^
 
@@ -32,8 +32,8 @@ function yadda() {
     unsafeCast<any>(out);
 >unsafeCast<any>(out) : void
 >                     : ^^^^
->unsafeCast : <T>(_value: unknown) => asserts _value is T
->           : ^ ^^      ^^       ^^^^^                   
+>unsafeCast : <T extends unknown>(_value: unknown) => asserts _value is T
+>           : ^ ^^^^^^^^^^^^^^^^^^      ^^       ^^^^^                   
 >out : number[]
 >    : ^^^^^^^^
 

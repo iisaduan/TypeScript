@@ -12,8 +12,8 @@ declare function isString(text: unknown): text is string;
 >     : ^^^^^^^
 
 declare function getPropFromRaw<T>(
->getPropFromRaw : <T>(prop: "files" | "include" | "exclude" | "references", validateElement: (value: unknown) => boolean, elementTypeName: string) => PropOfRaw<T>
->               : ^ ^^    ^^                                              ^^               ^^                           ^^               ^^      ^^^^^            
+>getPropFromRaw : <T extends unknown>(prop: "files" | "include" | "exclude" | "references", validateElement: (value: unknown) => boolean, elementTypeName: string) => PropOfRaw<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^    ^^                                              ^^               ^^                           ^^               ^^      ^^^^^            
 
   prop: "files" | "include" | "exclude" | "references",
 >prop : "files" | "include" | "exclude" | "references"
@@ -43,8 +43,8 @@ function getSpecsFromRaw(
   return getPropFromRaw(prop, isString, "string");
 >getPropFromRaw(prop, isString, "string") : PropOfRaw<string>
 >                                         : ^^^^^^^^^^^^^^^^^
->getPropFromRaw : <T>(prop: "files" | "include" | "exclude" | "references", validateElement: (value: unknown) => boolean, elementTypeName: string) => PropOfRaw<T>
->               : ^ ^^    ^^                                              ^^               ^^                           ^^               ^^      ^^^^^            
+>getPropFromRaw : <T extends unknown>(prop: "files" | "include" | "exclude" | "references", validateElement: (value: unknown) => boolean, elementTypeName: string) => PropOfRaw<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^    ^^                                              ^^               ^^                           ^^               ^^      ^^^^^            
 >prop : "files" | "include" | "exclude"
 >     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >isString : (text: unknown) => text is string

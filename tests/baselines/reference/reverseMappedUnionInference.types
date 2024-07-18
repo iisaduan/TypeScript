@@ -28,8 +28,8 @@ interface Extractor<T, Result> {
 }
 
 declare function createExtractor<T, Result>(params: {
->createExtractor : <T, Result>(params: { matcher: (node: unknown) => node is T; extract: (node: T) => Result; }) => Extractor<T, Result>
->                : ^ ^^      ^^      ^^                                                                        ^^^^^                    
+>createExtractor : <T extends unknown, Result extends unknown>(params: { matcher: (node: unknown) => node is T; extract: (node: T) => Result; }) => Extractor<T, Result>
+>                : ^ ^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^      ^^                                                                        ^^^^^                    
 >params : { matcher: (node: unknown) => node is T; extract: (node: T) => Result; }
 >       : ^^^^^^^^^^^                            ^^^^^^^^^^^                   ^^^
 
@@ -68,8 +68,8 @@ const identifierExtractor = createExtractor({
 >                    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >createExtractor({  matcher: isIdentifier,  extract: (node) => {    return {      node,      kind: "identifier" as const,      value: node.name,    };  },}) : Extractor<Identifier, { node: Identifier; kind: "identifier"; value: string; }>
 >                                                                                                                                                            : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->createExtractor : <T, Result>(params: { matcher: (node: unknown) => node is T; extract: (node: T) => Result; }) => Extractor<T, Result>
->                : ^ ^^      ^^      ^^                                                                        ^^^^^                    
+>createExtractor : <T extends unknown, Result extends unknown>(params: { matcher: (node: unknown) => node is T; extract: (node: T) => Result; }) => Extractor<T, Result>
+>                : ^ ^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^      ^^                                                                        ^^^^^                    
 >{  matcher: isIdentifier,  extract: (node) => {    return {      node,      kind: "identifier" as const,      value: node.name,    };  },} : { matcher: (node: unknown) => node is Identifier; extract: (node: Identifier) => { node: Identifier; kind: "identifier"; value: string; }; }
 >                                                                                                                                           : ^^^^^^^^^^^^    ^^       ^^^^^                  ^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -138,8 +138,8 @@ const stringExtractor = createExtractor({
 >                : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >createExtractor({  matcher: isStringLiteral,  extract: (node) => {    return {      node,      kind: "string" as const,      value: node.value,    };  },}) : Extractor<StringLiteral, { node: StringLiteral; kind: "string"; value: string; }>
 >                                                                                                                                                            : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->createExtractor : <T, Result>(params: { matcher: (node: unknown) => node is T; extract: (node: T) => Result; }) => Extractor<T, Result>
->                : ^ ^^      ^^      ^^                                                                        ^^^^^                    
+>createExtractor : <T extends unknown, Result extends unknown>(params: { matcher: (node: unknown) => node is T; extract: (node: T) => Result; }) => Extractor<T, Result>
+>                : ^ ^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^      ^^                                                                        ^^^^^                    
 >{  matcher: isStringLiteral,  extract: (node) => {    return {      node,      kind: "string" as const,      value: node.value,    };  },} : { matcher: (node: unknown) => node is StringLiteral; extract: (node: StringLiteral) => { node: StringLiteral; kind: "string"; value: string; }; }
 >                                                                                                                                           : ^^^^^^^^^^^^    ^^       ^^^^^                     ^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

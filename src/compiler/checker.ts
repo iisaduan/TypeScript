@@ -14535,9 +14535,10 @@ export function createTypeChecker(host: TypeCheckerHost): TypeChecker {
     }
 
     function getConstraintOfTypeParameter(typeParameter: TypeParameter): Type | undefined {
-        return hasNonCircularBaseConstraint(typeParameter) ? getConstraintFromTypeParameter(typeParameter) : undefined;
+        if (!hasNonCircularBaseConstraint(typeParameter)) return undefined;
+        const constraint = getConstraintFromTypeParameter(typeParameter);
+        return constraint === undefined && strictNullChecks ? unknownType : constraint;
     }
-
     function isConstMappedType(type: MappedType, depth: number): boolean {
         const typeVariable = getHomomorphicTypeVariable(type);
         return !!typeVariable && isConstTypeVariable(typeVariable, depth);

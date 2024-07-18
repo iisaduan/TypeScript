@@ -49,12 +49,12 @@ const test2: Action2 = async function* () {
 >                          : ^^^^^^
 >Promise.resolve('') : Promise<string>
 >                    : ^^^^^^^^^^^^^^^
->Promise.resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->                : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>Promise.resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>                : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->        : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>        : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >'' : ""
 >   : ^^
 

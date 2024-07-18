@@ -10,22 +10,22 @@ type Mapped<T> = { [K in keyof T]: Func<T[K]> };
 >       : ^^^^^^^^^
 
 declare function reproduce(options: number): void;
->reproduce : { (options: number): void; <T>(options: Mapped<T>): T; }
->          : ^^^       ^^      ^^^    ^^^ ^^       ^^         ^^^ ^^^
+>reproduce : { (options: number): void; <T extends unknown>(options: Mapped<T>): T; }
+>          : ^^^       ^^      ^^^    ^^^ ^^^^^^^^^^^^^^^^^^       ^^         ^^^ ^^^
 >options : number
 >        : ^^^^^^
 
 declare function reproduce<T>(options: Mapped<T>): T
->reproduce : { (options: number): void; <T>(options: Mapped<T>): T; }
->          : ^^^       ^^      ^^^    ^^^ ^^       ^^         ^^^ ^^^
+>reproduce : { (options: number): void; <T extends unknown>(options: Mapped<T>): T; }
+>          : ^^^       ^^      ^^^    ^^^ ^^^^^^^^^^^^^^^^^^       ^^         ^^^ ^^^
 >options : Mapped<T>
 >        : ^^^^^^^^^
 
 reproduce({
 >reproduce({  name:   () => { return 123 }}) : { name: number; }
 >                                            : ^^^^^^^^^^^^^^^^^
->reproduce : { (options: number): void; <T>(options: Mapped<T>): T; }
->          : ^^^       ^^      ^^^    ^^^ ^^       ^^         ^^^ ^^^
+>reproduce : { (options: number): void; <T extends unknown>(options: Mapped<T>): T; }
+>          : ^^^       ^^      ^^^    ^^^ ^^^^^^^^^^^^^^^^^^       ^^         ^^^ ^^^
 >{  name:   () => { return 123 }} : { name: () => number; }
 >                                 : ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -42,8 +42,8 @@ reproduce({
 reproduce({
 >reproduce({  name() { return 123 }}) : { name: number; }
 >                                     : ^^^^^^^^^^^^^^^^^
->reproduce : { (options: number): void; <T>(options: Mapped<T>): T; }
->          : ^^^       ^^      ^^^    ^^^ ^^       ^^         ^^^ ^^^
+>reproduce : { (options: number): void; <T extends unknown>(options: Mapped<T>): T; }
+>          : ^^^       ^^      ^^^    ^^^ ^^^^^^^^^^^^^^^^^^       ^^         ^^^ ^^^
 >{  name() { return 123 }} : { name(): number; }
 >                          : ^^^^^^^^^^^^^^^^^^^
 
@@ -58,8 +58,8 @@ reproduce({
 reproduce({
 >reproduce({  name: function () { return 123 }}) : { name: number; }
 >                                                : ^^^^^^^^^^^^^^^^^
->reproduce : { (options: number): void; <T>(options: Mapped<T>): T; }
->          : ^^^       ^^      ^^^    ^^^ ^^       ^^         ^^^ ^^^
+>reproduce : { (options: number): void; <T extends unknown>(options: Mapped<T>): T; }
+>          : ^^^       ^^      ^^^    ^^^ ^^^^^^^^^^^^^^^^^^       ^^         ^^^ ^^^
 >{  name: function () { return 123 }} : { name: () => number; }
 >                                     : ^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -16,8 +16,8 @@ export type CalcValue<O> = CalcObj<O>;
 >          : ^^^^^^^^^^^^
 
 function foo<O>() {
->foo : <O>() => void
->    : ^ ^^^^^^^^^^^
+>foo : <O extends unknown>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     const unk: CalcObj<unknown> = { read: (origin: unknown) => unk }
 >unk : CalcObj<unknown>

@@ -1266,7 +1266,7 @@ type Thing = {
     b: boolean;
 };
 declare function f1(thing: Thing): void;
-declare const assignTo2: <T, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) => (value: T[K1][K2]) => T[K1][K2];
+declare const assignTo2: <T extends unknown, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) => (value: T[K1][K2]) => T[K1][K2];
 declare function one<T>(handler: (t: T) => void): T;
 declare var empty: unknown;
 type Handlers<T> = {

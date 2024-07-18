@@ -35,7 +35,7 @@ exports.f = { o: (0, decl_1.o)({ v: null }) };
 export interface Evt {
 }
 //// [decl.d.ts]
-export declare const o: <T>(o: T) => () => T;
+export declare const o: <T extends unknown>(o: T) => () => T;
 //// [main.d.ts]
 import { Evt } from './utils';
 export declare const f: {

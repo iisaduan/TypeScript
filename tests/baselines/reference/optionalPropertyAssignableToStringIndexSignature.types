@@ -70,8 +70,8 @@ let dict: { [key: string]: string } = optionalUndefined; // error
 >                  : ^^^^^^^         ^^^
 
 function f<T>() {
->f : <T>() => void
->  : ^ ^^^^^^^^^^^
+>f : <T extends unknown>() => void
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	let optional: { k1?: T } = undefined!;
 >optional : { k1?: T; }

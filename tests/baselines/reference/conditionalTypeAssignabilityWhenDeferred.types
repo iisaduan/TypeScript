@@ -106,8 +106,8 @@ onlyNullablePlease2(y); // error as expected
 >  : ^^^^^^
 
 function f<T>(t: T) {
->f : <T>(t: T) => void
->  : ^ ^^ ^^ ^^^^^^^^^
+>f : <T extends unknown>(t: T) => void
+>  : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >t : T
 >  : ^
 
@@ -149,8 +149,8 @@ function f<T>(t: T) {
 }
 
 function f2<T>(t1: { x: T; y: T }, t2: T extends T ? { x: T; y: T } : never) {
->f2 : <T>(t1: { x: T; y: T; }, t2: T extends T ? { x: T; y: T; } : never) => void
->   : ^ ^^  ^^               ^^  ^^                                     ^^^^^^^^^
+>f2 : <T extends unknown>(t1: { x: T; y: T; }, t2: T extends T ? { x: T; y: T; } : never) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^  ^^               ^^  ^^                                     ^^^^^^^^^
 >t1 : { x: T; y: T; }
 >   : ^^^^^ ^^^^^ ^^^
 >x : T
@@ -188,8 +188,8 @@ type Foo<T> = T extends true ? string : "a";
 >     : ^^^^
 
 function test<T>(x: Foo<T>, s: string) {
->test : <T>(x: Foo<T>, s: string) => void
->     : ^ ^^ ^^      ^^ ^^      ^^^^^^^^^
+>test : <T extends unknown>(x: Foo<T>, s: string) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^ ^^      ^^^^^^^^^
 >x : Foo<T>
 >  : ^^^^^^
 >s : string
@@ -224,8 +224,8 @@ type Distributive<T> = T extends { a: number } ? { a: number } : { b: number };
 >  : ^^^^^^
 
 function testAssignabilityToConditionalType<T>() {
->testAssignabilityToConditionalType : <T>() => void
->                                   : ^ ^^^^^^^^^^^
+>testAssignabilityToConditionalType : <T extends unknown>() => void
+>                                   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   const o = { a: 1, b: 2 };
 >o : { a: number; b: number; }
@@ -291,8 +291,8 @@ function testAssignabilityToConditionalType<T>() {
 
   // Infer type parameters: no good
   const o2: [T] extends [[infer U]] ? U : { b: number } = o;
->o2 : [T] extends [[infer U]] ? U : { b: number; }
->   : ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^      ^^^
+>o2 : [T] extends [[infer U extends unknown]] ? U : { b: number; }
+>   : ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^
 >b : number
 >  : ^^^^^^
 >o : { a: number; b: number; }
@@ -349,8 +349,8 @@ type Unwrap<T> = T extends Wrapped<infer U> ? U : T;
 >       : ^^^^^^^^^
 
 declare function set<T, K extends keyof T>(
->set : <T, K extends keyof T>(obj: T, key: K, value: Unwrap<T[K]>) => Unwrap<T[K]>
->    : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^     ^^            ^^^^^            
+>set : <T extends unknown, K extends keyof T>(obj: T, key: K, value: Unwrap<T[K]>) => Unwrap<T[K]>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^     ^^            ^^^^^            
 
   obj: T,
 >obj : T
@@ -381,8 +381,8 @@ class Foo2 {
     set(this, "prop", "hi"); // <-- type error
 >set(this, "prop", "hi") : Unwrap<this["prop"]>
 >                        : ^^^^^^^^^^^^^^^^^^^^
->set : <T, K extends keyof T>(obj: T, key: K, value: Unwrap<T[K]>) => Unwrap<T[K]>
->    : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^     ^^            ^^^^^            
+>set : <T extends unknown, K extends keyof T>(obj: T, key: K, value: Unwrap<T[K]>) => Unwrap<T[K]>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^     ^^            ^^^^^            
 >this : this
 >     : ^^^^
 >"prop" : "prop"
@@ -395,8 +395,8 @@ class Foo2 {
 set(new Foo2(), "prop", "hi"); // <-- typechecks
 >set(new Foo2(), "prop", "hi") : string
 >                              : ^^^^^^
->set : <T, K extends keyof T>(obj: T, key: K, value: Unwrap<T[K]>) => Unwrap<T[K]>
->    : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^     ^^            ^^^^^            
+>set : <T extends unknown, K extends keyof T>(obj: T, key: K, value: Unwrap<T[K]>) => Unwrap<T[K]>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^     ^^            ^^^^^            
 >new Foo2() : Foo2
 >           : ^^^^
 >Foo2 : typeof Foo2

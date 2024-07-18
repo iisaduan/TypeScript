@@ -4,8 +4,8 @@
 // Repro from #42786
 
 function isDefined<T>(value: T | undefined | null | void): value is T {
->isDefined : <T>(value: T | undefined | null | void) => value is T
->          : ^ ^^     ^^                           ^^^^^          
+>isDefined : <T extends unknown>(value: T | undefined | null | void) => value is T
+>          : ^ ^^^^^^^^^^^^^^^^^^     ^^                           ^^^^^          
 >value : void | T | null | undefined
 >      : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -31,8 +31,8 @@ declare const foo: string | undefined;
 if (isDefined(foo)) {
 >isDefined(foo) : boolean
 >               : ^^^^^^^
->isDefined : <T>(value: T | undefined | null | void) => value is T
->          : ^ ^^     ^^                           ^^^^^          
+>isDefined : <T extends unknown>(value: T | undefined | null | void) => value is T
+>          : ^ ^^^^^^^^^^^^^^^^^^     ^^                           ^^^^^          
 >foo : string | undefined
 >    : ^^^^^^^^^^^^^^^^^^
 

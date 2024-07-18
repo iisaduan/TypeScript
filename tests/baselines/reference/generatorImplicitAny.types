@@ -11,8 +11,8 @@ declare function noop(): void;
 >     : ^^^^^^    
 
 declare function f<T>(value: T): void;
->f : <T>(value: T) => void
->  : ^ ^^     ^^ ^^^^^    
+>f : <T extends unknown>(value: T) => void
+>  : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^    
 >value : T
 >      : ^
 
@@ -120,8 +120,8 @@ function* g5() {
     f(yield); // error: implicit any
 >f(yield) : void
 >         : ^^^^
->f : <T>(value: T) => void
->  : ^ ^^     ^^ ^^^^^    
+>f : <T extends unknown>(value: T) => void
+>  : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^    
 >yield : any
 >      : ^^^
 }
@@ -133,8 +133,8 @@ function* g6() {
     f<string>(yield); // ok, contextually typed by f<string>
 >f<string>(yield) : void
 >                 : ^^^^
->f : <T>(value: T) => void
->  : ^ ^^     ^^ ^^^^^    
+>f : <T extends unknown>(value: T) => void
+>  : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^    
 >yield : any
 >      : ^^^
 }

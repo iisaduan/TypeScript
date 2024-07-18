@@ -2,16 +2,16 @@
 
 === generatorYieldContextualType.ts ===
 declare function f1<T, R, S>(gen: () => Generator<R, T, S>): void;
->f1 : <T, R, S>(gen: () => Generator<R, T, S>) => void
->   : ^ ^^ ^^ ^^   ^^                        ^^^^^    
+>f1 : <T extends unknown, R extends unknown, S extends unknown>(gen: () => Generator<R, T, S>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^   ^^                        ^^^^^    
 >gen : () => Generator<R, T, S>
 >    : ^^^^^^                  
 
 f1<0, 0, 1>(function* () {
 >f1<0, 0, 1>(function* () {	const a = yield 0;	return 0;}) : void
 >                                                          : ^^^^
->f1 : <T, R, S>(gen: () => Generator<R, T, S>) => void
->   : ^ ^^ ^^ ^^   ^^                        ^^^^^    
+>f1 : <T extends unknown, R extends unknown, S extends unknown>(gen: () => Generator<R, T, S>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^   ^^                        ^^^^^    
 >function* () {	const a = yield 0;	return 0;} : () => Generator<0, 0, 1>
 >                                             : ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -30,16 +30,16 @@ f1<0, 0, 1>(function* () {
 });
 
 declare function f2<T, R, S>(gen: () => Generator<R, T, S> | AsyncGenerator<R, T, S>): void;
->f2 : <T, R, S>(gen: () => Generator<R, T, S> | AsyncGenerator<R, T, S>) => void
->   : ^ ^^ ^^ ^^   ^^                                                  ^^^^^    
+>f2 : <T extends unknown, R extends unknown, S extends unknown>(gen: () => Generator<R, T, S> | AsyncGenerator<R, T, S>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^   ^^                                                  ^^^^^    
 >gen : () => Generator<R, T, S> | AsyncGenerator<R, T, S>
 >    : ^^^^^^                                            
 
 f2<0, 0, 1>(async function* () {
 >f2<0, 0, 1>(async function* () {	const a = yield 0;	return 0;}) : void
 >                                                                : ^^^^
->f2 : <T, R, S>(gen: () => Generator<R, T, S> | AsyncGenerator<R, T, S>) => void
->   : ^ ^^ ^^ ^^   ^^                                                  ^^^^^    
+>f2 : <T extends unknown, R extends unknown, S extends unknown>(gen: () => Generator<R, T, S> | AsyncGenerator<R, T, S>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^   ^^                                                  ^^^^^    
 >async function* () {	const a = yield 0;	return 0;} : () => AsyncGenerator<0, 0, 1>
 >                                                   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -84,8 +84,8 @@ namespace Directive {
 >          : ^^^^^^^^^^^^^^^^
 
   export function is<T>(value: Directive | T): value is Directive {
->is : <T>(value: Directive | T) => value is Directive
->   : ^ ^^     ^^             ^^^^^                  
+>is : <T extends unknown>(value: Directive | T) => value is Directive
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^             ^^^^^                  
 >value : T | Directive
 >      : ^^^^^^^^^^^^^
 

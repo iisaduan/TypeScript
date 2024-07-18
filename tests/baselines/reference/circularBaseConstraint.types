@@ -22,8 +22,8 @@ type B<T> = T extends any[]
     : never;
 
 function foo<T>() {
->foo : <T>() => void
->    : ^ ^^^^^^^^^^^
+>foo : <T extends unknown>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     `${a}` as B<T>;
 >`${a}` as B<T> : B<T>

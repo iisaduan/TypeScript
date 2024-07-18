@@ -7,8 +7,8 @@
 [{ x: 1 }].map(
 >[{ x: 1 }].map(  ({ x }) => x) : number[]
 >                               : ^^^^^^^^
->[{ x: 1 }].map : <U>(callbackfn: (value: { x: number; }, index: number, array: { x: number; }[]) => U, thisArg?: any) => U[]
->               : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>[{ x: 1 }].map : <U extends unknown>(callbackfn: (value: { x: number; }, index: number, array: { x: number; }[]) => U, thisArg?: any) => U[]
+>               : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >[{ x: 1 }] : { x: number; }[]
 >           : ^^^^^^^^^^^^^^^^
 >{ x: 1 } : { x: number; }
@@ -17,8 +17,8 @@
 >  : ^^^^^^
 >1 : 1
 >  : ^
->map : <U>(callbackfn: (value: { x: number; }, index: number, array: { x: number; }[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends unknown>(callbackfn: (value: { x: number; }, index: number, array: { x: number; }[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 
   ({ x }) => x
 >({ x }) => x : ({ x }: { x: number; }) => number

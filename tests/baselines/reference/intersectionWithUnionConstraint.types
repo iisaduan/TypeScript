@@ -89,8 +89,8 @@ function f4<T extends string | number>(x: T & (number | object)) {
 }
 
 function f5<T, U extends keyof T>(x: keyof T & U) {
->f5 : <T, U extends keyof T>(x: keyof T & U) => void
->   : ^ ^^ ^^^^^^^^^       ^^ ^^           ^^^^^^^^^
+>f5 : <T extends unknown, U extends keyof T>(x: keyof T & U) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^ ^^           ^^^^^^^^^
 >x : keyof T & U
 >  : ^^^^^^^^^^^
 

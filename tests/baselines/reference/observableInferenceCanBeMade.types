@@ -4,8 +4,8 @@
 // Repro from #33131
 
 declare function of<T>(a: T): Observable<T>;
->of : <T>(a: T) => Observable<T>
->   : ^ ^^ ^^ ^^^^^             
+>of : <T extends unknown>(a: T) => Observable<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^             
 >a : T
 >  : ^
 
@@ -75,8 +75,8 @@ function asObservable(input: string | ObservableInput<string>): Observable<strin
 >         : ^^^^^^^^
 >of(input) : Observable<string>
 >          : ^^^^^^^^^^^^^^^^^^
->of : <T>(a: T) => Observable<T>
->   : ^ ^^ ^^ ^^^^^             
+>of : <T extends unknown>(a: T) => Observable<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^             
 >input : string
 >      : ^^^^^^
 >from(input) : Observable<string>

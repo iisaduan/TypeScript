@@ -295,28 +295,28 @@ type RecArray<T> = Array<T | RecArray<T>>;
 >         : ^^^^^^^^^^^
 
 declare function flat<T>(a: RecArray<T>): Array<T>;
->flat : <T>(a: RecArray<T>) => Array<T>
->     : ^ ^^ ^^           ^^^^^        
+>flat : <T extends unknown>(a: RecArray<T>) => Array<T>
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^        
 >a : RecArray<T>
 >  : ^^^^^^^^^^^
 
 declare function flat1<T>(a: Array<T | Array<T>>): Array<T>
->flat1 : <T>(a: Array<T | Array<T>>) => Array<T>
->      : ^ ^^ ^^                   ^^^^^        
+>flat1 : <T extends unknown>(a: Array<T | Array<T>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                   ^^^^^        
 >a : (T | T[])[]
 >  : ^^^^^^^^^^^
 
 declare function flat2<T>(a: Array<T | Array<T | Array<T>>>): Array<T>;
->flat2 : <T>(a: Array<T | Array<T | Array<T>>>) => Array<T>
->      : ^ ^^ ^^                              ^^^^^        
+>flat2 : <T extends unknown>(a: Array<T | Array<T | Array<T>>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                              ^^^^^        
 >a : (T | (T | T[])[])[]
 >  : ^^^^^^^^^^^^^^^^^^^
 
 flat([1, [2, [3]]]);  // number[]
 >flat([1, [2, [3]]]) : number[]
 >                    : ^^^^^^^^
->flat : <T>(a: RecArray<T>) => Array<T>
->     : ^ ^^ ^^           ^^^^^        
+>flat : <T extends unknown>(a: RecArray<T>) => Array<T>
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^        
 >[1, [2, [3]]] : (number | (number | number[])[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -333,8 +333,8 @@ flat([1, [2, [3]]]);  // number[]
 flat([[[0]]]);  // number[]
 >flat([[[0]]]) : number[]
 >              : ^^^^^^^^
->flat : <T>(a: RecArray<T>) => Array<T>
->     : ^ ^^ ^^           ^^^^^        
+>flat : <T extends unknown>(a: RecArray<T>) => Array<T>
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^        
 >[[[0]]] : number[][][]
 >        : ^^^^^^^^^^^^
 >[[0]] : number[][]
@@ -347,8 +347,8 @@ flat([[[0]]]);  // number[]
 flat([[[[[[[[[[[4]]]]]]]]]]]);  // number[]
 >flat([[[[[[[[[[[4]]]]]]]]]]]) : number[]
 >                              : ^^^^^^^^
->flat : <T>(a: RecArray<T>) => Array<T>
->     : ^ ^^ ^^           ^^^^^        
+>flat : <T extends unknown>(a: RecArray<T>) => Array<T>
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^        
 >[[[[[[[[[[[4]]]]]]]]]]] : number[][][][][][][][][][][]
 >                        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >[[[[[[[[[[4]]]]]]]]]] : number[][][][][][][][][][]
@@ -377,8 +377,8 @@ flat([[[[[[[[[[[4]]]]]]]]]]]);  // number[]
 flat([1, 'a', [2]]);  // (string | number)[]
 >flat([1, 'a', [2]]) : (string | number)[]
 >                    : ^^^^^^^^^^^^^^^^^^^
->flat : <T>(a: RecArray<T>) => Array<T>
->     : ^ ^^ ^^           ^^^^^        
+>flat : <T extends unknown>(a: RecArray<T>) => Array<T>
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^        
 >[1, 'a', [2]] : (string | number | number[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -393,8 +393,8 @@ flat([1, 'a', [2]]);  // (string | number)[]
 flat([1, [2, 'a']]);  // (string | number)[]
 >flat([1, [2, 'a']]) : (string | number)[]
 >                    : ^^^^^^^^^^^^^^^^^^^
->flat : <T>(a: RecArray<T>) => Array<T>
->     : ^ ^^ ^^           ^^^^^        
+>flat : <T extends unknown>(a: RecArray<T>) => Array<T>
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^        
 >[1, [2, 'a']] : (number | (string | number)[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -409,8 +409,8 @@ flat([1, [2, 'a']]);  // (string | number)[]
 flat([1, ['a']]);  // Error
 >flat([1, ['a']]) : string[]
 >                 : ^^^^^^^^
->flat : <T>(a: RecArray<T>) => Array<T>
->     : ^ ^^ ^^           ^^^^^        
+>flat : <T extends unknown>(a: RecArray<T>) => Array<T>
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^        
 >[1, ['a']] : (number | string[])[]
 >           : ^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -423,8 +423,8 @@ flat([1, ['a']]);  // Error
 flat1([1, [2, [3]]]);  // (number | number[])[]
 >flat1([1, [2, [3]]]) : (number | number[])[]
 >                     : ^^^^^^^^^^^^^^^^^^^^^
->flat1 : <T>(a: Array<T | Array<T>>) => Array<T>
->      : ^ ^^ ^^                   ^^^^^        
+>flat1 : <T extends unknown>(a: Array<T | Array<T>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                   ^^^^^        
 >[1, [2, [3]]] : (number | (number | number[])[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -441,8 +441,8 @@ flat1([1, [2, [3]]]);  // (number | number[])[]
 flat1([[[0]]]);  // number[][]
 >flat1([[[0]]]) : number[][]
 >               : ^^^^^^^^^^
->flat1 : <T>(a: Array<T | Array<T>>) => Array<T>
->      : ^ ^^ ^^                   ^^^^^        
+>flat1 : <T extends unknown>(a: Array<T | Array<T>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                   ^^^^^        
 >[[[0]]] : number[][][]
 >        : ^^^^^^^^^^^^
 >[[0]] : number[][]
@@ -455,8 +455,8 @@ flat1([[[0]]]);  // number[][]
 flat1([1, 'a', [2]]);  // (string | number)[]
 >flat1([1, 'a', [2]]) : (string | number)[]
 >                     : ^^^^^^^^^^^^^^^^^^^
->flat1 : <T>(a: Array<T | Array<T>>) => Array<T>
->      : ^ ^^ ^^                   ^^^^^        
+>flat1 : <T extends unknown>(a: Array<T | Array<T>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                   ^^^^^        
 >[1, 'a', [2]] : (string | number | number[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -471,8 +471,8 @@ flat1([1, 'a', [2]]);  // (string | number)[]
 flat1([1, [2, 'a']]);  // (string | number)[]
 >flat1([1, [2, 'a']]) : (string | number)[]
 >                     : ^^^^^^^^^^^^^^^^^^^
->flat1 : <T>(a: Array<T | Array<T>>) => Array<T>
->      : ^ ^^ ^^                   ^^^^^        
+>flat1 : <T extends unknown>(a: Array<T | Array<T>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                   ^^^^^        
 >[1, [2, 'a']] : (number | (string | number)[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -487,8 +487,8 @@ flat1([1, [2, 'a']]);  // (string | number)[]
 flat1([1, ['a']]);  // Error
 >flat1([1, ['a']]) : string[]
 >                  : ^^^^^^^^
->flat1 : <T>(a: Array<T | Array<T>>) => Array<T>
->      : ^ ^^ ^^                   ^^^^^        
+>flat1 : <T extends unknown>(a: Array<T | Array<T>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                   ^^^^^        
 >[1, ['a']] : (number | string[])[]
 >           : ^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -501,8 +501,8 @@ flat1([1, ['a']]);  // Error
 flat2([1, [2, [3]]]);  // number[]
 >flat2([1, [2, [3]]]) : number[]
 >                     : ^^^^^^^^
->flat2 : <T>(a: Array<T | Array<T | Array<T>>>) => Array<T>
->      : ^ ^^ ^^                              ^^^^^        
+>flat2 : <T extends unknown>(a: Array<T | Array<T | Array<T>>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                              ^^^^^        
 >[1, [2, [3]]] : (number | (number | number[])[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -519,8 +519,8 @@ flat2([1, [2, [3]]]);  // number[]
 flat2([[[0]]]);  // number[]
 >flat2([[[0]]]) : number[]
 >               : ^^^^^^^^
->flat2 : <T>(a: Array<T | Array<T | Array<T>>>) => Array<T>
->      : ^ ^^ ^^                              ^^^^^        
+>flat2 : <T extends unknown>(a: Array<T | Array<T | Array<T>>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                              ^^^^^        
 >[[[0]]] : number[][][]
 >        : ^^^^^^^^^^^^
 >[[0]] : number[][]
@@ -533,8 +533,8 @@ flat2([[[0]]]);  // number[]
 flat2([1, 'a', [2]]);  // (string | number)[]
 >flat2([1, 'a', [2]]) : (string | number)[]
 >                     : ^^^^^^^^^^^^^^^^^^^
->flat2 : <T>(a: Array<T | Array<T | Array<T>>>) => Array<T>
->      : ^ ^^ ^^                              ^^^^^        
+>flat2 : <T extends unknown>(a: Array<T | Array<T | Array<T>>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                              ^^^^^        
 >[1, 'a', [2]] : (string | number | number[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -549,8 +549,8 @@ flat2([1, 'a', [2]]);  // (string | number)[]
 flat2([1, [2, 'a']]);  // (string | number)[]
 >flat2([1, [2, 'a']]) : (string | number)[]
 >                     : ^^^^^^^^^^^^^^^^^^^
->flat2 : <T>(a: Array<T | Array<T | Array<T>>>) => Array<T>
->      : ^ ^^ ^^                              ^^^^^        
+>flat2 : <T extends unknown>(a: Array<T | Array<T | Array<T>>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                              ^^^^^        
 >[1, [2, 'a']] : (number | (string | number)[])[]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -565,8 +565,8 @@ flat2([1, [2, 'a']]);  // (string | number)[]
 flat2([1, ['a']]);  // Error
 >flat2([1, ['a']]) : string[]
 >                  : ^^^^^^^^
->flat2 : <T>(a: Array<T | Array<T | Array<T>>>) => Array<T>
->      : ^ ^^ ^^                              ^^^^^        
+>flat2 : <T extends unknown>(a: Array<T | Array<T | Array<T>>>) => Array<T>
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^                              ^^^^^        
 >[1, ['a']] : (number | string[])[]
 >           : ^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -611,8 +611,8 @@ type ValueOrArray2<T> = T | ValueOrArray2<T>[];
 >              : ^^^^^^^^^^^^^^^^
 
 declare function foo1<T>(a: ValueOrArray1<T>): T;
->foo1 : <T>(a: ValueOrArray1<T>) => T
->     : ^ ^^ ^^                ^^^^^ 
+>foo1 : <T extends unknown>(a: ValueOrArray1<T>) => T
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^                ^^^^^ 
 >a : ValueOrArray1<T>
 >  : ^^^^^^^^^^^^^^^^
 
@@ -625,8 +625,8 @@ let x1 = foo1(ra1);  // Boom!
 >   : ^^^^^^
 >foo1(ra1) : string
 >          : ^^^^^^
->foo1 : <T>(a: ValueOrArray1<T>) => T
->     : ^ ^^ ^^                ^^^^^ 
+>foo1 : <T extends unknown>(a: ValueOrArray1<T>) => T
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^                ^^^^^ 
 >ra1 : ValueOrArray2<string>
 >    : ^^^^^^^^^^^^^^^^^^^^^
 
@@ -639,8 +639,8 @@ type NumberOrArray2<T> = T | ValueOrArray2<T>[];
 >               : ^^^^^^^^^^^^^^^^^
 
 declare function foo2<T>(a: ValueOrArray1<T>): T;
->foo2 : <T>(a: ValueOrArray1<T>) => T
->     : ^ ^^ ^^                ^^^^^ 
+>foo2 : <T extends unknown>(a: ValueOrArray1<T>) => T
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^                ^^^^^ 
 >a : ValueOrArray1<T>
 >  : ^^^^^^^^^^^^^^^^
 
@@ -653,8 +653,8 @@ let x2 = foo2(ra2);  // Boom!
 >   : ^^^^^^
 >foo2(ra2) : string
 >          : ^^^^^^
->foo2 : <T>(a: ValueOrArray1<T>) => T
->     : ^ ^^ ^^                ^^^^^ 
+>foo2 : <T extends unknown>(a: ValueOrArray1<T>) => T
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^                ^^^^^ 
 >ra2 : ValueOrArray2<string>
 >    : ^^^^^^^^^^^^^^^^^^^^^
 
@@ -683,12 +683,12 @@ function parse(node: Tree, index: number[] = []): HTMLUListElement {
 >     : ^^^^
 >node.map(([el, children], i) => {    const idx = [...index, i + 1];    return html('li', [      html('a', { href: `#${el.id}`, rel: 'noopener', 'data-index': idx.join('.') }, el.textContent!),      children.length > 0 ? parse(children, idx) : frag()    ]);  }) : any[]
 >                                                                                                                                                                                                                                                                     : ^^^^^
->node.map : <U>(callbackfn: (value: [HTMLHeadingElement, Tree], index: number, array: [HTMLHeadingElement, Tree][]) => U, thisArg?: any) => U[]
->         : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>node.map : <U extends unknown>(callbackfn: (value: [HTMLHeadingElement, Tree], index: number, array: [HTMLHeadingElement, Tree][]) => U, thisArg?: any) => U[]
+>         : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >node : Tree
 >     : ^^^^
->map : <U>(callbackfn: (value: [HTMLHeadingElement, Tree], index: number, array: [HTMLHeadingElement, Tree][]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends unknown>(callbackfn: (value: [HTMLHeadingElement, Tree], index: number, array: [HTMLHeadingElement, Tree][]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >([el, children], i) => {    const idx = [...index, i + 1];    return html('li', [      html('a', { href: `#${el.id}`, rel: 'noopener', 'data-index': idx.join('.') }, el.textContent!),      children.length > 0 ? parse(children, idx) : frag()    ]);  } : ([el, children]: [HTMLHeadingElement, Tree], i: number) => any
 >                                                                                                                                                                                                                                                           : ^              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^
 >el : HTMLHeadingElement
@@ -807,18 +807,18 @@ function cons(hs: HTMLHeadingElement[]): Tree {
   return hs
 >hs    .reduce<HTMLHeadingElement[][]>((hss, h) => {      const hs = hss.pop()!;      return hs.length === 0 || level(h) > level(hs[0])        ? concat(hss, [concat(hs, [h])])        : concat(hss, [hs, [h]]);    }, [[]])    .reduce<Tree>((node, hs) =>      hs.length === 0        ? node        : concat<Tree[number]>(node, [[hs.shift()!, cons(hs)]])    , []) : Tree
 >                                                                                                                                                                                                                                                                                                                                                                      : ^^^^
->hs    .reduce<HTMLHeadingElement[][]>((hss, h) => {      const hs = hss.pop()!;      return hs.length === 0 || level(h) > level(hs[0])        ? concat(hss, [concat(hs, [h])])        : concat(hss, [hs, [h]]);    }, [[]])    .reduce : { (callbackfn: (previousValue: HTMLHeadingElement[], currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => HTMLHeadingElement[]): HTMLHeadingElement[]; (callbackfn: (previousValue: HTMLHeadingElement[], currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => HTMLHeadingElement[], initialValue: HTMLHeadingElement[]): HTMLHeadingElement[]; <U>(callbackfn: (previousValue: U, currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => U, initialValue: U): U; }
->                                                                                                                                                                                                                                       : ^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^          ^^^             ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^
+>hs    .reduce<HTMLHeadingElement[][]>((hss, h) => {      const hs = hss.pop()!;      return hs.length === 0 || level(h) > level(hs[0])        ? concat(hss, [concat(hs, [h])])        : concat(hss, [hs, [h]]);    }, [[]])    .reduce : { (callbackfn: (previousValue: HTMLHeadingElement[], currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => HTMLHeadingElement[]): HTMLHeadingElement[]; (callbackfn: (previousValue: HTMLHeadingElement[], currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => HTMLHeadingElement[], initialValue: HTMLHeadingElement[]): HTMLHeadingElement[]; <U extends unknown>(callbackfn: (previousValue: U, currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => U, initialValue: U): U; }
+>                                                                                                                                                                                                                                       : ^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^
 >hs    .reduce<HTMLHeadingElement[][]>((hss, h) => {      const hs = hss.pop()!;      return hs.length === 0 || level(h) > level(hs[0])        ? concat(hss, [concat(hs, [h])])        : concat(hss, [hs, [h]]);    }, [[]]) : HTMLHeadingElement[][]
 >                                                                                                                                                                                                                            : ^^^^^^^^^^^^^^^^^^^^^^
->hs    .reduce : { (callbackfn: (previousValue: HTMLHeadingElement, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => HTMLHeadingElement): HTMLHeadingElement; (callbackfn: (previousValue: HTMLHeadingElement, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => HTMLHeadingElement, initialValue: HTMLHeadingElement): HTMLHeadingElement; <U>(callbackfn: (previousValue: U, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => U, initialValue: U): U; }
->              : ^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^          ^^^             ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^
+>hs    .reduce : { (callbackfn: (previousValue: HTMLHeadingElement, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => HTMLHeadingElement): HTMLHeadingElement; (callbackfn: (previousValue: HTMLHeadingElement, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => HTMLHeadingElement, initialValue: HTMLHeadingElement): HTMLHeadingElement; <U extends unknown>(callbackfn: (previousValue: U, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => U, initialValue: U): U; }
+>              : ^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^
 >hs : HTMLHeadingElement[]
 >   : ^^^^^^^^^^^^^^^^^^^^
 
     .reduce<HTMLHeadingElement[][]>((hss, h) => {
->reduce : { (callbackfn: (previousValue: HTMLHeadingElement, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => HTMLHeadingElement): HTMLHeadingElement; (callbackfn: (previousValue: HTMLHeadingElement, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => HTMLHeadingElement, initialValue: HTMLHeadingElement): HTMLHeadingElement; <U>(callbackfn: (previousValue: U, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => U, initialValue: U): U; }
->       : ^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^          ^^^             ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^
+>reduce : { (callbackfn: (previousValue: HTMLHeadingElement, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => HTMLHeadingElement): HTMLHeadingElement; (callbackfn: (previousValue: HTMLHeadingElement, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => HTMLHeadingElement, initialValue: HTMLHeadingElement): HTMLHeadingElement; <U extends unknown>(callbackfn: (previousValue: U, currentValue: HTMLHeadingElement, currentIndex: number, array: HTMLHeadingElement[]) => U, initialValue: U): U; }
+>       : ^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^
 >(hss, h) => {      const hs = hss.pop()!;      return hs.length === 0 || level(h) > level(hs[0])        ? concat(hss, [concat(hs, [h])])        : concat(hss, [hs, [h]]);    } : (hss: HTMLHeadingElement[][], h: HTMLHeadingElement) => any
 >                                                                                                                                                                               : ^   ^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >hss : HTMLHeadingElement[][]
@@ -917,8 +917,8 @@ function cons(hs: HTMLHeadingElement[]): Tree {
 >   : ^^^^^^^
 
     .reduce<Tree>((node, hs) =>
->reduce : { (callbackfn: (previousValue: HTMLHeadingElement[], currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => HTMLHeadingElement[]): HTMLHeadingElement[]; (callbackfn: (previousValue: HTMLHeadingElement[], currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => HTMLHeadingElement[], initialValue: HTMLHeadingElement[]): HTMLHeadingElement[]; <U>(callbackfn: (previousValue: U, currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => U, initialValue: U): U; }
->       : ^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^          ^^^             ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^
+>reduce : { (callbackfn: (previousValue: HTMLHeadingElement[], currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => HTMLHeadingElement[]): HTMLHeadingElement[]; (callbackfn: (previousValue: HTMLHeadingElement[], currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => HTMLHeadingElement[], initialValue: HTMLHeadingElement[]): HTMLHeadingElement[]; <U extends unknown>(callbackfn: (previousValue: U, currentValue: HTMLHeadingElement[], currentIndex: number, array: HTMLHeadingElement[][]) => U, initialValue: U): U; }
+>       : ^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^          ^^^             ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^            ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^^^^^^
 >(node, hs) =>      hs.length === 0        ? node        : concat<Tree[number]>(node, [[hs.shift()!, cons(hs)]]) : (node: Tree, hs: HTMLHeadingElement[]) => any
 >                                                                                                                : ^    ^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >node : Tree

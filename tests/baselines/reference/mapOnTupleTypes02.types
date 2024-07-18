@@ -14,12 +14,12 @@ export function increment(point: Point) {
   return point.map(d => d + 1);
 >point.map(d => d + 1) : number[]
 >                      : ^^^^^^^^
->point.map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->          : ^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>point.map : <U extends unknown>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
+>          : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >point : Point
 >      : ^^^^^
->map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends unknown>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >d => d + 1 : (d: number) => number
 >           : ^ ^^^^^^^^^^^^^^^^^^^
 >d : number

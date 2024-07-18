@@ -48,8 +48,8 @@ else {
 }
 
 function f1<T>(x: T) {
->f1 : <T>(x: T) => void
->   : ^ ^^ ^^ ^^^^^^^^^
+>f1 : <T extends unknown>(x: T) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >x : T
 >  : ^
 

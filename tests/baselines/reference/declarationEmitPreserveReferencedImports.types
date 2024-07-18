@@ -11,10 +11,10 @@ import {Evt} from './utils'
 >    : ^^^
 
 export const o = <T>(o: T) => () : T => null!
->o : <T>(o: T) => () => T
->  : ^ ^^ ^^ ^^^^^^^^^^^ 
-><T>(o: T) => () : T => null! : <T>(o: T) => () => T
->                             : ^ ^^ ^^ ^^^^^^^^^^^ 
+>o : <T extends unknown>(o: T) => () => T
+>  : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^^^ 
+><T>(o: T) => () : T => null! : <T extends unknown>(o: T) => () => T
+>                             : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^^^ 
 >o : T
 >  : ^
 >() : T => null! : () => T
@@ -24,8 +24,8 @@ export const o = <T>(o: T) => () : T => null!
 
 === main.ts ===
 import { o }  from './decl'
->o : <T>(o: T) => () => T
->  : ^ ^^ ^^ ^^^^^^^^^^^ 
+>o : <T extends unknown>(o: T) => () => T
+>  : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^^^ 
 
 import { Evt }  from './utils'
 >Evt : any
@@ -40,8 +40,8 @@ export const f = { o: o({ v: null! as Evt}) };
 >  : ^^^^^^^^^^^   ^^^
 >o({ v: null! as Evt}) : () => { v: Evt; }
 >                      : ^^^^^^^^^^^   ^^^
->o : <T>(o: T) => () => T
->  : ^ ^^ ^^ ^^^^^^^^^^^ 
+>o : <T extends unknown>(o: T) => () => T
+>  : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^^^ 
 >{ v: null! as Evt} : { v: Evt; }
 >                   : ^^^^^   ^^^
 >v : Evt

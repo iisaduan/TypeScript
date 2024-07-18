@@ -34,12 +34,12 @@ async function myUnusedFunction() {
 >       : ^^^^^^^^^^^^^^^^^
 >Promise.resolve(['hello', 'world']) : Promise<string[]>
 >                                    : ^^^^^^^^^^^^^^^^^
->Promise.resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->                : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>Promise.resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>                : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->        : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>        : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >['hello', 'world'] : string[]
 >                   : ^^^^^^^^
 >'hello' : "hello"
@@ -54,12 +54,12 @@ async function myUnusedFunction() {
 >                            : ^^^^^^^^^^
 >Promise.all([fetch1]) : Promise<[string[]]>
 >                      : ^^^^^^^^^^^^^^^^^^^
->Promise.all : { <T>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>[]>; <T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: Awaited<T[P]>; }>; }
->            : ^^^ ^^      ^^                            ^^^                     ^^^ ^^^^^^^^^                       ^^      ^^ ^^^                                                     ^^^
+>Promise.all : { <T extends unknown>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>[]>; <T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: Awaited<T[P]>; }>; }
+>            : ^^^ ^^^^^^^^^^^^^^^^^^      ^^                            ^^^                     ^^^ ^^^^^^^^^                       ^^      ^^ ^^^                                                     ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->all : { <T>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>[]>; <T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: Awaited<T[P]>; }>; }
->    : ^^^ ^^      ^^                            ^^^                     ^^^ ^^^^^^^^^                       ^^      ^^ ^^^                                                     ^^^
+>all : { <T extends unknown>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>[]>; <T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: Awaited<T[P]>; }>; }
+>    : ^^^ ^^^^^^^^^^^^^^^^^^      ^^                            ^^^                     ^^^ ^^^^^^^^^                       ^^      ^^ ^^^                                                     ^^^
 >[fetch1] : [Promise<string[]>]
 >         : ^^^^^^^^^^^^^^^^^^^
 >fetch1 : Promise<string[]>

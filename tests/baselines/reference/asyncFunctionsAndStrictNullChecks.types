@@ -4,8 +4,8 @@
 declare namespace Windows.Foundation {
     interface IPromise<TResult> {
         then<U>(success?: (value: TResult) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>;
->then : { <U>(success?: (value: TResult) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U_1>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; <U_1>(success?: (value: TResult) => U_1, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U_1>(success?: (value: TResult) => U_1, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; }
->     : ^^^ ^^       ^^^                               ^^     ^^^                           ^^        ^^^                       ^^^           ^^^^^^^^       ^^^                                 ^^     ^^^                   ^^        ^^^                       ^^^             ^^^^^^^^       ^^^                       ^^     ^^^                             ^^        ^^^                       ^^^             ^^^^^^^^       ^^^                       ^^     ^^^                   ^^        ^^^                       ^^^             ^^^
+>then : { <U extends unknown>(success?: (value: TResult) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U_1 extends unknown>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; <U_1 extends unknown>(success?: (value: TResult) => U_1, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U_1 extends unknown>(success?: (value: TResult) => U_1, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; }
+>     : ^^^ ^^^^^^^^^^^^^^^^^^       ^^^                               ^^     ^^^                           ^^        ^^^                       ^^^           ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                                 ^^     ^^^                   ^^        ^^^                       ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                       ^^     ^^^                             ^^        ^^^                       ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                       ^^     ^^^                   ^^        ^^^                       ^^^             ^^^
 >success : ((value: TResult) => IPromise<U>) | undefined
 >        : ^^     ^^       ^^^^^           ^^^^^^^^^^^^^
 >value : TResult
@@ -18,8 +18,8 @@ declare namespace Windows.Foundation {
 >progress : any
 
         then<U>(success?: (value: TResult) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>;
->then : { <U_1>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U>(success?: (value: TResult) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U_1>(success?: (value: TResult) => U_1, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U_1>(success?: (value: TResult) => U_1, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; }
->     : ^^^^^^^^       ^^^                                 ^^     ^^^                             ^^        ^^^                       ^^^             ^^^ ^^       ^^^                               ^^     ^^^                 ^^        ^^^                       ^^^           ^^^^^^^^       ^^^                       ^^     ^^^                             ^^        ^^^                       ^^^             ^^^^^^^^       ^^^                       ^^     ^^^                   ^^        ^^^                       ^^^             ^^^
+>then : { <U_1 extends unknown>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U extends unknown>(success?: (value: TResult) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U_1 extends unknown>(success?: (value: TResult) => U_1, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U_1 extends unknown>(success?: (value: TResult) => U_1, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; }
+>     : ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                                 ^^     ^^^                             ^^        ^^^                       ^^^             ^^^ ^^^^^^^^^^^^^^^^^^       ^^^                               ^^     ^^^                 ^^        ^^^                       ^^^           ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                       ^^     ^^^                             ^^        ^^^                       ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                       ^^     ^^^                   ^^        ^^^                       ^^^             ^^^
 >success : ((value: TResult) => IPromise<U>) | undefined
 >        : ^^     ^^       ^^^^^           ^^^^^^^^^^^^^
 >value : TResult
@@ -32,8 +32,8 @@ declare namespace Windows.Foundation {
 >progress : any
 
         then<U>(success?: (value: TResult) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>;
->then : { <U_1>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U_1>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; <U>(success?: (value: TResult) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U_1>(success?: (value: TResult) => U_1, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; }
->     : ^^^^^^^^       ^^^                                 ^^     ^^^                             ^^        ^^^                       ^^^             ^^^^^^^^       ^^^                                 ^^     ^^^                   ^^        ^^^                       ^^^             ^^^ ^^       ^^^                     ^^     ^^^                           ^^        ^^^                       ^^^           ^^^^^^^^       ^^^                       ^^     ^^^                   ^^        ^^^                       ^^^             ^^^
+>then : { <U_1 extends unknown>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U_1 extends unknown>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; <U extends unknown>(success?: (value: TResult) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U_1 extends unknown>(success?: (value: TResult) => U_1, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; }
+>     : ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                                 ^^     ^^^                             ^^        ^^^                       ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                                 ^^     ^^^                   ^^        ^^^                       ^^^             ^^^ ^^^^^^^^^^^^^^^^^^       ^^^                     ^^     ^^^                           ^^        ^^^                       ^^^           ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                       ^^     ^^^                   ^^        ^^^                       ^^^             ^^^
 >success : ((value: TResult) => U) | undefined
 >        : ^^     ^^       ^^^^^ ^^^^^^^^^^^^^
 >value : TResult
@@ -46,8 +46,8 @@ declare namespace Windows.Foundation {
 >progress : any
 
         then<U>(success?: (value: TResult) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>;
->then : { <U_1>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U_1>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; <U_1>(success?: (value: TResult) => U_1, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U>(success?: (value: TResult) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
->     : ^^^^^^^^       ^^^                                 ^^     ^^^                             ^^        ^^^                       ^^^             ^^^^^^^^       ^^^                                 ^^     ^^^                   ^^        ^^^                       ^^^             ^^^^^^^^       ^^^                       ^^     ^^^                             ^^        ^^^                       ^^^             ^^^ ^^       ^^^                     ^^     ^^^                 ^^        ^^^                       ^^^           ^^^
+>then : { <U_1 extends unknown>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U_1 extends unknown>(success?: (value: TResult) => IPromise<U_1>, error?: (error: any) => U_1, progress?: (progress: any) => void): IPromise<U_1>; <U_1 extends unknown>(success?: (value: TResult) => U_1, error?: (error: any) => IPromise<U_1>, progress?: (progress: any) => void): IPromise<U_1>; <U extends unknown>(success?: (value: TResult) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
+>     : ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                                 ^^     ^^^                             ^^        ^^^                       ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                                 ^^     ^^^                   ^^        ^^^                       ^^^             ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^                       ^^     ^^^                             ^^        ^^^                       ^^^             ^^^ ^^^^^^^^^^^^^^^^^^       ^^^                     ^^     ^^^                 ^^        ^^^                       ^^^           ^^^
 >success : ((value: TResult) => U) | undefined
 >        : ^^     ^^       ^^^^^ ^^^^^^^^^^^^^
 >value : TResult
@@ -60,8 +60,8 @@ declare namespace Windows.Foundation {
 >progress : any
 
         done<U>(success?: (value: TResult) => any, error?: (error: any) => any, progress?: (progress: any) => void): void;
->done : <U>(success?: (value: TResult) => any, error?: (error: any) => any, progress?: (progress: any) => void) => void
->     : ^ ^^       ^^^                       ^^     ^^^                   ^^        ^^^                       ^^^^^    
+>done : <U extends unknown>(success?: (value: TResult) => any, error?: (error: any) => any, progress?: (progress: any) => void) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^       ^^^                       ^^     ^^^                   ^^        ^^^                       ^^^^^    
 >success : ((value: TResult) => any) | undefined
 >        : ^^     ^^       ^^^^^   ^^^^^^^^^^^^^
 >value : TResult
@@ -100,14 +100,14 @@ async function sample(promise: Windows.Foundation.IPromise<number>) {
 
 
 declare function resolve1<T>(value: T): Promise<T>;
->resolve1 : <T>(value: T) => Promise<T>
->         : ^ ^^     ^^ ^^^^^          
+>resolve1 : <T extends unknown>(value: T) => Promise<T>
+>         : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^          
 >value : T
 >      : ^
 
 declare function resolve2<T>(value: T): Windows.Foundation.IPromise<T>;
->resolve2 : <T>(value: T) => Windows.Foundation.IPromise<T>
->         : ^ ^^     ^^ ^^^^^                              
+>resolve2 : <T extends unknown>(value: T) => Windows.Foundation.IPromise<T>
+>         : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                              
 >value : T
 >      : ^
 >Windows : any
@@ -128,8 +128,8 @@ async function sample2(x?: number) {
 >                  : ^^^^^^^^^^^^^^^^^^
 >resolve1(x) : Promise<number | undefined>
 >            : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->resolve1 : <T>(value: T) => Promise<T>
->         : ^ ^^     ^^ ^^^^^          
+>resolve1 : <T extends unknown>(value: T) => Promise<T>
+>         : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^          
 >x : number | undefined
 >  : ^^^^^^^^^^^^^^^^^^
 
@@ -140,8 +140,8 @@ async function sample2(x?: number) {
 >                  : ^^^^^^^^^^^^^^^^^^
 >resolve2(x) : Windows.Foundation.IPromise<number | undefined>
 >            : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->resolve2 : <T>(value: T) => Windows.Foundation.IPromise<T>
->         : ^ ^^     ^^ ^^^^^                              
+>resolve2 : <T extends unknown>(value: T) => Windows.Foundation.IPromise<T>
+>         : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                              
 >x : number | undefined
 >  : ^^^^^^^^^^^^^^^^^^
 }

@@ -4,14 +4,14 @@
 // Repro from #44281
 
 declare const p: <T>(fn: () => T) => T;
->p : <T>(fn: () => T) => T
->  : ^ ^^  ^^       ^^^^^ 
+>p : <T extends unknown>(fn: () => T) => T
+>  : ^ ^^^^^^^^^^^^^^^^^^  ^^       ^^^^^ 
 >fn : () => T
 >   : ^^^^^^ 
 
 declare const Base: <T>(val: T) => { new(): T };
->Base : <T>(val: T) => { new (): T; }
->     : ^ ^^   ^^ ^^^^^              
+>Base : <T extends unknown>(val: T) => { new (): T; }
+>     : ^ ^^^^^^^^^^^^^^^^^^   ^^ ^^^^^              
 >val : T
 >    : ^
 
@@ -20,16 +20,16 @@ class C extends Base({ x: p<C[]>(() => []) }) { }
 >  : ^
 >Base({ x: p<C[]>(() => []) }) : { x: C[]; }
 >                              : ^^^^^^^^^^^
->Base : <T>(val: T) => { new (): T; }
->     : ^ ^^   ^^ ^^^^^              
+>Base : <T extends unknown>(val: T) => { new (): T; }
+>     : ^ ^^^^^^^^^^^^^^^^^^   ^^ ^^^^^              
 >{ x: p<C[]>(() => []) } : { x: C[]; }
 >                        : ^^^^^^^^^^^
 >x : C[]
 >  : ^^^
 >p<C[]>(() => []) : C[]
 >                 : ^^^
->p : <T>(fn: () => T) => T
->  : ^ ^^  ^^       ^^^^^ 
+>p : <T extends unknown>(fn: () => T) => T
+>  : ^ ^^^^^^^^^^^^^^^^^^  ^^       ^^^^^ 
 >() => [] : () => never[]
 >         : ^^^^^^^^^^^^^
 >[] : never[]

@@ -2,8 +2,8 @@
 
 === genericUnboundedTypeParamAssignability.ts ===
 function f1<T>(o: T) {
->f1 : <T>(o: T) => void
->   : ^ ^^ ^^ ^^^^^^^^^
+>f1 : <T extends unknown>(o: T) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >o : T
 >  : ^
 
@@ -53,16 +53,16 @@ function f3<T extends Record<string, any>>(o: T) {
 }
 
 function user<T>(t: T) {
->user : <T>(t: T) => void
->     : ^ ^^ ^^ ^^^^^^^^^
+>user : <T extends unknown>(t: T) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >t : T
 >  : ^
 
   f1(t);
 >f1(t) : void
 >      : ^^^^
->f1 : <T_1>(o: T_1) => void
->   : ^^^^^^ ^^   ^^^^^^^^^
+>f1 : <T_1 extends unknown>(o: T_1) => void
+>   : ^^^^^^^^^^^^^^^^^^^^^^ ^^   ^^^^^^^^^
 >t : T
 >  : ^
 

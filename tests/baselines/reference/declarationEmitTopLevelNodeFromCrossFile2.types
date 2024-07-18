@@ -41,8 +41,8 @@ export declare class Box<T> {
 >      : ^
 }
 export declare function box<T>(value: T): Box<T>;
->box : <T>(value: T) => Box<T>
->    : ^ ^^     ^^ ^^^^^      
+>box : <T extends unknown>(value: T) => Box<T>
+>    : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^      
 >value : T
 >      : ^
 

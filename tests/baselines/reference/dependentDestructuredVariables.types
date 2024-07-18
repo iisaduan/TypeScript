@@ -662,20 +662,20 @@ type AB<T> = A<T> | B<T>;
 >   : ^^^^^
 
 declare function printValue<T>(t: T): void;
->printValue : <T>(t: T) => void
->           : ^ ^^ ^^ ^^^^^    
+>printValue : <T extends unknown>(t: T) => void
+>           : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^    
 >t : T
 >  : ^
 
 declare function printValueList<T>(t: Array<T>): void;
->printValueList : <T>(t: Array<T>) => void
->               : ^ ^^ ^^        ^^^^^    
+>printValueList : <T extends unknown>(t: Array<T>) => void
+>               : ^ ^^^^^^^^^^^^^^^^^^ ^^        ^^^^^    
 >t : T[]
 >  : ^^^
 
 function unrefined1<T>(ab: AB<T>): void {
->unrefined1 : <T>(ab: AB<T>) => void
->           : ^ ^^  ^^     ^^^^^    
+>unrefined1 : <T extends unknown>(ab: AB<T>) => void
+>           : ^ ^^^^^^^^^^^^^^^^^^  ^^     ^^^^^    
 >ab : AB<T>
 >   : ^^^^^
 
@@ -698,8 +698,8 @@ function unrefined1<T>(ab: AB<T>): void {
         printValue<T>(value);
 >printValue<T>(value) : void
 >                     : ^^^^
->printValue : <T_1>(t: T_1) => void
->           : ^^^^^^ ^^   ^^^^^    
+>printValue : <T_1 extends unknown>(t: T_1) => void
+>           : ^^^^^^^^^^^^^^^^^^^^^^ ^^   ^^^^^    
 >value : T
 >      : ^
     }
@@ -707,8 +707,8 @@ function unrefined1<T>(ab: AB<T>): void {
         printValueList<T>(value);
 >printValueList<T>(value) : void
 >                         : ^^^^
->printValueList : <T_1>(t: Array<T_1>) => void
->               : ^^^^^^ ^^          ^^^^^    
+>printValueList : <T_1 extends unknown>(t: Array<T_1>) => void
+>               : ^^^^^^^^^^^^^^^^^^^^^^ ^^          ^^^^^    
 >value : T[]
 >      : ^^^
     }

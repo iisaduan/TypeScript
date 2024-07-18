@@ -3,8 +3,8 @@
 === classExtendingAbstractClassWithMemberCalledTheSameAsItsOwnTypeParam.ts ===
 interface IObserver {
 	handleChange<T, TChange>(observable: IObservable<T, TChange>, change: TChange): void;
->handleChange : <T, TChange>(observable: IObservable<T, TChange>, change: TChange) => void
->             : ^ ^^       ^^          ^^                       ^^      ^^       ^^^^^    
+>handleChange : <T extends unknown, TChange extends unknown>(observable: IObservable<T, TChange>, change: TChange) => void
+>             : ^ ^^^^^^^^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^          ^^                       ^^      ^^       ^^^^^    
 >observable : IObservable<T, TChange>
 >           : ^^^^^^^^^^^^^^^^^^^^^^^
 >change : TChange
@@ -23,8 +23,8 @@ interface IObservable<T, TChange = unknown> {
 
 export interface IReader {
 	readObservable<T>(observable: IObservable<T, any>): T;
->readObservable : <T>(observable: IObservable<T, any>) => T
->               : ^ ^^          ^^                   ^^^^^ 
+>readObservable : <T extends unknown>(observable: IObservable<T, any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^          ^^                   ^^^^^ 
 >observable : IObservable<T, any>
 >           : ^^^^^^^^^^^^^^^^^^^
 }

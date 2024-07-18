@@ -30,8 +30,8 @@ type Result2 = EmptyObj[keyof EmptyObj];
 >        : ^^^^^
 
 declare function genericFn1<T>(obj: T): T[never];
->genericFn1 : <T>(obj: T) => T[never]
->           : ^ ^^   ^^ ^^^^^        
+>genericFn1 : <T extends unknown>(obj: T) => T[never]
+>           : ^ ^^^^^^^^^^^^^^^^^^   ^^ ^^^^^        
 >obj : T
 >    : ^
 
@@ -41,8 +41,8 @@ const result3 = genericFn1({ c: "ctest", d: "dtest" });
 >        : ^^^^^
 >genericFn1({ c: "ctest", d: "dtest" }) : never
 >                                       : ^^^^^
->genericFn1 : <T>(obj: T) => T[never]
->           : ^ ^^   ^^ ^^^^^        
+>genericFn1 : <T extends unknown>(obj: T) => T[never]
+>           : ^ ^^^^^^^^^^^^^^^^^^   ^^ ^^^^^        
 >{ c: "ctest", d: "dtest" } : { c: string; d: string; }
 >                           : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >c : string

@@ -284,8 +284,8 @@ type Self<T> = T extends unknown ? Identity<T> : never;
 >     : ^^^^^^^
 
 function is<T>(value: T): value is Self<T> {
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >value : T
 >      : ^
 
@@ -313,64 +313,64 @@ function example(x: Union) {
     if (is(x)) {}
 >is(x) : boolean
 >      : ^^^^^^^
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >x : Union
 >  : ^^^^^
 
     if (is(x)) {}
 >is(x) : boolean
 >      : ^^^^^^^
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >x : Union
 >  : ^^^^^
 
     if (is(x)) {}
 >is(x) : boolean
 >      : ^^^^^^^
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >x : Union
 >  : ^^^^^
 
     if (is(x)) {}
 >is(x) : boolean
 >      : ^^^^^^^
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >x : Union
 >  : ^^^^^
 
     if (is(x)) {}
 >is(x) : boolean
 >      : ^^^^^^^
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >x : Union
 >  : ^^^^^
 
     if (is(x)) {}
 >is(x) : boolean
 >      : ^^^^^^^
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >x : Union
 >  : ^^^^^
 
     if (is(x)) {}
 >is(x) : boolean
 >      : ^^^^^^^
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >x : Union
 >  : ^^^^^
 
     if (is(x)) {}
 >is(x) : boolean
 >      : ^^^^^^^
->is : <T>(value: T) => value is Self<T>
->   : ^ ^^     ^^ ^^^^^                
+>is : <T extends unknown>(value: T) => value is Self<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                
 >x : Union
 >  : ^^^^^
 

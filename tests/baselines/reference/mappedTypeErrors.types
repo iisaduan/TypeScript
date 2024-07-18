@@ -82,8 +82,8 @@ type T16 = Pick<Shape, undefined>;  // Error
 >    : ^^^
 
 function f1<T>(x: T) {
->f1 : <T>(x: T) => void
->   : ^ ^^ ^^ ^^^^^^^^^
+>f1 : <T extends unknown>(x: T) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >x : T
 >  : ^
 
@@ -128,8 +128,8 @@ function f4<T extends keyof Named>(x: T) {
 // Type identity checking
 
 function f10<T>() {
->f10 : <T>() => void
->    : ^ ^^^^^^^^^^^
+>f10 : <T extends unknown>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     type K = keyof T;
 >K : keyof T
@@ -149,8 +149,8 @@ function f10<T>() {
 }
 
 function f11<T>() {
->f11 : <T>() => void
->    : ^ ^^^^^^^^^^^
+>f11 : <T extends unknown>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     var x: { [P in keyof T]: T[P] };
 >x : { [P in keyof T]: T[P]; }
@@ -170,8 +170,8 @@ function f11<T>() {
 }
 
 function f12<T>() {
->f12 : <T>() => void
->    : ^ ^^^^^^^^^^^
+>f12 : <T extends unknown>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     var x: { [P in keyof T]: T[P] };
 >x : { [P in keyof T]: T[P]; }
@@ -185,16 +185,16 @@ function f12<T>() {
 // Check that inferences to mapped types are secondary
 
 declare function objAndReadonly<T>(primary: T, secondary: Readonly<T>): T;
->objAndReadonly : <T>(primary: T, secondary: Readonly<T>) => T
->               : ^ ^^       ^^ ^^         ^^           ^^^^^ 
+>objAndReadonly : <T extends unknown>(primary: T, secondary: Readonly<T>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^       ^^ ^^         ^^           ^^^^^ 
 >primary : T
 >        : ^
 >secondary : Readonly<T>
 >          : ^^^^^^^^^^^
 
 declare function objAndPartial<T>(primary: T, secondary: Partial<T>): T;
->objAndPartial : <T>(primary: T, secondary: Partial<T>) => T
->              : ^ ^^       ^^ ^^         ^^          ^^^^^ 
+>objAndPartial : <T extends unknown>(primary: T, secondary: Partial<T>) => T
+>              : ^ ^^^^^^^^^^^^^^^^^^       ^^ ^^         ^^          ^^^^^ 
 >primary : T
 >        : ^
 >secondary : Partial<T>
@@ -209,8 +209,8 @@ function f20() {
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >objAndReadonly({ x: 0, y: 0 }, { x: 1 }) : { x: number; y: number; }
 >                                         : ^^^^^^^^^^^^^^^^^^^^^^^^^
->objAndReadonly : <T>(primary: T, secondary: Readonly<T>) => T
->               : ^ ^^       ^^ ^^         ^^           ^^^^^ 
+>objAndReadonly : <T extends unknown>(primary: T, secondary: Readonly<T>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^       ^^ ^^         ^^           ^^^^^ 
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >               : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -233,8 +233,8 @@ function f20() {
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >objAndReadonly({ x: 0, y: 0 }, { x: 1, y: 1 }) : { x: number; y: number; }
 >                                               : ^^^^^^^^^^^^^^^^^^^^^^^^^
->objAndReadonly : <T>(primary: T, secondary: Readonly<T>) => T
->               : ^ ^^       ^^ ^^         ^^           ^^^^^ 
+>objAndReadonly : <T extends unknown>(primary: T, secondary: Readonly<T>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^       ^^ ^^         ^^           ^^^^^ 
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >               : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -261,8 +261,8 @@ function f20() {
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >objAndReadonly({ x: 0, y: 0 }, { x: 1, y: 1, z: 1 }) : { x: number; y: number; }
 >                                                     : ^^^^^^^^^^^^^^^^^^^^^^^^^
->objAndReadonly : <T>(primary: T, secondary: Readonly<T>) => T
->               : ^ ^^       ^^ ^^         ^^           ^^^^^ 
+>objAndReadonly : <T extends unknown>(primary: T, secondary: Readonly<T>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^       ^^ ^^         ^^           ^^^^^ 
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >               : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -298,8 +298,8 @@ function f21() {
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >objAndPartial({ x: 0, y: 0 }, { x: 1 }) : { x: number; y: number; }
 >                                        : ^^^^^^^^^^^^^^^^^^^^^^^^^
->objAndPartial : <T>(primary: T, secondary: Partial<T>) => T
->              : ^ ^^       ^^ ^^         ^^          ^^^^^ 
+>objAndPartial : <T extends unknown>(primary: T, secondary: Partial<T>) => T
+>              : ^ ^^^^^^^^^^^^^^^^^^       ^^ ^^         ^^          ^^^^^ 
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >               : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -322,8 +322,8 @@ function f21() {
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >objAndPartial({ x: 0, y: 0 }, { x: 1, y: 1 }) : { x: number; y: number; }
 >                                              : ^^^^^^^^^^^^^^^^^^^^^^^^^
->objAndPartial : <T>(primary: T, secondary: Partial<T>) => T
->              : ^ ^^       ^^ ^^         ^^          ^^^^^ 
+>objAndPartial : <T extends unknown>(primary: T, secondary: Partial<T>) => T
+>              : ^ ^^^^^^^^^^^^^^^^^^       ^^ ^^         ^^          ^^^^^ 
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >               : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -350,8 +350,8 @@ function f21() {
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >objAndPartial({ x: 0, y: 0 }, { x: 1, y: 1, z: 1 }) : { x: number; y: number; }
 >                                                    : ^^^^^^^^^^^^^^^^^^^^^^^^^
->objAndPartial : <T>(primary: T, secondary: Partial<T>) => T
->              : ^ ^^       ^^ ^^         ^^          ^^^^^ 
+>objAndPartial : <T extends unknown>(primary: T, secondary: Partial<T>) => T
+>              : ^ ^^^^^^^^^^^^^^^^^^       ^^ ^^         ^^          ^^^^^ 
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >               : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -391,8 +391,8 @@ interface Foo {
 }
 
 function setState<T, K extends keyof T>(obj: T, props: Pick<T, K>) {
->setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
->         : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
+>setState : <T extends unknown, K extends keyof T>(obj: T, props: Pick<T, K>) => void
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
 >obj : T
 >    : ^
 >props : Pick<T, K>
@@ -439,8 +439,8 @@ let foo: Foo = { a: "hello", b: 42 };
 setState(foo, { a: "test", b: 43 })
 >setState(foo, { a: "test", b: 43 }) : void
 >                                    : ^^^^
->setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
->         : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
+>setState : <T extends unknown, K extends keyof T>(obj: T, props: Pick<T, K>) => void
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
 >foo : Foo
 >    : ^^^
 >{ a: "test", b: 43 } : { a: string; b: number; }
@@ -457,8 +457,8 @@ setState(foo, { a: "test", b: 43 })
 setState(foo, { a: "hi" });
 >setState(foo, { a: "hi" }) : void
 >                           : ^^^^
->setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
->         : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
+>setState : <T extends unknown, K extends keyof T>(obj: T, props: Pick<T, K>) => void
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
 >foo : Foo
 >    : ^^^
 >{ a: "hi" } : { a: string; }
@@ -471,8 +471,8 @@ setState(foo, { a: "hi" });
 setState(foo, { b: undefined });
 >setState(foo, { b: undefined }) : void
 >                                : ^^^^
->setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
->         : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
+>setState : <T extends unknown, K extends keyof T>(obj: T, props: Pick<T, K>) => void
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
 >foo : Foo
 >    : ^^^
 >{ b: undefined } : { b: undefined; }
@@ -485,8 +485,8 @@ setState(foo, { b: undefined });
 setState(foo, { });
 >setState(foo, { }) : void
 >                   : ^^^^
->setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
->         : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
+>setState : <T extends unknown, K extends keyof T>(obj: T, props: Pick<T, K>) => void
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
 >foo : Foo
 >    : ^^^
 >{ } : {}
@@ -495,8 +495,8 @@ setState(foo, { });
 setState(foo, foo);
 >setState(foo, foo) : void
 >                   : ^^^^
->setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
->         : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
+>setState : <T extends unknown, K extends keyof T>(obj: T, props: Pick<T, K>) => void
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
 >foo : Foo
 >    : ^^^
 >foo : Foo
@@ -505,8 +505,8 @@ setState(foo, foo);
 setState(foo, { a: undefined });  // Error
 >setState(foo, { a: undefined }) : void
 >                                : ^^^^
->setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
->         : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
+>setState : <T extends unknown, K extends keyof T>(obj: T, props: Pick<T, K>) => void
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
 >foo : Foo
 >    : ^^^
 >{ a: undefined } : { a: undefined; }
@@ -519,8 +519,8 @@ setState(foo, { a: undefined });  // Error
 setState(foo, { c: true });  // Error
 >setState(foo, { c: true }) : void
 >                           : ^^^^
->setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
->         : ^ ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
+>setState : <T extends unknown, K extends keyof T>(obj: T, props: Pick<T, K>) => void
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^          ^^^^^^^^^
 >foo : Foo
 >    : ^^^
 >{ c: true } : { c: boolean; }
@@ -799,8 +799,8 @@ let f: Foo2<O, 'x'> = {
 // Repro from #28170
 
 function test1<T, K extends keyof T>(obj: Pick<T, K>) {
->test1 : <T, K extends keyof T>(obj: Pick<T, K>) => void
->      : ^ ^^ ^^^^^^^^^       ^^   ^^          ^^^^^^^^^
+>test1 : <T extends unknown, K extends keyof T>(obj: Pick<T, K>) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^          ^^^^^^^^^
 >obj : Pick<T, K>
 >    : ^^^^^^^^^^
 
@@ -816,8 +816,8 @@ function test1<T, K extends keyof T>(obj: Pick<T, K>) {
 }
 
 function test2<T, K extends keyof T>(obj: Record<K, number>) {
->test2 : <T, K extends keyof T>(obj: Record<K, number>) => void
->      : ^ ^^ ^^^^^^^^^       ^^   ^^                 ^^^^^^^^^
+>test2 : <T extends unknown, K extends keyof T>(obj: Record<K, number>) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^                 ^^^^^^^^^
 >obj : Record<K, number>
 >    : ^^^^^^^^^^^^^^^^^
 
