@@ -20,8 +20,8 @@ interface Invariant<T> {
 }
 
 function f1<A, B extends A>(a: Covariant<A>, b: Covariant<B>) {
->f1 : <A, B extends A>(a: Covariant<A>, b: Covariant<B>) => void
->   : ^ ^^ ^^^^^^^^^ ^^ ^^            ^^ ^^            ^^^^^^^^^
+>f1 : <A extends {} | null | undefined, B extends A>(a: Covariant<A>, b: Covariant<B>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^ ^^            ^^ ^^            ^^^^^^^^^
 >a : Covariant<A>
 >  : ^^^^^^^^^^^^
 >b : Covariant<B>
@@ -45,8 +45,8 @@ function f1<A, B extends A>(a: Covariant<A>, b: Covariant<B>) {
 }
 
 function f2<A, B extends A>(a: Contravariant<A>, b: Contravariant<B>) {
->f2 : <A, B extends A>(a: Contravariant<A>, b: Contravariant<B>) => void
->   : ^ ^^ ^^^^^^^^^ ^^ ^^                ^^ ^^                ^^^^^^^^^
+>f2 : <A extends {} | null | undefined, B extends A>(a: Contravariant<A>, b: Contravariant<B>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^ ^^                ^^ ^^                ^^^^^^^^^
 >a : Contravariant<A>
 >  : ^^^^^^^^^^^^^^^^
 >b : Contravariant<B>
@@ -70,8 +70,8 @@ function f2<A, B extends A>(a: Contravariant<A>, b: Contravariant<B>) {
 }
 
 function f3<A, B extends A>(a: Invariant<A>, b: Invariant<B>) {
->f3 : <A, B extends A>(a: Invariant<A>, b: Invariant<B>) => void
->   : ^ ^^ ^^^^^^^^^ ^^ ^^            ^^ ^^            ^^^^^^^^^
+>f3 : <A extends {} | null | undefined, B extends A>(a: Invariant<A>, b: Invariant<B>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^ ^^            ^^ ^^            ^^^^^^^^^
 >a : Invariant<A>
 >  : ^^^^^^^^^^^^
 >b : Invariant<B>
@@ -96,8 +96,8 @@ function f3<A, B extends A>(a: Invariant<A>, b: Invariant<B>) {
 
 // Extract<T, Function> is a T that is known to be a Function
 function isFunction<T>(value: T): value is Extract<T, Function> {
->isFunction : <T>(value: T) => value is Extract<T, Function>
->           : ^ ^^     ^^ ^^^^^                             
+>isFunction : <T extends {} | null | undefined>(value: T) => value is Extract<T, Function>
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                             
 >value : T
 >      : ^
 
@@ -113,16 +113,16 @@ function isFunction<T>(value: T): value is Extract<T, Function> {
 }
 
 function getFunction<T>(item: T) {
->getFunction : <T>(item: T) => Extract<T, Function>
->            : ^ ^^    ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^
+>getFunction : <T extends {} | null | undefined>(item: T) => Extract<T, Function>
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^
 >item : T
 >     : ^
 
     if (isFunction(item)) {
 >isFunction(item) : boolean
 >                 : ^^^^^^^
->isFunction : <T_1>(value: T_1) => value is Extract<T_1, Function>
->           : ^^^^^^     ^^   ^^^^^                               
+>isFunction : <T_1 extends {} | null | undefined>(value: T_1) => value is Extract<T_1, Function>
+>           : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^   ^^^^^                               
 >item : T
 >     : ^
 
@@ -138,16 +138,16 @@ function getFunction<T>(item: T) {
 }
 
 function f10<T>(x: T) {
->f10 : <T>(x: T) => void
->    : ^ ^^ ^^ ^^^^^^^^^
+>f10 : <T extends {} | null | undefined>(x: T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >x : T
 >  : ^
 
     if (isFunction(x)) {
 >isFunction(x) : boolean
 >              : ^^^^^^^
->isFunction : <T_1>(value: T_1) => value is Extract<T_1, Function>
->           : ^^^^^^     ^^   ^^^^^                               
+>isFunction : <T_1 extends {} | null | undefined>(value: T_1) => value is Extract<T_1, Function>
+>           : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^   ^^^^^                               
 >x : T
 >  : ^
 
@@ -174,8 +174,8 @@ function f11(x: string | (() => string) | undefined) {
     if (isFunction(x)) {
 >isFunction(x) : boolean
 >              : ^^^^^^^
->isFunction : <T>(value: T) => value is Extract<T, Function>
->           : ^ ^^     ^^ ^^^^^                             
+>isFunction : <T extends {} | null | undefined>(value: T) => value is Extract<T, Function>
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                             
 >x : string | (() => string) | undefined
 >  : ^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^
 
@@ -198,8 +198,8 @@ function f12(x: string | (() => string) | undefined) {
 >  : ^^^^^^      
 >getFunction(x) : () => string
 >               : ^^^^^^      
->getFunction : <T>(item: T) => Extract<T, Function>
->            : ^ ^^    ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^
+>getFunction : <T extends {} | null | undefined>(item: T) => Extract<T, Function>
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : string | (() => string) | undefined
 >  : ^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^
 
@@ -247,8 +247,8 @@ type Extract2<T, U, V> = T extends U ? T extends V ? T : never : never;
 >         : ^^^^^^^^^^^^^^^^^
 
 function f20<T>(x: Extract<Extract<T, Foo>, Bar>, y: Extract<T, Foo & Bar>, z: Extract2<T, Foo, Bar>) {
->f20 : <T>(x: Extract<Extract<T, Foo>, Bar>, y: Extract<T, Foo & Bar>, z: Extract2<T, Foo, Bar>) => void
->    : ^ ^^ ^^                             ^^ ^^                     ^^ ^^                     ^^^^^^^^^
+>f20 : <T extends {} | null | undefined>(x: Extract<Extract<T, Foo>, Bar>, y: Extract<T, Foo & Bar>, z: Extract2<T, Foo, Bar>) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                             ^^ ^^                     ^^ ^^                     ^^^^^^^^^
 >x : Extract<Extract<T, Foo>, Bar>
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >y : Extract<T, Foo & Bar>
@@ -282,8 +282,8 @@ function f20<T>(x: Extract<Extract<T, Foo>, Bar>, y: Extract<T, Foo & Bar>, z: E
 }
 
 function f21<T>(x: Extract<Extract<T, Foo>, Bar>, y: Extract<T, Foo & Bar>, z: Extract2<T, Foo, Bar>) {
->f21 : <T>(x: Extract<Extract<T, Foo>, Bar>, y: Extract<T, Foo & Bar>, z: Extract2<T, Foo, Bar>) => void
->    : ^ ^^ ^^                             ^^ ^^                     ^^ ^^                     ^^^^^^^^^
+>f21 : <T extends {} | null | undefined>(x: Extract<Extract<T, Foo>, Bar>, y: Extract<T, Foo & Bar>, z: Extract2<T, Foo, Bar>) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                             ^^ ^^                     ^^ ^^                     ^^^^^^^^^
 >x : Extract<Extract<T, Foo>, Bar>
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >y : Extract<T, Foo & Bar>
@@ -421,16 +421,16 @@ declare function toString2(value: Function): string ;
 >      : ^^^^^^^^
 
 function foo<T>(value: T) {
->foo : <T>(value: T) => void
->    : ^ ^^     ^^ ^^^^^^^^^
+>foo : <T extends {} | null | undefined>(value: T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^^^^^^^^
 >value : T
 >      : ^
 
     if (isFunction(value)) {
 >isFunction(value) : boolean
 >                  : ^^^^^^^
->isFunction : <T_1>(value: T_1) => value is Extract<T_1, Function>
->           : ^^^^^^     ^^   ^^^^^                               
+>isFunction : <T_1 extends {} | null | undefined>(value: T_1) => value is Extract<T_1, Function>
+>           : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^   ^^^^^                               
 >value : T
 >      : ^
 
@@ -651,14 +651,14 @@ declare function save(_response: IRootResponse<string>): void;
 exportCommand(save);
 >exportCommand(save) : void
 >                    : ^^^^
->exportCommand : <TResponse>(functionToCall: IExportCallback<TResponse>) => void
->              : ^         ^^              ^^                          ^^^^^    
+>exportCommand : <TResponse extends {} | null | undefined>(functionToCall: IExportCallback<TResponse>) => void
+>              : ^         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^              ^^                          ^^^^^    
 >save : (_response: IRootResponse<string>) => void
 >     : ^         ^^                     ^^^^^    
 
 declare function exportCommand<TResponse>(functionToCall: IExportCallback<TResponse>): void;
->exportCommand : <TResponse>(functionToCall: IExportCallback<TResponse>) => void
->              : ^         ^^              ^^                          ^^^^^    
+>exportCommand : <TResponse extends {} | null | undefined>(functionToCall: IExportCallback<TResponse>) => void
+>              : ^         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^              ^^                          ^^^^^    
 >functionToCall : IExportCallback<TResponse>
 >               : ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -726,8 +726,8 @@ declare function ff(x: Foo3<string>): void;
 >  : ^^^^^^^^^^^^^^
 
 declare function gg<T>(f: (x: Foo3<T>) => void): void;
->gg : <T>(f: (x: Foo3<T>) => void) => void
->   : ^ ^^ ^^                    ^^^^^    
+>gg : <T extends {} | null | undefined>(f: (x: Foo3<T>) => void) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^    
 >f : (x: Foo3<T>) => void
 >  : ^ ^^       ^^^^^    
 >x : Foo3<T>
@@ -744,8 +744,8 @@ type Foo3<T> = T extends number ? { n: T } : { x: T };
 gg(ff);
 >gg(ff) : void
 >       : ^^^^
->gg : <T>(f: (x: Foo3<T>) => void) => void
->   : ^ ^^ ^^                    ^^^^^    
+>gg : <T extends {} | null | undefined>(f: (x: Foo3<T>) => void) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^    
 >ff : (x: Foo3<string>) => void
 >   : ^ ^^            ^^^^^    
 

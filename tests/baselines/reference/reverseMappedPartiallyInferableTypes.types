@@ -60,8 +60,8 @@ export type PropsDefinition<T> = RecordPropsDefinition<T>;
 
 
 declare function extend<T>({ props }: { props: PropsDefinition<T> }):  PropsDefinition<T>;
->extend : <T>({ props }: { props: PropsDefinition<T>; }) => PropsDefinition<T>
->       : ^ ^^         ^^                              ^^^^^                  
+>extend : <T extends {} | null | undefined>({ props }: { props: PropsDefinition<T>; }) => PropsDefinition<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^                              ^^^^^                  
 >props : RecordPropsDefinition<T>
 >      : ^^^^^^^^^^^^^^^^^^^^^^^^
 >props : RecordPropsDefinition<T>
@@ -78,8 +78,8 @@ const r = extend({
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >extend({    props: {        notResolved: {            type: Object as PropType<MyType>,            validator: x => {                return x.valid;            }        },        explicit: {            type: Object as PropType<MyType>,            validator: (x: MyType) => {                return x.valid;            }        }    }}) : RecordPropsDefinition<{ notResolved: MyType; explicit: MyType; }>
 >                                                                                                                                                                                                                                                                                                                                              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->extend : <T>({ props }: { props: PropsDefinition<T>; }) => PropsDefinition<T>
->       : ^ ^^         ^^                              ^^^^^                  
+>extend : <T extends {} | null | undefined>({ props }: { props: PropsDefinition<T>; }) => PropsDefinition<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^                              ^^^^^                  
 >{    props: {        notResolved: {            type: Object as PropType<MyType>,            validator: x => {                return x.valid;            }        },        explicit: {            type: Object as PropType<MyType>,            validator: (x: MyType) => {                return x.valid;            }        }    }} : { props: { notResolved: { type: PropType<MyType>; validator: (x: MyType) => boolean; }; explicit: { type: PropType<MyType>; validator: (x: MyType) => boolean; }; }; }
 >                                                                                                                                                                                                                                                                                                                                      : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                ^^^^^^^^^^^^^^ ^^      ^^^^^^^^^^^^^^^^^^^^^
 
@@ -220,8 +220,8 @@ type Mapped<T> = {
 }
 
 declare function id<T>(arg: Mapped<T>): Mapped<T>;
->id : <T>(arg: Mapped<T>) => Mapped<T>
->   : ^ ^^   ^^         ^^^^^         
+>id : <T extends {} | null | undefined>(arg: Mapped<T>) => Mapped<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^         ^^^^^         
 >arg : Mapped<T>
 >    : ^^^^^^^^^
 
@@ -232,8 +232,8 @@ const obj1 = id({
 >     : ^^^^^^^^^^^^^^^^^^^^^^^^
 >id({    foo: {        contents: ""    }}) : Mapped<{ foo: string; }>
 >                                          : ^^^^^^^^^^^^^^^^^^^^^^^^
->id : <T>(arg: Mapped<T>) => Mapped<T>
->   : ^ ^^   ^^         ^^^^^         
+>id : <T extends {} | null | undefined>(arg: Mapped<T>) => Mapped<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^         ^^^^^         
 >{    foo: {        contents: ""    }} : { foo: { contents: string; }; }
 >                                      : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -258,8 +258,8 @@ const obj2 = id({
 >     : ^^^^^^^^^^^^^^^^^^^^^^^^
 >id({    foo: {        contents: "",        contains(k) {            return k.length > 0;        }    }}) : Mapped<{ foo: string; }>
 >                                                                                                         : ^^^^^^^^^^^^^^^^^^^^^^^^
->id : <T>(arg: Mapped<T>) => Mapped<T>
->   : ^ ^^   ^^         ^^^^^         
+>id : <T extends {} | null | undefined>(arg: Mapped<T>) => Mapped<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^         ^^^^^         
 >{    foo: {        contents: "",        contains(k) {            return k.length > 0;        }    }} : { foo: { contents: string; contains(k: string): boolean; }; }
 >                                                                                                     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -299,12 +299,12 @@ const obj2 = id({
 // No properties have inferable types
 
 const obj3 = id({
->obj3 : Mapped<unknown>
->     : ^^^^^^^^^^^^^^^
->id({    foo: {        contains(k) {            return k.length > 0;        }    }}) : Mapped<unknown>
->                                                                                    : ^^^^^^^^^^^^^^^
->id : <T>(arg: Mapped<T>) => Mapped<T>
->   : ^ ^^   ^^         ^^^^^         
+>obj3 : Mapped<{} | null | undefined>
+>     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>id({    foo: {        contains(k) {            return k.length > 0;        }    }}) : Mapped<{} | null | undefined>
+>                                                                                    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>id : <T extends {} | null | undefined>(arg: Mapped<T>) => Mapped<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^         ^^^^^         
 >{    foo: {        contains(k) {            return k.length > 0;        }    }} : { foo: { contains(k: unknown): boolean; }; }
 >                                                                                : ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -348,16 +348,16 @@ type Mapped1<T> = {
 };
 
 declare function inferMapped1<T>(arg: Mapped1<T>): void;
->inferMapped1 : <T>(arg: Mapped1<T>) => void
->             : ^ ^^   ^^          ^^^^^    
+>inferMapped1 : <T extends {} | null | undefined>(arg: Mapped1<T>) => void
+>             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^          ^^^^^    
 >arg : Mapped1<T>
 >    : ^^^^^^^^^^
 
 inferMapped1({
 >inferMapped1({    key: [3, arg => arg.key > 5]}) : void
 >                                                 : ^^^^
->inferMapped1 : <T>(arg: Mapped1<T>) => void
->             : ^ ^^   ^^          ^^^^^    
+>inferMapped1 : <T extends {} | null | undefined>(arg: Mapped1<T>) => void
+>             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^          ^^^^^    
 >{    key: [3, arg => arg.key > 5]} : { key: [number, (arg: { key: number; }) => boolean]; }
 >                                   : ^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -396,16 +396,16 @@ type Mapped2<T> = {
 };
 
 declare function inferMapped2<T>(arg: Mapped2<T>): void;
->inferMapped2 : <T>(arg: Mapped2<T>) => void
->             : ^ ^^   ^^          ^^^^^    
+>inferMapped2 : <T extends {} | null | undefined>(arg: Mapped2<T>) => void
+>             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^          ^^^^^    
 >arg : Mapped2<T>
 >    : ^^^^^^^^^^
 
 inferMapped2({
 >inferMapped2({    key: [3, arg => arg.key > 5]}) : void
 >                                                 : ^^^^
->inferMapped2 : <T>(arg: Mapped2<T>) => void
->             : ^ ^^   ^^          ^^^^^    
+>inferMapped2 : <T extends {} | null | undefined>(arg: Mapped2<T>) => void
+>             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^          ^^^^^    
 >{    key: [3, arg => arg.key > 5]} : { key: [number, (arg: { key: number; }) => boolean]; }
 >                                   : ^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -444,16 +444,16 @@ type MappedReadonly<T> = {
 };
 
 declare function inferMappedReadonly<T>(arg: MappedReadonly<T>): void;
->inferMappedReadonly : <T>(arg: MappedReadonly<T>) => void
->                    : ^ ^^   ^^                 ^^^^^    
+>inferMappedReadonly : <T extends {} | null | undefined>(arg: MappedReadonly<T>) => void
+>                    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                 ^^^^^    
 >arg : MappedReadonly<T>
 >    : ^^^^^^^^^^^^^^^^^
 
 inferMappedReadonly({
 >inferMappedReadonly({    key: [3, arg => arg.key > 5]}) : void
 >                                                        : ^^^^
->inferMappedReadonly : <T>(arg: MappedReadonly<T>) => void
->                    : ^ ^^   ^^                 ^^^^^    
+>inferMappedReadonly : <T extends {} | null | undefined>(arg: MappedReadonly<T>) => void
+>                    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                 ^^^^^    
 >{    key: [3, arg => arg.key > 5]} : { key: [number, (arg: { key: number; }) => boolean]; }
 >                                   : ^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

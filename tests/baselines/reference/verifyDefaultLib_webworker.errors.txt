@@ -1,0 +1,5 @@
+lib.es2015.promise.d.ts(--,--): error TS2344: Type '{ -readonly [P in keyof T]: Awaited<T[P]>; }' does not satisfy the constraint '{}'.
+
+
+==== verifyDefaultLib_webworker.ts (0 errors) ====
+    var x: Worker;

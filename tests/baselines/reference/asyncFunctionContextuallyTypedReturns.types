@@ -28,12 +28,12 @@ f(v => v ? [0] : Promise.reject());
 >  : ^
 >Promise.reject() : Promise<[0]>
 >                 : ^^^^^^^^^^^^
->Promise.reject : <T = never>(reason?: any) => Promise<T>
->               : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>Promise.reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->reject : <T = never>(reason?: any) => Promise<T>
->       : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 
 f(async v => v ? [0] : Promise.reject());
 >f(async v => v ? [0] : Promise.reject()) : void
@@ -54,12 +54,12 @@ f(async v => v ? [0] : Promise.reject());
 >  : ^
 >Promise.reject() : Promise<[0]>
 >                 : ^^^^^^^^^^^^
->Promise.reject : <T = never>(reason?: any) => Promise<T>
->               : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>Promise.reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->reject : <T = never>(reason?: any) => Promise<T>
->       : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 
 declare function g(cb: (v: boolean) => "contextuallyTypable" | PromiseLike<"contextuallyTypable">): void;
 >g : (cb: (v: boolean) => "contextuallyTypable" | PromiseLike<"contextuallyTypable">) => void
@@ -86,12 +86,12 @@ g(v => v ? "contextuallyTypable" : Promise.reject());
 >                      : ^^^^^^^^^^^^^^^^^^^^^
 >Promise.reject() : Promise<"contextuallyTypable">
 >                 : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Promise.reject : <T = never>(reason?: any) => Promise<T>
->               : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>Promise.reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->reject : <T = never>(reason?: any) => Promise<T>
->       : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 
 g(async v => v ? "contextuallyTypable" : Promise.reject());
 >g(async v => v ? "contextuallyTypable" : Promise.reject()) : void
@@ -110,12 +110,12 @@ g(async v => v ? "contextuallyTypable" : Promise.reject());
 >                      : ^^^^^^^^^^^^^^^^^^^^^
 >Promise.reject() : Promise<"contextuallyTypable">
 >                 : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Promise.reject : <T = never>(reason?: any) => Promise<T>
->               : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>Promise.reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->reject : <T = never>(reason?: any) => Promise<T>
->       : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 
 type MyCallback = (thing: string) => void;
 >MyCallback : MyCallback
@@ -150,12 +150,12 @@ h(v => v ? (abc) => { } : Promise.reject());
 >    : ^^^^^^
 >Promise.reject() : Promise<MyCallback>
 >                 : ^^^^^^^^^^^^^^^^^^^
->Promise.reject : <T = never>(reason?: any) => Promise<T>
->               : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>Promise.reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->reject : <T = never>(reason?: any) => Promise<T>
->       : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 
 h(async v => v ? (def) => { } : Promise.reject());
 >h(async v => v ? (def) => { } : Promise.reject()) : void
@@ -176,12 +176,12 @@ h(async v => v ? (def) => { } : Promise.reject());
 >    : ^^^^^^
 >Promise.reject() : Promise<MyCallback>
 >                 : ^^^^^^^^^^^^^^^^^^^
->Promise.reject : <T = never>(reason?: any) => Promise<T>
->               : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>Promise.reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->reject : <T = never>(reason?: any) => Promise<T>
->       : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>reject : <T extends {} | null | undefined = never>(reason?: any) => Promise<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 
 // repro from #29196
 const increment: (

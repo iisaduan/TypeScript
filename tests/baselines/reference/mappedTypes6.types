@@ -66,8 +66,8 @@ type T15<T> = { -readonly [P in keyof T]-?: T[P] };
 >    : ^^^^^^
 
 function f1<T>(x: Required<T>, y: T, z: Partial<T>) {
->f1 : <T>(x: Required<T>, y: T, z: Partial<T>) => void
->   : ^ ^^ ^^           ^^ ^^ ^^ ^^          ^^^^^^^^^
+>f1 : <T extends {} | null | undefined>(x: Required<T>, y: T, z: Partial<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^           ^^ ^^ ^^ ^^          ^^^^^^^^^
 >x : Required<T>
 >  : ^^^^^^^^^^^
 >y : T
@@ -153,8 +153,8 @@ type Denullified<T> = { [P in keyof T]-?: NonNullable<T[P]> };
 >            : ^^^^^^^^^^^^^^
 
 function f2<T>(w: Denullified<T>, x: Required<T>, y: T, z: Partial<T>) {
->f2 : <T>(w: Denullified<T>, x: Required<T>, y: T, z: Partial<T>) => void
->   : ^ ^^ ^^              ^^ ^^           ^^ ^^ ^^ ^^          ^^^^^^^^^
+>f2 : <T extends {} | null | undefined>(w: Denullified<T>, x: Required<T>, y: T, z: Partial<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^              ^^ ^^           ^^ ^^ ^^ ^^          ^^^^^^^^^
 >w : Denullified<T>
 >  : ^^^^^^^^^^^^^^
 >x : Required<T>
@@ -295,8 +295,8 @@ function f2<T>(w: Denullified<T>, x: Required<T>, y: T, z: Partial<T>) {
 
 
 function f3<T>(w: Denullified<T>, x: Required<T>, y: T, z: Partial<T>) {
->f3 : <T>(w: Denullified<T>, x: Required<T>, y: T, z: Partial<T>) => void
->   : ^ ^^ ^^              ^^ ^^           ^^ ^^ ^^ ^^          ^^^^^^^^^
+>f3 : <T extends {} | null | undefined>(w: Denullified<T>, x: Required<T>, y: T, z: Partial<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^              ^^ ^^           ^^ ^^ ^^ ^^          ^^^^^^^^^
 >w : Denullified<T>
 >  : ^^^^^^^^^^^^^^
 >x : Required<T>
@@ -347,8 +347,8 @@ type Readwrite<T> = {
 }
 
 function f10<T>(x: Readonly<T>, y: T, z: Readwrite<T>) {
->f10 : <T>(x: Readonly<T>, y: T, z: Readwrite<T>) => void
->    : ^ ^^ ^^           ^^ ^^ ^^ ^^            ^^^^^^^^^
+>f10 : <T extends {} | null | undefined>(x: Readonly<T>, y: T, z: Readwrite<T>) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^           ^^ ^^ ^^ ^^            ^^^^^^^^^
 >x : Readonly<T>
 >  : ^^^^^^^^^^^
 >y : T

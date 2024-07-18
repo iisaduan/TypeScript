@@ -210,8 +210,8 @@ declare class Dog extends Animal { woof(): void }
 >     : ^^^^^^    
 
 declare function doSomething<T>(value: T, getDefault: () => NoInfer<T>): void;
->doSomething : <T>(value: T, getDefault: () => NoInfer<T>) => void
->            : ^ ^^     ^^ ^^          ^^                ^^^^^    
+>doSomething : <T extends {} | null | undefined>(value: T, getDefault: () => NoInfer<T>) => void
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^          ^^                ^^^^^    
 >value : T
 >      : ^
 >getDefault : () => NoInfer<T>
@@ -220,8 +220,8 @@ declare function doSomething<T>(value: T, getDefault: () => NoInfer<T>): void;
 doSomething(new Animal(), () => new Animal()); // ok
 >doSomething(new Animal(), () => new Animal()) : void
 >                                              : ^^^^
->doSomething : <T>(value: T, getDefault: () => NoInfer<T>) => void
->            : ^ ^^     ^^ ^^          ^^                ^^^^^    
+>doSomething : <T extends {} | null | undefined>(value: T, getDefault: () => NoInfer<T>) => void
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^          ^^                ^^^^^    
 >new Animal() : Animal
 >             : ^^^^^^
 >Animal : typeof Animal
@@ -236,8 +236,8 @@ doSomething(new Animal(), () => new Animal()); // ok
 doSomething(new Animal(), () => new Dog()); // ok
 >doSomething(new Animal(), () => new Dog()) : void
 >                                           : ^^^^
->doSomething : <T>(value: T, getDefault: () => NoInfer<T>) => void
->            : ^ ^^     ^^ ^^          ^^                ^^^^^    
+>doSomething : <T extends {} | null | undefined>(value: T, getDefault: () => NoInfer<T>) => void
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^          ^^                ^^^^^    
 >new Animal() : Animal
 >             : ^^^^^^
 >Animal : typeof Animal
@@ -252,8 +252,8 @@ doSomething(new Animal(), () => new Dog()); // ok
 doSomething(new Dog(), () => new Animal()); // error
 >doSomething(new Dog(), () => new Animal()) : void
 >                                           : ^^^^
->doSomething : <T>(value: T, getDefault: () => NoInfer<T>) => void
->            : ^ ^^     ^^ ^^          ^^                ^^^^^    
+>doSomething : <T extends {} | null | undefined>(value: T, getDefault: () => NoInfer<T>) => void
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^          ^^                ^^^^^    
 >new Dog() : Dog
 >          : ^^^
 >Dog : typeof Dog
@@ -266,8 +266,8 @@ doSomething(new Dog(), () => new Animal()); // error
 >       : ^^^^^^^^^^^^^
 
 declare function assertEqual<T>(actual: T, expected: NoInfer<T>): boolean;
->assertEqual : <T>(actual: T, expected: NoInfer<T>) => boolean
->            : ^ ^^      ^^ ^^        ^^          ^^^^^       
+>assertEqual : <T extends {} | null | undefined>(actual: T, expected: NoInfer<T>) => boolean
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^ ^^        ^^          ^^^^^       
 >actual : T
 >       : ^
 >expected : NoInfer<T>
@@ -276,8 +276,8 @@ declare function assertEqual<T>(actual: T, expected: NoInfer<T>): boolean;
 assertEqual({ x: 1 }, { x: 3 }); // ok
 >assertEqual({ x: 1 }, { x: 3 }) : boolean
 >                                : ^^^^^^^
->assertEqual : <T>(actual: T, expected: NoInfer<T>) => boolean
->            : ^ ^^      ^^ ^^        ^^          ^^^^^       
+>assertEqual : <T extends {} | null | undefined>(actual: T, expected: NoInfer<T>) => boolean
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^ ^^        ^^          ^^^^^       
 >{ x: 1 } : { x: number; }
 >         : ^^^^^^^^^^^^^^
 >x : number
@@ -308,8 +308,8 @@ const g = { x: 3, y: 2 };
 assertEqual(g, { x: 3 }); // error
 >assertEqual(g, { x: 3 }) : boolean
 >                         : ^^^^^^^
->assertEqual : <T>(actual: T, expected: NoInfer<T>) => boolean
->            : ^ ^^      ^^ ^^        ^^          ^^^^^       
+>assertEqual : <T extends {} | null | undefined>(actual: T, expected: NoInfer<T>) => boolean
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^ ^^        ^^          ^^^^^       
 >g : { x: number; y: number; }
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >{ x: 3 } : { x: number; }
@@ -320,8 +320,8 @@ assertEqual(g, { x: 3 }); // error
 >  : ^
 
 declare function invoke<T, R>(func: (value: T) => R, value: NoInfer<T>): R;
->invoke : <T, R>(func: (value: T) => R, value: NoInfer<T>) => R
->       : ^ ^^ ^^    ^^               ^^     ^^          ^^^^^ 
+>invoke : <T extends {} | null | undefined, R extends {} | null | undefined>(func: (value: T) => R, value: NoInfer<T>) => R
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^               ^^     ^^          ^^^^^ 
 >func : (value: T) => R
 >     : ^     ^^ ^^^^^ 
 >value : T
@@ -340,8 +340,8 @@ declare function test(value: { x: number; }): number;
 invoke(test, { x: 1, y: 2 }); // error
 >invoke(test, { x: 1, y: 2 }) : number
 >                             : ^^^^^^
->invoke : <T, R>(func: (value: T) => R, value: NoInfer<T>) => R
->       : ^ ^^ ^^    ^^               ^^     ^^          ^^^^^ 
+>invoke : <T extends {} | null | undefined, R extends {} | null | undefined>(func: (value: T) => R, value: NoInfer<T>) => R
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^               ^^     ^^          ^^^^^ 
 >test : (value: { x: number; }) => number
 >     : ^     ^^              ^^^^^      
 >{ x: 1, y: 2 } : { x: number; y: number; }
@@ -378,8 +378,8 @@ type Component<Props> = { props: Props; };
 >      : ^^^^^
 
 declare function doWork<Props>(Component: Component<Props>, props: NoInfer<Props>): void;
->doWork : <Props>(Component: Component<Props>, props: NoInfer<Props>) => void
->       : ^     ^^         ^^                ^^     ^^              ^^^^^    
+>doWork : <Props extends {} | null | undefined>(Component: Component<Props>, props: NoInfer<Props>) => void
+>       : ^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^                ^^     ^^              ^^^^^    
 >Component : Component<Props>
 >          : ^^^^^^^^^^^^^^^^
 >props : NoInfer<Props>
@@ -394,8 +394,8 @@ declare const comp: Component<{ foo: number }>;
 doWork(comp, { foo: 42 }); // ok
 >doWork(comp, { foo: 42 }) : void
 >                          : ^^^^
->doWork : <Props>(Component: Component<Props>, props: NoInfer<Props>) => void
->       : ^     ^^         ^^                ^^     ^^              ^^^^^    
+>doWork : <Props extends {} | null | undefined>(Component: Component<Props>, props: NoInfer<Props>) => void
+>       : ^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^                ^^     ^^              ^^^^^    
 >comp : Component<{ foo: number; }>
 >     : ^^^^^^^^^^^^^^^^^      ^^^^
 >{ foo: 42 } : { foo: number; }
@@ -408,16 +408,16 @@ doWork(comp, { foo: 42 }); // ok
 doWork(comp, {}); // error
 >doWork(comp, {}) : void
 >                 : ^^^^
->doWork : <Props>(Component: Component<Props>, props: NoInfer<Props>) => void
->       : ^     ^^         ^^                ^^     ^^              ^^^^^    
+>doWork : <Props extends {} | null | undefined>(Component: Component<Props>, props: NoInfer<Props>) => void
+>       : ^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^                ^^     ^^              ^^^^^    
 >comp : Component<{ foo: number; }>
 >     : ^^^^^^^^^^^^^^^^^      ^^^^
 >{} : {}
 >   : ^^
 
 declare function mutate<T>(callback: (a: NoInfer<T>, b: number) => T): T;
->mutate : <T>(callback: (a: NoInfer<T>, b: number) => T) => T
->       : ^ ^^        ^^                               ^^^^^ 
+>mutate : <T extends {} | null | undefined>(callback: (a: NoInfer<T>, b: number) => T) => T
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                               ^^^^^ 
 >callback : (a: NoInfer<T>, b: number) => T
 >         : ^ ^^          ^^ ^^      ^^^^^ 
 >a : NoInfer<T>
@@ -426,16 +426,16 @@ declare function mutate<T>(callback: (a: NoInfer<T>, b: number) => T): T;
 >  : ^^^^^^
 
 const mutate1 = mutate((a, b) => b);
->mutate1 : unknown
->        : ^^^^^^^
->mutate((a, b) => b) : unknown
->                    : ^^^^^^^
->mutate : <T>(callback: (a: NoInfer<T>, b: number) => T) => T
->       : ^ ^^        ^^                               ^^^^^ 
->(a, b) => b : (a: unknown, b: number) => number
->            : ^ ^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
->a : unknown
->  : ^^^^^^^
+>mutate1 : {} | null | undefined
+>        : ^^^^^^^^^^^^^^^^^^^^^
+>mutate((a, b) => b) : {} | null | undefined
+>                    : ^^^^^^^^^^^^^^^^^^^^^
+>mutate : <T extends {} | null | undefined>(callback: (a: NoInfer<T>, b: number) => T) => T
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                               ^^^^^ 
+>(a, b) => b : (a: {} | null | undefined, b: number) => number
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
+>a : {} | null | undefined
+>  : ^^^^^^^^^^^^^^^^^^^^^
 >b : number
 >  : ^^^^^^
 >b : number

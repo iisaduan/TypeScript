@@ -135,7 +135,7 @@ declare function f3<T1 extends number>(): {
 declare function f4<T1 extends Number>(): {
     [P in keyof T1]: void;
 };
-declare let x1: {};
+declare let x1: {} | null | undefined;
 declare let x2: string;
 declare let x3: number;
 declare let x4: {

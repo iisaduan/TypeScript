@@ -16,8 +16,8 @@ type Bar<V> = {
 }
 
 function test<V>(value: Foo<V>): V {
->test : <V>(value: Foo<V>) => V
->     : ^ ^^     ^^      ^^^^^ 
+>test : <V extends {} | null | undefined>(value: Foo<V>) => V
+>     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^^^^ 
 >value : Foo<V>
 >      : ^^^^^^
 
@@ -48,8 +48,8 @@ const bar: Bar<any> = {};
 test(bar);
 >test(bar) : { [x: string]: any; }
 >          : ^^^^^^^^^^^^^^^^^^^^^
->test : <V>(value: Foo<V>) => V
->     : ^ ^^     ^^      ^^^^^ 
+>test : <V extends {} | null | undefined>(value: Foo<V>) => V
+>     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^^^^ 
 >bar : Bar<any>
 >    : ^^^^^^^^
 

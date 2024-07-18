@@ -21,31 +21,31 @@ class TestComponent extends React.Component<{ isAny: <T>(obj: any) => obj is T }
 >      : ^^^^^^^^^^^^
 >Component : typeof React.Component
 >          : ^^^^^^^^^^^^^^^^^^^^^^
->isAny : <T>(obj: any) => obj is T
->      : ^ ^^   ^^   ^^^^^        
+>isAny : <T extends {} | null | undefined>(obj: any) => obj is T
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^^^^        
 >obj : any
 
     static defaultProps = {
->defaultProps : { isAny: <T>(obj: any) => obj is T; }
->             : ^^^^^^^^^^ ^^   ^^   ^^^^^        ^^^
->{        isAny: TestComponent.isAny    } : { isAny: <T>(obj: any) => obj is T; }
->                                         : ^^^^^^^^^^ ^^   ^^   ^^^^^        ^^^
+>defaultProps : { isAny: <T extends {} | null | undefined>(obj: any) => obj is T; }
+>             : ^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^^^^        ^^^
+>{        isAny: TestComponent.isAny    } : { isAny: <T extends {} | null | undefined>(obj: any) => obj is T; }
+>                                         : ^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^^^^        ^^^
 
         isAny: TestComponent.isAny
->isAny : <T>(obj: any) => obj is T
->      : ^ ^^   ^^   ^^^^^        
->TestComponent.isAny : <T>(obj: any) => obj is T
->                    : ^ ^^   ^^   ^^^^^        
+>isAny : <T extends {} | null | undefined>(obj: any) => obj is T
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^^^^        
+>TestComponent.isAny : <T extends {} | null | undefined>(obj: any) => obj is T
+>                    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^^^^        
 >TestComponent : typeof TestComponent
 >              : ^^^^^^^^^^^^^^^^^^^^
->isAny : <T>(obj: any) => obj is T
->      : ^ ^^   ^^   ^^^^^        
+>isAny : <T extends {} | null | undefined>(obj: any) => obj is T
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^^^^        
     }
 
     // Type guard is defined as a static class property
     static isAny<T>(obj: any): obj is T {
->isAny : <T>(obj: any) => obj is T
->      : ^ ^^   ^^   ^^^^^        
+>isAny : <T extends {} | null | undefined>(obj: any) => obj is T
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^^^^        
 >obj : any
 
         return true;

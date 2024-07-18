@@ -186,7 +186,7 @@ declare const comp: Component<{
     foo: number;
 }>;
 declare function mutate<T>(callback: (a: NoInfer<T>, b: number) => T): T;
-declare const mutate1: unknown;
+declare const mutate1: {} | null | undefined;
 declare class ExampleClass<T> {
 }
 declare class OkClass<T> {

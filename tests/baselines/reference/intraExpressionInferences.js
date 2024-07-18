@@ -530,7 +530,7 @@ interface MyInterface<T> {
     retrieveGeneric: (parameter: string) => T;
     operateWithGeneric: (generic: T) => string;
 }
-declare const inferTypeFn: <T>(generic: MyInterface<T>) => MyInterface<T>;
+declare const inferTypeFn: <T extends {} | null | undefined>(generic: MyInterface<T>) => MyInterface<T>;
 declare const myGeneric: MyInterface<number>;
 declare function make<M>(o: {
     mutations: M;

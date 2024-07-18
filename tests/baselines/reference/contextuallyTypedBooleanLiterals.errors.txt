@@ -1,0 +1,59 @@
+contextuallyTypedBooleanLiterals.ts(11,7): error TS2322: Type 'Box<0>' is not assignable to type 'Box<number>'.
+  Types of property 'set' are incompatible.
+    Type '(value: 0) => void' is not assignable to type '(value: number) => void'.
+      Types of parameters 'value' and 'value' are incompatible.
+        Type 'number' is not assignable to type '0'.
+contextuallyTypedBooleanLiterals.ts(14,7): error TS2322: Type 'Box<false>' is not assignable to type 'Box<boolean>'.
+  Types of property 'set' are incompatible.
+    Type '(value: false) => void' is not assignable to type '(value: boolean) => void'.
+      Types of parameters 'value' and 'value' are incompatible.
+        Type 'boolean' is not assignable to type 'false'.
+contextuallyTypedBooleanLiterals.ts(26,7): error TS2322: Type 'Observable<false>' is not assignable to type 'Observable<boolean>'.
+  Types of parameters 'value' and 'value' are incompatible.
+    Type 'boolean' is not assignable to type 'false'.
+
+
+==== contextuallyTypedBooleanLiterals.ts (3 errors) ====
+    // Repro from #48363
+    
+    type Box<T> = {
+        get: () => T,
+        set: (value: T) => void
+    }
+    
+    declare function box<T>(value: T): Box<T>;
+    
+    const bn1 = box(0);  // Box<number>
+    const bn2: Box<number> = box(0);  // Ok
+          ~~~
+!!! error TS2322: Type 'Box<0>' is not assignable to type 'Box<number>'.
+!!! error TS2322:   Types of property 'set' are incompatible.
+!!! error TS2322:     Type '(value: 0) => void' is not assignable to type '(value: number) => void'.
+!!! error TS2322:       Types of parameters 'value' and 'value' are incompatible.
+!!! error TS2322:         Type 'number' is not assignable to type '0'.
+    
+    const bb1 = box(false);  // Box<boolean>
+    const bb2: Box<boolean> = box(false);  // Error, box<false> not assignable to Box<boolean>
+          ~~~
+!!! error TS2322: Type 'Box<false>' is not assignable to type 'Box<boolean>'.
+!!! error TS2322:   Types of property 'set' are incompatible.
+!!! error TS2322:     Type '(value: false) => void' is not assignable to type '(value: boolean) => void'.
+!!! error TS2322:       Types of parameters 'value' and 'value' are incompatible.
+!!! error TS2322:         Type 'boolean' is not assignable to type 'false'.
+    
+    // Repro from #48150
+    
+    interface Observable<T>
+    {
+      (): T;
+      (value: T): any;
+    }
+    
+    declare function observable<T>(value: T): Observable<T>;
+    
+    const x: Observable<boolean> = observable(false);
+          ~
+!!! error TS2322: Type 'Observable<false>' is not assignable to type 'Observable<boolean>'.
+!!! error TS2322:   Types of parameters 'value' and 'value' are incompatible.
+!!! error TS2322:     Type 'boolean' is not assignable to type 'false'.
+    

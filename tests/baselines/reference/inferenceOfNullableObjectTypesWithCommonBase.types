@@ -2,8 +2,8 @@
 
 === inferenceOfNullableObjectTypesWithCommonBase.ts ===
 function equal<T>(a: T, b: T) { }
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >a : T
 >  : ^
 >b : T
@@ -34,8 +34,8 @@ type D = { foo: string; bar: number }
 equal(v as B, v as undefined | D)
 >equal(v as B, v as undefined | D) : void
 >                                  : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as B : B
 >       : ^
 >v : never
@@ -48,8 +48,8 @@ equal(v as B, v as undefined | D)
 equal(v as undefined | D, v as B)
 >equal(v as undefined | D, v as B) : void
 >                                  : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as undefined | D : D | undefined
 >                   : ^^^^^^^^^^^^^
 >v : never
@@ -62,8 +62,8 @@ equal(v as undefined | D, v as B)
 equal<undefined | B>(v as B, v as undefined | D)
 >equal<undefined | B>(v as B, v as undefined | D) : void
 >                                                 : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as B : B
 >       : ^
 >v : never
@@ -76,8 +76,8 @@ equal<undefined | B>(v as B, v as undefined | D)
 equal<undefined | B>(v as undefined | D, v as B)
 >equal<undefined | B>(v as undefined | D, v as B) : void
 >                                                 : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as undefined | D : D | undefined
 >                   : ^^^^^^^^^^^^^
 >v : never
@@ -90,8 +90,8 @@ equal<undefined | B>(v as undefined | D, v as B)
 equal(v as B, v as undefined)
 >equal(v as B, v as undefined) : void
 >                              : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as B : B
 >       : ^
 >v : never
@@ -104,8 +104,8 @@ equal(v as B, v as undefined)
 equal(v as undefined, v as B)
 >equal(v as undefined, v as B) : void
 >                              : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as undefined : undefined
 >               : ^^^^^^^^^
 >v : never
@@ -118,8 +118,8 @@ equal(v as undefined, v as B)
 equal(v as B, v as D)
 >equal(v as B, v as D) : void
 >                      : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as B : B
 >       : ^
 >v : never
@@ -132,8 +132,8 @@ equal(v as B, v as D)
 equal(v as D, v as B)
 >equal(v as D, v as B) : void
 >                      : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as D : D
 >       : ^
 >v : never
@@ -146,8 +146,8 @@ equal(v as D, v as B)
 equal(v as B, v as B | undefined)
 >equal(v as B, v as B | undefined) : void
 >                                  : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as B : B
 >       : ^
 >v : never
@@ -160,8 +160,8 @@ equal(v as B, v as B | undefined)
 equal(v as B | undefined, v as B)
 >equal(v as B | undefined, v as B) : void
 >                                  : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as B | undefined : B | undefined
 >                   : ^^^^^^^^^^^^^
 >v : never
@@ -174,8 +174,8 @@ equal(v as B | undefined, v as B)
 equal(v as 'a' | undefined, v as 'b');
 >equal(v as 'a' | undefined, v as 'b') : void
 >                                      : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as 'a' | undefined : "a" | undefined
 >                     : ^^^^^^^^^^^^^^^
 >v : never
@@ -188,8 +188,8 @@ equal(v as 'a' | undefined, v as 'b');
 equal(v as 'a', v as 'b' | undefined);
 >equal(v as 'a', v as 'b' | undefined) : void
 >                                      : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as 'a' : "a"
 >         : ^^^
 >v : never
@@ -202,8 +202,8 @@ equal(v as 'a', v as 'b' | undefined);
 equal(v as 'a' | undefined, v as 'b' | null);
 >equal(v as 'a' | undefined, v as 'b' | null) : void
 >                                             : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as 'a' | undefined : "a" | undefined
 >                     : ^^^^^^^^^^^^^^^
 >v : never
@@ -216,8 +216,8 @@ equal(v as 'a' | undefined, v as 'b' | null);
 equal(v as 'a' | null, v as 'b' | undefined);
 >equal(v as 'a' | null, v as 'b' | undefined) : void
 >                                             : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as 'a' | null : "a" | null
 >                : ^^^^^^^^^^
 >v : never
@@ -230,8 +230,8 @@ equal(v as 'a' | null, v as 'b' | undefined);
 equal(v as string, v as string & { tag: 'foo' } | undefined);
 >equal(v as string, v as string & { tag: 'foo' } | undefined) : void
 >                                                             : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as string : string
 >            : ^^^^^^
 >v : never
@@ -246,8 +246,8 @@ equal(v as string, v as string & { tag: 'foo' } | undefined);
 equal(v as string & { tag: 'foo' } | undefined, v as string);
 >equal(v as string & { tag: 'foo' } | undefined, v as string) : void
 >                                                             : ^^^^
->equal : <T>(a: T, b: T) => void
->      : ^ ^^ ^^ ^^ ^^ ^^^^^^^^^
+>equal : <T extends {} | null | undefined>(a: T, b: T) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^^^^^
 >v as string & { tag: 'foo' } | undefined : (string & { tag: "foo"; }) | undefined
 >                                         : ^^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^
 >v : never

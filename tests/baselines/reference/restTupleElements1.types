@@ -58,92 +58,92 @@ type L15 = T15["length"];  // number
 >    : ^^^^^^
 
 declare function assign<T, S extends T>(): void;
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<number[], [...number[]]>();
 >assign<number[], [...number[]]>() : void
 >                                  : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<number[], [number, ...number[]]>();
 >assign<number[], [number, ...number[]]>() : void
 >                                          : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[...number[]], number[]>();
 >assign<[...number[]], number[]>() : void
 >                                  : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], number[]>();  // Error
 >assign<[number, ...number[]], number[]>() : void
 >                                          : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], []>();  // Error
 >assign<[number, ...number[]], []>() : void
 >                                    : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], [number]>();
 >assign<[number, ...number[]], [number]>() : void
 >                                          : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], [number, number]>();
 >assign<[number, ...number[]], [number, number]>() : void
 >                                                  : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], [number, number, ...number[]]>();
 >assign<[number, ...number[]], [number, number, ...number[]]>() : void
 >                                                               : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number], [...number[]]>();  // Error
 >assign<[number], [...number[]]>() : void
 >                                  : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number], [number, ...number[]]>();  // Error
 >assign<[number], [number, ...number[]]>() : void
 >                                          : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], [number, ...string[]]>();  // Error
 >assign<[number, ...number[]], [number, ...string[]]>() : void
 >                                                       : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], [string, ...number[]]>();  // Error
 >assign<[number, ...number[]], [string, ...number[]]>() : void
 >                                                       : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], [number, number, string]>();  // Error
 >assign<[number, ...number[]], [number, number, string]>() : void
 >                                                          : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 assign<[number, ...number[]], [number, number, number, string]>();  // Error
 >assign<[number, ...number[]], [number, number, number, string]>() : void
 >                                                                  : ^^^^
->assign : <T, S extends T>() => void
->       : ^ ^^ ^^^^^^^^^ ^^^^^^^    
+>assign : <T extends {} | null | undefined, S extends T>() => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^^^^^^    
 
 type T20 = [number, string, ...boolean[]];
 >T20 : T20
@@ -240,24 +240,24 @@ let ex = t[x];  // number | string | boolean
 >  : ^^^^^^
 
 declare function f0<T, U>(x: [T, ...U[]]): [T, U];
->f0 : <T, U>(x: [T, ...U[]]) => [T, U]
->   : ^ ^^ ^^ ^^           ^^^^^      
+>f0 : <T extends {} | null | undefined, U extends {} | null | undefined>(x: [T, ...U[]]) => [T, U]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^           ^^^^^      
 >x : [T, ...U[]]
 >  : ^^^^^^^^^^^
 
 f0([]);  // Error
->f0([]) : [unknown, unknown]
->       : ^^^^^^^^^^^^^^^^^^
->f0 : <T, U>(x: [T, ...U[]]) => [T, U]
->   : ^ ^^ ^^ ^^           ^^^^^      
+>f0([]) : [{} | null | undefined, {} | null | undefined]
+>       : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>f0 : <T extends {} | null | undefined, U extends {} | null | undefined>(x: [T, ...U[]]) => [T, U]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^           ^^^^^      
 >[] : []
 >   : ^^
 
 f0([1]);
->f0([1]) : [number, unknown]
->        : ^^^^^^^^^^^^^^^^^
->f0 : <T, U>(x: [T, ...U[]]) => [T, U]
->   : ^ ^^ ^^ ^^           ^^^^^      
+>f0([1]) : [number, {} | null | undefined]
+>        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>f0 : <T extends {} | null | undefined, U extends {} | null | undefined>(x: [T, ...U[]]) => [T, U]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^           ^^^^^      
 >[1] : [number]
 >    : ^^^^^^^^
 >1 : 1
@@ -266,8 +266,8 @@ f0([1]);
 f0([1, 2, 3]);
 >f0([1, 2, 3]) : [number, number]
 >              : ^^^^^^^^^^^^^^^^
->f0 : <T, U>(x: [T, ...U[]]) => [T, U]
->   : ^ ^^ ^^ ^^           ^^^^^      
+>f0 : <T extends {} | null | undefined, U extends {} | null | undefined>(x: [T, ...U[]]) => [T, U]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^           ^^^^^      
 >[1, 2, 3] : [number, number, number]
 >          : ^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -280,8 +280,8 @@ f0([1, 2, 3]);
 f0([1, "hello", true]);
 >f0([1, "hello", true]) : [number, string | boolean]
 >                       : ^^^^^^^^^^^^^^^^^^^^^^^^^^
->f0 : <T, U>(x: [T, ...U[]]) => [T, U]
->   : ^ ^^ ^^ ^^           ^^^^^      
+>f0 : <T extends {} | null | undefined, U extends {} | null | undefined>(x: [T, ...U[]]) => [T, U]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^           ^^^^^      
 >[1, "hello", true] : [number, string, true]
 >                   : ^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1

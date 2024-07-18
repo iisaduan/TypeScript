@@ -7,8 +7,8 @@ type ConditionalType<T> = T extends string ? string : number;
 >                : ^^^^^^^^^^^^^^^^^^
 
 function ConditionalOrUndefined<T>(): ConditionalType<T> | undefined {
->ConditionalOrUndefined : <T>() => ConditionalType<T> | undefined
->                       : ^ ^^^^^^^                              
+>ConditionalOrUndefined : <T extends {} | null | undefined>() => ConditionalType<T> | undefined
+>                       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                              
 
     return 0 as any;
 >0 as any : any
@@ -17,23 +17,23 @@ function ConditionalOrUndefined<T>(): ConditionalType<T> | undefined {
 }
 
 function JustConditional<T>(): ConditionalType<T> {
->JustConditional : <T>() => ConditionalType<T>
->                : ^ ^^^^^^^                  
+>JustConditional : <T extends {} | null | undefined>() => ConditionalType<T>
+>                : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                  
 
     return ConditionalOrUndefined<T>()!; // shouldn't error
 >ConditionalOrUndefined<T>()! : ConditionalType<T>
 >                             : ^^^^^^^^^^^^^^^^^^
 >ConditionalOrUndefined<T>() : ConditionalType<T> | undefined
 >                            : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->ConditionalOrUndefined : <T_1>() => ConditionalType<T_1> | undefined
->                       : ^^^^^^^^^^^                                
+>ConditionalOrUndefined : <T_1 extends {} | null | undefined>() => ConditionalType<T_1> | undefined
+>                       : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                
 }
 
 
 // For comparison...
 function genericOrUndefined<T>(): T | undefined {
->genericOrUndefined : <T>() => T | undefined
->                   : ^ ^^^^^^^             
+>genericOrUndefined : <T extends {} | null | undefined>() => T | undefined
+>                   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^             
 
     return 0 as any;
 >0 as any : any
@@ -42,23 +42,23 @@ function genericOrUndefined<T>(): T | undefined {
 }
 
 function JustGeneric<T>(): T {
->JustGeneric : <T>() => T
->            : ^ ^^^^^^^ 
+>JustGeneric : <T extends {} | null | undefined>() => T
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
     return genericOrUndefined<T>()!; // no error
 >genericOrUndefined<T>()! : NonNullable<T>
 >                         : ^^^^^^^^^^^^^^
 >genericOrUndefined<T>() : T | undefined
 >                        : ^^^^^^^^^^^^^
->genericOrUndefined : <T_1>() => T_1 | undefined
->                   : ^^^^^^^^^^^               
+>genericOrUndefined : <T_1 extends {} | null | undefined>() => T_1 | undefined
+>                   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^               
 }
 
 // Simplified example:
 
 function f<T>() {
->f : <T>() => void
->  : ^ ^^^^^^^^^^^
+>f : <T extends {} | null | undefined>() => void
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     type One = T extends string ? string : string;
 >One : T extends string ? string : string

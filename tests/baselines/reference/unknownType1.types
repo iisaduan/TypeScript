@@ -344,8 +344,8 @@ type T52 = T50<unknown>;  // {}
 // Anything is assignable to unknown
 
 function f21<T>(pAny: any, pNever: never, pT: T) {
->f21 : <T>(pAny: any, pNever: never, pT: T) => void
->    : ^ ^^    ^^   ^^      ^^     ^^  ^^ ^^^^^^^^^
+>f21 : <T extends {} | null | undefined>(pAny: any, pNever: never, pT: T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^   ^^      ^^     ^^  ^^ ^^^^^^^^^
 >pAny : any
 >     : ^^^
 >pNever : never
@@ -677,8 +677,8 @@ class C1 {
 // Type parameter with explicit 'unknown' constraint not assignable to '{}'
 
 function f30<T, U extends unknown>(t: T, u: U) {
->f30 : <T, U extends unknown>(t: T, u: U) => void
->    : ^ ^^ ^^^^^^^^^       ^^ ^^ ^^ ^^ ^^^^^^^^^
+>f30 : <T extends {} | null | undefined, U extends unknown>(t: T, u: U) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^ ^^ ^^ ^^ ^^^^^^^^^
 >t : T
 >  : ^
 >u : U

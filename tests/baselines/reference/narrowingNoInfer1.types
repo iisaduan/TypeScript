@@ -28,8 +28,8 @@ const m: { result: NoInfer<TaggedUnion> }[] = [];
 >   : ^^^^^^^
 
 function map<A, B>(items: readonly A[], f: (a: NoInfer<A>) => B) {
->map : <A, B>(items: readonly A[], f: (a: NoInfer<A>) => B) => B[]
->    : ^ ^^ ^^     ^^            ^^ ^^                    ^^^^^^^^
+>map : <A extends {} | null | undefined, B extends {} | null | undefined>(items: readonly A[], f: (a: NoInfer<A>) => B) => B[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^            ^^ ^^                    ^^^^^^^^
 >items : readonly A[]
 >      : ^^^^^^^^^^^^
 >f : (a: NoInfer<A>) => B
@@ -40,12 +40,12 @@ function map<A, B>(items: readonly A[], f: (a: NoInfer<A>) => B) {
   return items.map(f);
 >items.map(f) : B[]
 >             : ^^^
->items.map : <U>(callbackfn: (value: A, index: number, array: readonly A[]) => U, thisArg?: any) => U[]
->          : ^ ^^          ^^^     ^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>items.map : <U extends {} | null | undefined>(callbackfn: (value: A, index: number, array: readonly A[]) => U, thisArg?: any) => U[]
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >items : readonly A[]
 >      : ^^^^^^^^^^^^
->map : <U>(callbackfn: (value: A, index: number, array: readonly A[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: A, index: number, array: readonly A[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >f : (a: NoInfer<A>) => B
 >  : ^ ^^          ^^^^^ 
 }
@@ -55,8 +55,8 @@ const something = map(m, (_) =>
 >          : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >map(m, (_) =>  _.result._tag === "a" ? { ..._, result: _.result } : null,) : ({ result: TaggedA; } | null)[]
 >                                                                           : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->map : <A, B>(items: readonly A[], f: (a: NoInfer<A>) => B) => B[]
->    : ^ ^^ ^^     ^^            ^^ ^^                    ^^^^^^^^
+>map : <A extends {} | null | undefined, B extends {} | null | undefined>(items: readonly A[], f: (a: NoInfer<A>) => B) => B[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^            ^^ ^^                    ^^^^^^^^
 >m : { result: NoInfer<TaggedUnion>; }[]
 >  : ^^^^^^^^^^                    ^^^^^
 >(_) =>  _.result._tag === "a" ? { ..._, result: _.result } : null : (_: NoInfer<{ result: NoInfer<TaggedUnion>; }>) => { result: TaggedA; } | null
@@ -97,8 +97,8 @@ const something = map(m, (_) =>
 );
 
 declare function test2<T1, T2>(a: T1, b: T2, cb: (thing: NoInfer<T1> | NoInfer<T2>) => void): void;
->test2 : <T1, T2>(a: T1, b: T2, cb: (thing: NoInfer<T1> | NoInfer<T2>) => void) => void
->      : ^  ^^  ^^ ^^  ^^ ^^  ^^  ^^                                          ^^^^^    
+>test2 : <T1 extends {} | null | undefined, T2 extends {} | null | undefined>(a: T1, b: T2, cb: (thing: NoInfer<T1> | NoInfer<T2>) => void) => void
+>      : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^  ^^ ^^  ^^  ^^                                          ^^^^^    
 >a : T1
 >  : ^^
 >b : T2
@@ -111,8 +111,8 @@ declare function test2<T1, T2>(a: T1, b: T2, cb: (thing: NoInfer<T1> | NoInfer<T
 test2({ type: 'a' as const }, { type: 'b' as const }, (thing) => {
 >test2({ type: 'a' as const }, { type: 'b' as const }, (thing) => {  if (thing.type === "a") {    thing;  } else {    thing;  }}) : void
 >                                                                                                                                 : ^^^^
->test2 : <T1, T2>(a: T1, b: T2, cb: (thing: NoInfer<T1> | NoInfer<T2>) => void) => void
->      : ^  ^^  ^^ ^^  ^^ ^^  ^^  ^^                                          ^^^^^    
+>test2 : <T1 extends {} | null | undefined, T2 extends {} | null | undefined>(a: T1, b: T2, cb: (thing: NoInfer<T1> | NoInfer<T2>) => void) => void
+>      : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^  ^^ ^^  ^^  ^^                                          ^^^^^    
 >{ type: 'a' as const } : { type: "a"; }
 >                       : ^^^^^^^^^^^^^^
 >type : "a"

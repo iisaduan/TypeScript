@@ -2,8 +2,8 @@
 
 === genericWithNoConstraintComparableWithCurlyCurly.ts ===
 function foo<T>() {
->foo : <T>() => void
->    : ^ ^^^^^^^^^^^
+>foo : <T extends {} | null | undefined>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     let x = {};
 >x : {}

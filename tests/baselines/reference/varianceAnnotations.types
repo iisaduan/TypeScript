@@ -275,14 +275,14 @@ type T23<out in T> = T;  // Error
 >    : ^
 
 declare function f1<in T>(x: T): void;  // Error
->f1 : <in T>(x: T) => void
->   : ^^^^ ^^ ^^ ^^^^^    
+>f1 : <in T extends {} | null | undefined>(x: T) => void
+>   : ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^    
 >x : T
 >  : ^
 
 declare function f2<out T>(): T;  // Error
->f2 : <out T>() => T
->   : ^^^^^ ^^^^^^^ 
+>f2 : <out T extends {} | null | undefined>() => T
+>   : ^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
 class C {
 >C : C
@@ -353,8 +353,8 @@ interface Child<A, B = unknown> extends Parent<A> {
 }
 
 function fn<A>(inp: Child<A>) {
->fn : <A>(inp: Child<A>) => void
->   : ^ ^^   ^^        ^^^^^^^^^
+>fn : <A extends {} | null | undefined>(inp: Child<A>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^        ^^^^^^^^^
 >inp : Child<A, unknown>
 >    : ^^^^^^^^^^^^^^^^^
 
@@ -436,8 +436,8 @@ declare function createMachine<TEvent extends { type: string }>(action: ActionOb
 >       : ^^^^^^^^^^^^^^^^^^^^
 
 declare function interpret<TContext>(machine: StateNode<TContext, any>): void;
->interpret : <TContext>(machine: StateNode<TContext, any>) => void
->          : ^        ^^       ^^                        ^^^^^    
+>interpret : <TContext extends {} | null | undefined>(machine: StateNode<TContext, any>) => void
+>          : ^        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                        ^^^^^    
 >machine : StateNode<TContext, any>
 >        : ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -456,8 +456,8 @@ const machine = createMachine({} as any);
 interpret(machine);
 >interpret(machine) : void
 >                   : ^^^^
->interpret : <TContext>(machine: StateNode<TContext, any>) => void
->          : ^        ^^       ^^                        ^^^^^    
+>interpret : <TContext extends {} | null | undefined>(machine: StateNode<TContext, any>) => void
+>          : ^        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                        ^^^^^    
 >machine : StateNode<any, any>
 >        : ^^^^^^^^^^^^^^^^^^^
 

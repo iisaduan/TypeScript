@@ -160,8 +160,8 @@ sub_invariant = super_invariant;  // Error
  * @param {T} x
  */
 function f(x) {}
->f : <in T>(x: T) => void
->  : ^^^^ ^^ ^^ ^^^^^^^^^
+>f : <in T extends {} | null | undefined>(x: T) => void
+>  : ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >x : T
 >  : ^
 

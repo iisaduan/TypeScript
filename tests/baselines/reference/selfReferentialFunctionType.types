@@ -2,24 +2,24 @@
 
 === selfReferentialFunctionType.ts ===
 declare function f<T>(args: typeof f<T>): T;
->f : <T>(args: typeof f<T>) => T
->  : ^ ^^    ^^           ^^^^^ 
+>f : <T extends {} | null | undefined>(args: typeof f<T>) => T
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^           ^^^^^ 
 >args : typeof f<T>
 >     :            
->f : <T>(args: typeof f<T>) => T
->  : ^ ^^    ^^           ^^^^^ 
+>f : <T extends {} | null | undefined>(args: typeof f<T>) => T
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^           ^^^^^ 
 
 declare function g<T = typeof g>(args: T): T;
->g : <T = typeof g>(args: T) => T
->  : ^ ^^^^^^^^^^^^^    ^^ ^^^^^ 
->g : <T = typeof g>(args: T) => T
->  : ^ ^^^^^^^^^^^^^    ^^ ^^^^^ 
+>g : <T extends {} | null | undefined = typeof g>(args: T) => T
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^^^^ 
+>g : <T extends {} | null | undefined = typeof g>(args: T) => T
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^^^^ 
 >args : T
 >     : ^
 
 declare function h<T>(): typeof h<T>;
->h : <T>() => typeof h<T>
->  : ^ ^^^^^^^           
->h : <T>() => typeof h<T>
->  : ^ ^^^^^^^           
+>h : <T extends {} | null | undefined>() => typeof h<T>
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^           
+>h : <T extends {} | null | undefined>() => typeof h<T>
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^           
 

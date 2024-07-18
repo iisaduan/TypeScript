@@ -5,8 +5,8 @@
 
 interface Array<T> {
     equalsShallow<T>(this: ReadonlyArray<T>, other: ReadonlyArray<T>): boolean;
->equalsShallow : <T>(this: ReadonlyArray<T>, other: ReadonlyArray<T>) => boolean
->              : ^ ^^    ^^                ^^     ^^                ^^^^^       
+>equalsShallow : <T extends {} | null | undefined>(this: ReadonlyArray<T>, other: ReadonlyArray<T>) => boolean
+>              : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^                ^^     ^^                ^^^^^       
 >this : readonly T[]
 >     : ^^^^^^^^^^^^
 >other : readonly T[]
@@ -26,12 +26,12 @@ let x = a.equalsShallow(b);
 >  : ^^^^^^^
 >a.equalsShallow(b) : boolean
 >                   : ^^^^^^^
->a.equalsShallow : (<T>(this: readonly T[], other: readonly T[]) => boolean) | (<T>(this: readonly T[], other: readonly T[]) => boolean) | (<T>(this: readonly T[], other: readonly T[]) => boolean) | (<T>(this: readonly T[], other: readonly T[]) => boolean)
->                : ^^ ^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^
+>a.equalsShallow : (<T extends {} | null | undefined>(this: readonly T[], other: readonly T[]) => boolean) | (<T extends {} | null | undefined>(this: readonly T[], other: readonly T[]) => boolean) | (<T extends {} | null | undefined>(this: readonly T[], other: readonly T[]) => boolean) | (<T extends {} | null | undefined>(this: readonly T[], other: readonly T[]) => boolean)
+>                : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^
 >a : (string | number)[] | null[] | undefined[] | {}[]
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->equalsShallow : (<T>(this: readonly T[], other: readonly T[]) => boolean) | (<T>(this: readonly T[], other: readonly T[]) => boolean) | (<T>(this: readonly T[], other: readonly T[]) => boolean) | (<T>(this: readonly T[], other: readonly T[]) => boolean)
->              : ^^ ^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^
+>equalsShallow : (<T extends {} | null | undefined>(this: readonly T[], other: readonly T[]) => boolean) | (<T extends {} | null | undefined>(this: readonly T[], other: readonly T[]) => boolean) | (<T extends {} | null | undefined>(this: readonly T[], other: readonly T[]) => boolean) | (<T extends {} | null | undefined>(this: readonly T[], other: readonly T[]) => boolean)
+>              : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^       ^
 >b : (string | number)[] | null[] | undefined[] | {}[]
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

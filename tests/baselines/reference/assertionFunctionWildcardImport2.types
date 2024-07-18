@@ -2,8 +2,8 @@
 
 === asserts.ts ===
 function isNonNullable<T>(obj: T): asserts obj is NonNullable<T> {
->isNonNullable : <T>(obj: T) => asserts obj is NonNullable<T>
->              : ^ ^^   ^^ ^^^^^                             
+>isNonNullable : <T extends {} | null | undefined>(obj: T) => asserts obj is NonNullable<T>
+>              : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^^^^                             
 >obj : T
 >    : ^
 
@@ -33,8 +33,8 @@ function isNonNullable<T>(obj: T): asserts obj is NonNullable<T> {
 
 export {
     isNonNullable
->isNonNullable : <T>(obj: T) => asserts obj is NonNullable<T>
->              : ^ ^^   ^^ ^^^^^                             
+>isNonNullable : <T extends {} | null | undefined>(obj: T) => asserts obj is NonNullable<T>
+>              : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^^^^                             
 
 };
 
@@ -52,12 +52,12 @@ function test(obj: string | null): void {
     asserts.isNonNullable(obj);
 >asserts.isNonNullable(obj) : void
 >                           : ^^^^
->asserts.isNonNullable : <T>(obj: T) => asserts obj is NonNullable<T>
->                      : ^ ^^   ^^ ^^^^^                             
+>asserts.isNonNullable : <T extends {} | null | undefined>(obj: T) => asserts obj is NonNullable<T>
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^^^^                             
 >asserts : typeof asserts
 >        : ^^^^^^^^^^^^^^
->isNonNullable : <T>(obj: T) => asserts obj is NonNullable<T>
->              : ^ ^^   ^^ ^^^^^                             
+>isNonNullable : <T extends {} | null | undefined>(obj: T) => asserts obj is NonNullable<T>
+>              : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^^^^                             
 >obj : string | null
 >    : ^^^^^^^^^^^^^
 

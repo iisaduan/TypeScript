@@ -28,14 +28,14 @@ declare function mapped3<T extends {[P in keyof any]: TakeString}>(obj: T): void
 >    : ^
 
 declare function mapped4<T>(obj: T & {[P in keyof T]: TakeString}): void;
->mapped4 : <T>(obj: T & { [P in keyof T]: TakeString; }) => void
->        : ^ ^^   ^^                                   ^^^^^    
+>mapped4 : <T extends {} | null | undefined>(obj: T & { [P in keyof T]: TakeString; }) => void
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                   ^^^^^    
 >obj : T & { [P in keyof T]: TakeString; }
 >    : ^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 declare function mapped5<T, K extends keyof T>(obj: T & {[P in K]: TakeString}): void;
->mapped5 : <T, K extends keyof T>(obj: T & { [P in K]: TakeString; }) => void
->        : ^ ^^ ^^^^^^^^^       ^^   ^^                             ^^^^^    
+>mapped5 : <T extends {} | null | undefined, K extends keyof T>(obj: T & { [P in K]: TakeString; }) => void
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^                             ^^^^^    
 >obj : T & { [P in K]: TakeString; }
 >    : ^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^
 
@@ -114,8 +114,8 @@ mapped3({foo: s => 42});
 mapped4({foo: s => 42});
 >mapped4({foo: s => 42}) : void
 >                        : ^^^^
->mapped4 : <T>(obj: T & { [P in keyof T]: TakeString; }) => void
->        : ^ ^^   ^^                                   ^^^^^    
+>mapped4 : <T extends {} | null | undefined>(obj: T & { [P in keyof T]: TakeString; }) => void
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                   ^^^^^    
 >{foo: s => 42} : { foo: (s: string) => number; }
 >               : ^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
 >foo : (s: string) => number
@@ -130,8 +130,8 @@ mapped4({foo: s => 42});
 mapped5({foo: s => 42});
 >mapped5({foo: s => 42}) : void
 >                        : ^^^^
->mapped5 : <T, K extends keyof T>(obj: T & { [P in K]: TakeString; }) => void
->        : ^ ^^ ^^^^^^^^^       ^^   ^^                             ^^^^^    
+>mapped5 : <T extends {} | null | undefined, K extends keyof T>(obj: T & { [P in K]: TakeString; }) => void
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^                             ^^^^^    
 >{foo: s => 42} : { foo: (s: string) => number; }
 >               : ^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
 >foo : (s: string) => number

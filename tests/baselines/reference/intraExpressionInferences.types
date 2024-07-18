@@ -4,8 +4,8 @@
 // Repros from #47599
 
 declare function callIt<T>(obj: {
->callIt : <T>(obj: { produce: (n: number) => T; consume: (x: T) => void; }) => void
->       : ^ ^^   ^^                                                       ^^^^^    
+>callIt : <T extends {} | null | undefined>(obj: { produce: (n: number) => T; consume: (x: T) => void; }) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                       ^^^^^    
 >obj : { produce: (n: number) => T; consume: (x: T) => void; }
 >    : ^^^^^^^^^^^                ^^^^^^^^^^^              ^^^
 
@@ -26,8 +26,8 @@ declare function callIt<T>(obj: {
 callIt({
 >callIt({    produce: () => 0,    consume: n => n.toFixed()}) : void
 >                                                             : ^^^^
->callIt : <T>(obj: { produce: (n: number) => T; consume: (x: T) => void; }) => void
->       : ^ ^^   ^^                                                       ^^^^^    
+>callIt : <T extends {} | null | undefined>(obj: { produce: (n: number) => T; consume: (x: T) => void; }) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                       ^^^^^    
 >{    produce: () => 0,    consume: n => n.toFixed()} : { produce: () => number; consume: (n: number) => string; }
 >                                                     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -60,8 +60,8 @@ callIt({
 callIt({
 >callIt({    produce: _a => 0,    consume: n => n.toFixed(),}) : void
 >                                                              : ^^^^
->callIt : <T>(obj: { produce: (n: number) => T; consume: (x: T) => void; }) => void
->       : ^ ^^   ^^                                                       ^^^^^    
+>callIt : <T extends {} | null | undefined>(obj: { produce: (n: number) => T; consume: (x: T) => void; }) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                       ^^^^^    
 >{    produce: _a => 0,    consume: n => n.toFixed(),} : { produce: (_a: number) => number; consume: (n: number) => string; }
 >                                                      : ^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -96,8 +96,8 @@ callIt({
 callIt({
 >callIt({    produce() {        return 0;    },    consume: n => n.toFixed()}) : void
 >                                                                              : ^^^^
->callIt : <T>(obj: { produce: (n: number) => T; consume: (x: T) => void; }) => void
->       : ^ ^^   ^^                                                       ^^^^^    
+>callIt : <T extends {} | null | undefined>(obj: { produce: (n: number) => T; consume: (x: T) => void; }) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                       ^^^^^    
 >{    produce() {        return 0;    },    consume: n => n.toFixed()} : { produce(): number; consume: (n: number) => string; }
 >                                                                      : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -129,8 +129,8 @@ callIt({
 });
 
 declare function callItT<T>(obj: [(n: number) => T, (x: T) => void]): void;
->callItT : <T>(obj: [(n: number) => T, (x: T) => void]) => void
->        : ^ ^^   ^^                                  ^^^^^    
+>callItT : <T extends {} | null | undefined>(obj: [(n: number) => T, (x: T) => void]) => void
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                  ^^^^^    
 >obj : [(n: number) => T, (x: T) => void]
 >    : ^^ ^^      ^^^^^ ^^^ ^^ ^^^^^    ^
 >n : number
@@ -141,8 +141,8 @@ declare function callItT<T>(obj: [(n: number) => T, (x: T) => void]): void;
 callItT([() => 0, n => n.toFixed()]);
 >callItT([() => 0, n => n.toFixed()]) : void
 >                                     : ^^^^
->callItT : <T>(obj: [(n: number) => T, (x: T) => void]) => void
->        : ^ ^^   ^^                                  ^^^^^    
+>callItT : <T extends {} | null | undefined>(obj: [(n: number) => T, (x: T) => void]) => void
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                  ^^^^^    
 >[() => 0, n => n.toFixed()] : [() => number, (n: number) => string]
 >                            : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 >() => 0 : () => number
@@ -165,8 +165,8 @@ callItT([() => 0, n => n.toFixed()]);
 callItT([_a => 0, n => n.toFixed()]);
 >callItT([_a => 0, n => n.toFixed()]) : void
 >                                     : ^^^^
->callItT : <T>(obj: [(n: number) => T, (x: T) => void]) => void
->        : ^ ^^   ^^                                  ^^^^^    
+>callItT : <T extends {} | null | undefined>(obj: [(n: number) => T, (x: T) => void]) => void
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                  ^^^^^    
 >[_a => 0, n => n.toFixed()] : [(_a: number) => number, (n: number) => string]
 >                            : ^^  ^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 >_a => 0 : (_a: number) => number
@@ -205,10 +205,10 @@ interface MyInterface<T> {
 }
 
 const inferTypeFn = <T>(generic: MyInterface<T>) => generic;
->inferTypeFn : <T>(generic: MyInterface<T>) => MyInterface<T>
->            : ^ ^^       ^^              ^^^^^^^^^^^^^^^^^^^
-><T>(generic: MyInterface<T>) => generic : <T>(generic: MyInterface<T>) => MyInterface<T>
->                                        : ^ ^^       ^^              ^^^^^^^^^^^^^^^^^^^
+>inferTypeFn : <T extends {} | null | undefined>(generic: MyInterface<T>) => MyInterface<T>
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^              ^^^^^^^^^^^^^^^^^^^
+><T>(generic: MyInterface<T>) => generic : <T extends {} | null | undefined>(generic: MyInterface<T>) => MyInterface<T>
+>                                        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^              ^^^^^^^^^^^^^^^^^^^
 >generic : MyInterface<T>
 >        : ^^^^^^^^^^^^^^
 >generic : MyInterface<T>
@@ -219,8 +219,8 @@ const myGeneric = inferTypeFn({
 >          : ^^^^^^^^^^^^^^^^^^^
 >inferTypeFn({    retrieveGeneric: parameter => 5,    operateWithGeneric: generic => generic.toFixed()}) : MyInterface<number>
 >                                                                                                        : ^^^^^^^^^^^^^^^^^^^
->inferTypeFn : <T>(generic: MyInterface<T>) => MyInterface<T>
->            : ^ ^^       ^^              ^^^^^^^^^^^^^^^^^^^
+>inferTypeFn : <T extends {} | null | undefined>(generic: MyInterface<T>) => MyInterface<T>
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^              ^^^^^^^^^^^^^^^^^^^
 >{    retrieveGeneric: parameter => 5,    operateWithGeneric: generic => generic.toFixed()} : { retrieveGeneric: (parameter: string) => number; operateWithGeneric: (generic: number) => string; }
 >                                                                                           : ^^^^^^^^^^^^^^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -255,8 +255,8 @@ const myGeneric = inferTypeFn({
 // Repro #38623
 
 function make<M>(o: { mutations: M,  action: (m: M) => void }) { }
->make : <M>(o: { mutations: M; action: (m: M) => void; }) => void
->     : ^ ^^ ^^                                         ^^^^^^^^^
+>make : <M extends {} | null | undefined>(o: { mutations: M; action: (m: M) => void; }) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                                         ^^^^^^^^^
 >o : { mutations: M; action: (m: M) => void; }
 >  : ^^^^^^^^^^^^^ ^^^^^^^^^^              ^^^
 >mutations : M
@@ -269,8 +269,8 @@ function make<M>(o: { mutations: M,  action: (m: M) => void }) { }
 make({
 >make({   mutations: {       foo() { }   },   action: (a) => { a.foo() }}) : void
 >                                                                          : ^^^^
->make : <M>(o: { mutations: M; action: (m: M) => void; }) => void
->     : ^ ^^ ^^                                         ^^^^^^^^^
+>make : <M extends {} | null | undefined>(o: { mutations: M; action: (m: M) => void; }) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                                         ^^^^^^^^^
 >{   mutations: {       foo() { }   },   action: (a) => { a.foo() }} : { mutations: { foo(): void; }; action: (a: { foo(): void; }) => void; }
 >                                                                    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -306,8 +306,8 @@ make({
 // Repro from #38845
 
 declare function foo<A>(options: { a: A, b: (a: A) => void }): void;
->foo : <A>(options: { a: A; b: (a: A) => void; }) => void
->    : ^ ^^       ^^                            ^^^^^    
+>foo : <A extends {} | null | undefined>(options: { a: A; b: (a: A) => void; }) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                            ^^^^^    
 >options : { a: A; b: (a: A) => void; }
 >        : ^^^^^ ^^^^^              ^^^
 >a : A
@@ -320,8 +320,8 @@ declare function foo<A>(options: { a: A, b: (a: A) => void }): void;
 foo({
 >foo({    a: () => { return 42 },    b(a) {},}) : void
 >                                               : ^^^^
->foo : <A>(options: { a: A; b: (a: A) => void; }) => void
->    : ^ ^^       ^^                            ^^^^^    
+>foo : <A extends {} | null | undefined>(options: { a: A; b: (a: A) => void; }) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                            ^^^^^    
 >{    a: () => { return 42 },    b(a) {},} : { a: () => 42; b(a: () => 42): void; }
 >                                          : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 
@@ -344,8 +344,8 @@ foo({
 foo({
 >foo({    a: function () { return 42 },    b(a) {},}) : void
 >                                                     : ^^^^
->foo : <A>(options: { a: A; b: (a: A) => void; }) => void
->    : ^ ^^       ^^                            ^^^^^    
+>foo : <A extends {} | null | undefined>(options: { a: A; b: (a: A) => void; }) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                            ^^^^^    
 >{    a: function () { return 42 },    b(a) {},} : { a: () => 42; b(a: () => 42): void; }
 >                                                : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 
@@ -368,8 +368,8 @@ foo({
 foo({
 >foo({    a() { return 42 },    b(a) {},}) : void
 >                                          : ^^^^
->foo : <A>(options: { a: A; b: (a: A) => void; }) => void
->    : ^ ^^       ^^                            ^^^^^    
+>foo : <A extends {} | null | undefined>(options: { a: A; b: (a: A) => void; }) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                            ^^^^^    
 >{    a() { return 42 },    b(a) {},} : { a(): 42; b(a: () => 42): void; }
 >                                     : ^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 
@@ -412,16 +412,16 @@ type Chain<R1, R2> = {
 };
 
 function test<R1, R2>(foo: Chain<R1, R2>) {}
->test : <R1, R2>(foo: Chain<R1, R2>) => void
->     : ^  ^^  ^^   ^^             ^^^^^^^^^
+>test : <R1 extends {} | null | undefined, R2 extends {} | null | undefined>(foo: Chain<R1, R2>) => void
+>     : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^             ^^^^^^^^^
 >foo : Chain<R1, R2>
 >    : ^^^^^^^^^^^^^
 
 test({
 >test({    a: () => 0,    b: (a) => 'a',    c: (b) => {        const x: string = b;    }}) : void
 >                                                                                          : ^^^^
->test : <R1, R2>(foo: Chain<R1, R2>) => void
->     : ^  ^^  ^^   ^^             ^^^^^^^^^
+>test : <R1 extends {} | null | undefined, R2 extends {} | null | undefined>(foo: Chain<R1, R2>) => void
+>     : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^             ^^^^^^^^^
 >{    a: () => 0,    b: (a) => 'a',    c: (b) => {        const x: string = b;    }} : { a: () => number; b: (a: number) => string; c: (b: string) => void; }
 >                                                                                    : ^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 
@@ -462,8 +462,8 @@ test({
 test({
 >test({    a: () => 0,    b: (a) => a,    c: (b) => {        const x: number = b;    }}) : void
 >                                                                                        : ^^^^
->test : <R1, R2>(foo: Chain<R1, R2>) => void
->     : ^  ^^  ^^   ^^             ^^^^^^^^^
+>test : <R1 extends {} | null | undefined, R2 extends {} | null | undefined>(foo: Chain<R1, R2>) => void
+>     : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^             ^^^^^^^^^
 >{    a: () => 0,    b: (a) => a,    c: (b) => {        const x: number = b;    }} : { a: () => number; b: (a: number) => number; c: (b: number) => void; }
 >                                                                                  : ^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 
@@ -648,8 +648,8 @@ createMappingComponent({
 // Repro from #48279
 
 function simplified<T>(props: { generator: () => T, receiver: (t: T) => any }) {}
->simplified : <T>(props: { generator: () => T; receiver: (t: T) => any; }) => void
->           : ^ ^^     ^^                                                ^^^^^^^^^
+>simplified : <T extends {} | null | undefined>(props: { generator: () => T; receiver: (t: T) => any; }) => void
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^                                                ^^^^^^^^^
 >props : { generator: () => T; receiver: (t: T) => any; }
 >      : ^^^^^^^^^^^^^       ^^^^^^^^^^^^             ^^^
 >generator : () => T
@@ -660,8 +660,8 @@ function simplified<T>(props: { generator: () => T, receiver: (t: T) => any }) {
 >  : ^
 
 function whatIWant<T>(props: { generator: (bob: any) => T, receiver: (t: T) => any }) {}
->whatIWant : <T>(props: { generator: (bob: any) => T; receiver: (t: T) => any; }) => void
->          : ^ ^^     ^^                                                        ^^^^^^^^^
+>whatIWant : <T extends {} | null | undefined>(props: { generator: (bob: any) => T; receiver: (t: T) => any; }) => void
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^                                                        ^^^^^^^^^
 >props : { generator: (bob: any) => T; receiver: (t: T) => any; }
 >      : ^^^^^^^^^^^^^               ^^^^^^^^^^^^             ^^^
 >generator : (bob: any) => T
@@ -674,8 +674,8 @@ function whatIWant<T>(props: { generator: (bob: any) => T, receiver: (t: T) => a
 >  : ^
 
 function nonObject<T>(generator: (bob: any) => T, receiver: (t: T) => any) {}
->nonObject : <T>(generator: (bob: any) => T, receiver: (t: T) => any) => void
->          : ^ ^^         ^^               ^^        ^^             ^^^^^^^^^
+>nonObject : <T extends {} | null | undefined>(generator: (bob: any) => T, receiver: (t: T) => any) => void
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^               ^^        ^^             ^^^^^^^^^
 >generator : (bob: any) => T
 >          : ^   ^^   ^^^^^ 
 >bob : any
@@ -688,8 +688,8 @@ function nonObject<T>(generator: (bob: any) => T, receiver: (t: T) => any) {}
 simplified({ generator: () => 123, receiver: (t) => console.log(t + 2) })
 >simplified({ generator: () => 123, receiver: (t) => console.log(t + 2) }) : void
 >                                                                          : ^^^^
->simplified : <T>(props: { generator: () => T; receiver: (t: T) => any; }) => void
->           : ^ ^^     ^^                                                ^^^^^^^^^
+>simplified : <T extends {} | null | undefined>(props: { generator: () => T; receiver: (t: T) => any; }) => void
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^                                                ^^^^^^^^^
 >{ generator: () => 123, receiver: (t) => console.log(t + 2) } : { generator: () => number; receiver: (t: number) => void; }
 >                                                              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 >generator : () => number
@@ -722,8 +722,8 @@ simplified({ generator: () => 123, receiver: (t) => console.log(t + 2) })
 whatIWant({ generator: (bob) => bob ? 1 : 2, receiver: (t) => console.log(t + 2) })
 >whatIWant({ generator: (bob) => bob ? 1 : 2, receiver: (t) => console.log(t + 2) }) : void
 >                                                                                    : ^^^^
->whatIWant : <T>(props: { generator: (bob: any) => T; receiver: (t: T) => any; }) => void
->          : ^ ^^     ^^                                                        ^^^^^^^^^
+>whatIWant : <T extends {} | null | undefined>(props: { generator: (bob: any) => T; receiver: (t: T) => any; }) => void
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^                                                        ^^^^^^^^^
 >{ generator: (bob) => bob ? 1 : 2, receiver: (t) => console.log(t + 2) } : { generator: (bob: any) => 2 | 1; receiver: (t: 2 | 1) => void; }
 >                                                                         : ^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
 >generator : (bob: any) => 2 | 1
@@ -764,8 +764,8 @@ whatIWant({ generator: (bob) => bob ? 1 : 2, receiver: (t) => console.log(t + 2)
 nonObject((bob) => bob ? 1 : 2, (t) => console.log(t + 2))
 >nonObject((bob) => bob ? 1 : 2, (t) => console.log(t + 2)) : void
 >                                                           : ^^^^
->nonObject : <T>(generator: (bob: any) => T, receiver: (t: T) => any) => void
->          : ^ ^^         ^^               ^^        ^^             ^^^^^^^^^
+>nonObject : <T extends {} | null | undefined>(generator: (bob: any) => T, receiver: (t: T) => any) => void
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^               ^^        ^^             ^^^^^^^^^
 >(bob) => bob ? 1 : 2 : (bob: any) => 2 | 1
 >                     : ^   ^^^^^^^^^^^^^^^
 >bob : any
@@ -816,8 +816,8 @@ interface Opts<TParams, TDone, TMapped> {
 }
 
 function example<TParams, TDone, TMapped>(options: Opts<TParams, TDone, TMapped>) {
->example : <TParams, TDone, TMapped>(options: Opts<TParams, TDone, TMapped>) => (params: TParams) => TMapped
->        : ^       ^^     ^^       ^^       ^^                             ^^^^^^      ^^       ^^^^^^^^^^^^
+>example : <TParams extends {} | null | undefined, TDone extends {} | null | undefined, TMapped extends {} | null | undefined>(options: Opts<TParams, TDone, TMapped>) => (params: TParams) => TMapped
+>        : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                             ^^^^^^      ^^       ^^^^^^^^^^^^
 >options : Opts<TParams, TDone, TMapped>
 >        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -870,8 +870,8 @@ interface Params {
 example({
 >example({    fetch: (params: Params) => 123,    map: (number) => String(number)}) : (params: Params) => string
 >                                                                                  : ^      ^^^^^^^^^^^^^^^^^^^
->example : <TParams, TDone, TMapped>(options: Opts<TParams, TDone, TMapped>) => (params: TParams) => TMapped
->        : ^       ^^     ^^       ^^       ^^                             ^^^^^^      ^^       ^^^^^^^^^^^^
+>example : <TParams extends {} | null | undefined, TDone extends {} | null | undefined, TMapped extends {} | null | undefined>(options: Opts<TParams, TDone, TMapped>) => (params: TParams) => TMapped
+>        : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                             ^^^^^^      ^^       ^^^^^^^^^^^^
 >{    fetch: (params: Params) => 123,    map: (number) => String(number)} : { fetch: (params: Params) => number; map: (number: number) => string; }
 >                                                                         : ^^^^^^^^^^      ^^      ^^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -904,8 +904,8 @@ example({
 example({
 >example({    fetch: (params: Params, foo: number) => 123,    map: (number) => String(number)}) : (params: Params) => string
 >                                                                                               : ^      ^^^^^^^^^^^^^^^^^^^
->example : <TParams, TDone, TMapped>(options: Opts<TParams, TDone, TMapped>) => (params: TParams) => TMapped
->        : ^       ^^     ^^       ^^       ^^                             ^^^^^^      ^^       ^^^^^^^^^^^^
+>example : <TParams extends {} | null | undefined, TDone extends {} | null | undefined, TMapped extends {} | null | undefined>(options: Opts<TParams, TDone, TMapped>) => (params: TParams) => TMapped
+>        : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                             ^^^^^^      ^^       ^^^^^^^^^^^^
 >{    fetch: (params: Params, foo: number) => 123,    map: (number) => String(number)} : { fetch: (params: Params, foo: number) => number; map: (number: number) => string; }
 >                                                                                      : ^^^^^^^^^^      ^^      ^^   ^^      ^^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -940,8 +940,8 @@ example({
 example({
 >example({    fetch: (params: Params, foo) => 123,    map: (number) => String(number)}) : (params: Params) => string
 >                                                                                       : ^      ^^^^^^^^^^^^^^^^^^^
->example : <TParams, TDone, TMapped>(options: Opts<TParams, TDone, TMapped>) => (params: TParams) => TMapped
->        : ^       ^^     ^^       ^^       ^^                             ^^^^^^      ^^       ^^^^^^^^^^^^
+>example : <TParams extends {} | null | undefined, TDone extends {} | null | undefined, TMapped extends {} | null | undefined>(options: Opts<TParams, TDone, TMapped>) => (params: TParams) => TMapped
+>        : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                             ^^^^^^      ^^       ^^^^^^^^^^^^
 >{    fetch: (params: Params, foo) => 123,    map: (number) => String(number)} : { fetch: (params: Params, foo: number) => number; map: (number: number) => string; }
 >                                                                              : ^^^^^^^^^^      ^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -976,8 +976,8 @@ example({
 // Repro from #45255
 
 declare const branch:
->branch : <T, U extends T>(_: { test: T; if: (t: T) => t is U; then: (u: U) => void; }) => void
->       : ^ ^^ ^^^^^^^^^ ^^ ^^                                                        ^^^^^    
+>branch : <T extends {} | null | undefined, U extends T>(_: { test: T; if: (t: T) => t is U; then: (u: U) => void; }) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^ ^^                                                        ^^^^^    
 
   <T, U extends T>(_: { test: T, if: (t: T) => t is U, then: (u: U) => void }) => void
 >_ : { test: T; if: (t: T) => t is U; then: (u: U) => void; }
@@ -1000,8 +1000,8 @@ declare const x: "a" | "b"
 branch({
 >branch({  test: x,  if: (t): t is "a" => t === "a",  then: u => {    let test1: "a" = u  }}) : void
 >                                                                                             : ^^^^
->branch : <T, U extends T>(_: { test: T; if: (t: T) => t is U; then: (u: U) => void; }) => void
->       : ^ ^^ ^^^^^^^^^ ^^ ^^                                                        ^^^^^    
+>branch : <T extends {} | null | undefined, U extends T>(_: { test: T; if: (t: T) => t is U; then: (u: U) => void; }) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^ ^^                                                        ^^^^^    
 >{  test: x,  if: (t): t is "a" => t === "a",  then: u => {    let test1: "a" = u  }} : { test: "a" | "b"; if: (t: "a" | "b") => t is "a"; then: (u: "a") => void; }
 >                                                                                     : ^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^        ^^^^^^^^^ ^^^^^^^^^^^^^^^^^
 
@@ -1056,16 +1056,16 @@ interface Props<T> {
 }
 
 declare function Foo<T>(props: Props<T>): null;
->Foo : <T>(props: Props<T>) => null
->    : ^ ^^     ^^        ^^^^^    
+>Foo : <T extends {} | null | undefined>(props: Props<T>) => null
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^        ^^^^^    
 >props : Props<T>
 >      : ^^^^^^^^
 
 Foo({
 >Foo({  ...{    a: (x) => 10,    b: (arg) => {      arg.toString();    },  },}) : null
 >                                                                               : ^^^^
->Foo : <T>(props: Props<T>) => null
->    : ^ ^^     ^^        ^^^^^    
+>Foo : <T extends {} | null | undefined>(props: Props<T>) => null
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^        ^^^^^    
 >{  ...{    a: (x) => 10,    b: (arg) => {      arg.toString();    },  },} : { a: (x: string) => number; b: (arg: number) => void; }
 >                                                                          : ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^
 
@@ -1106,8 +1106,8 @@ Foo({
 });
 
 declare function nested<T>(arg: {
->nested : <T>(arg: { prop: { produce: (arg1: number) => T; consume: (arg2: T) => void; }; }) => T
->       : ^ ^^   ^^                                                                        ^^^^^ 
+>nested : <T extends {} | null | undefined>(arg: { prop: { produce: (arg1: number) => T; consume: (arg2: T) => void; }; }) => T
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                        ^^^^^ 
 >arg : { prop: { produce: (arg1: number) => T; consume: (arg2: T) => void; }; }
 >    : ^^^^^^^^                                                             ^^^
 
@@ -1135,8 +1135,8 @@ const resNested = nested({
 >          : ^^^^^^^^
 >nested({  prop: {    produce: (a) => [a],    consume: (arg) => arg.join(","),  },}) : number[]
 >                                                                                    : ^^^^^^^^
->nested : <T>(arg: { prop: { produce: (arg1: number) => T; consume: (arg2: T) => void; }; }) => T
->       : ^ ^^   ^^                                                                        ^^^^^ 
+>nested : <T extends {} | null | undefined>(arg: { prop: { produce: (arg1: number) => T; consume: (arg2: T) => void; }; }) => T
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                        ^^^^^ 
 >{  prop: {    produce: (a) => [a],    consume: (arg) => arg.join(","),  },} : { prop: { produce: (a: number) => number[]; consume: (arg: number[]) => string; }; }
 >                                                                            : ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1180,8 +1180,8 @@ const resNested = nested({
 });
 
 declare function twoConsumers<T>(arg: {
->twoConsumers : <T>(arg: { a: (arg: string) => T; consume1: (arg1: T) => void; consume2: (arg2: T) => void; }) => T
->             : ^ ^^   ^^                                                                                    ^^^^^ 
+>twoConsumers : <T extends {} | null | undefined>(arg: { a: (arg: string) => T; consume1: (arg1: T) => void; consume2: (arg2: T) => void; }) => T
+>             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                                    ^^^^^ 
 >arg : { a: (arg: string) => T; consume1: (arg1: T) => void; consume2: (arg2: T) => void; }
 >    : ^^^^^                  ^^^^^^^^^^^^                 ^^^^^^^^^^^^                 ^^^
 
@@ -1210,8 +1210,8 @@ const resTwoConsumers = twoConsumers({
 >                : ^^^^^^^^
 >twoConsumers({  a: (arg) => [arg],  consume1: (arg1) => {},  consume2: (arg2) => {},}) : string[]
 >                                                                                       : ^^^^^^^^
->twoConsumers : <T>(arg: { a: (arg: string) => T; consume1: (arg1: T) => void; consume2: (arg2: T) => void; }) => T
->             : ^ ^^   ^^                                                                                    ^^^^^ 
+>twoConsumers : <T extends {} | null | undefined>(arg: { a: (arg: string) => T; consume1: (arg1: T) => void; consume2: (arg2: T) => void; }) => T
+>             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                                    ^^^^^ 
 >{  a: (arg) => [arg],  consume1: (arg1) => {},  consume2: (arg2) => {},} : { a: (arg: string) => string[]; consume1: (arg1: string[]) => void; consume2: (arg2: string[]) => void; }
 >                                                                         : ^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1246,8 +1246,8 @@ const resTwoConsumers = twoConsumers({
 });
 
 declare function multipleProducersBeforeConsumers<T, T2>(arg: {
->multipleProducersBeforeConsumers : <T, T2>(arg: { a: (arg: string) => T; b: (arg: string) => T2; consume1: (arg1: T) => void; consume2: (arg2: T2) => void; }) => [T, T2]
->                                 : ^ ^^  ^^   ^^                                                                                                             ^^^^^       
+>multipleProducersBeforeConsumers : <T extends {} | null | undefined, T2 extends {} | null | undefined>(arg: { a: (arg: string) => T; b: (arg: string) => T2; consume1: (arg1: T) => void; consume2: (arg2: T2) => void; }) => [T, T2]
+>                                 : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                                                             ^^^^^       
 >arg : { a: (arg: string) => T; b: (arg: string) => T2; consume1: (arg1: T) => void; consume2: (arg2: T2) => void; }
 >    : ^^^^^                  ^^^^^                   ^^^^^^^^^^^^                 ^^^^^^^^^^^^                  ^^^
 
@@ -1282,8 +1282,8 @@ const resMultipleProducersBeforeConsumers = multipleProducersBeforeConsumers({
 >                                    : ^^^^^^^^^^^^^^^^^^
 >multipleProducersBeforeConsumers({  a: (arg) => [arg],  b: (arg) => Number(arg),  consume1: (arg1) => {},  consume2: (arg2) => {},}) : [string[], number]
 >                                                                                                                                     : ^^^^^^^^^^^^^^^^^^
->multipleProducersBeforeConsumers : <T, T2>(arg: { a: (arg: string) => T; b: (arg: string) => T2; consume1: (arg1: T) => void; consume2: (arg2: T2) => void; }) => [T, T2]
->                                 : ^ ^^  ^^   ^^                                                                                                             ^^^^^       
+>multipleProducersBeforeConsumers : <T extends {} | null | undefined, T2 extends {} | null | undefined>(arg: { a: (arg: string) => T; b: (arg: string) => T2; consume1: (arg1: T) => void; consume2: (arg2: T2) => void; }) => [T, T2]
+>                                 : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                                                             ^^^^^       
 >{  a: (arg) => [arg],  b: (arg) => Number(arg),  consume1: (arg1) => {},  consume2: (arg2) => {},} : { a: (arg: string) => string[]; b: (arg: string) => number; consume1: (arg1: string[]) => void; consume2: (arg2: number) => void; }
 >                                                                                                   : ^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^^^
 
@@ -1332,8 +1332,8 @@ const resMultipleProducersBeforeConsumers = multipleProducersBeforeConsumers({
 });
 
 declare function withConditionalExpression<T, T2, T3>(arg: {
->withConditionalExpression : <T, T2, T3>(arg: { a: (arg1: string) => T; b: (arg2: T) => T2; c: (arg2: T2) => T3; }) => [T, T2, T3]
->                          : ^ ^^  ^^  ^^   ^^                                                                    ^^^^^           
+>withConditionalExpression : <T extends {} | null | undefined, T2 extends {} | null | undefined, T3 extends {} | null | undefined>(arg: { a: (arg1: string) => T; b: (arg2: T) => T2; c: (arg2: T2) => T3; }) => [T, T2, T3]
+>                          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                    ^^^^^           
 >arg : { a: (arg1: string) => T; b: (arg2: T) => T2; c: (arg2: T2) => T3; }
 >    : ^^^^^                   ^^^^^               ^^^^^                ^^^
 
@@ -1362,8 +1362,8 @@ const resWithConditionalExpression = withConditionalExpression({
 >                             : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >withConditionalExpression({  a: (arg) => [arg],  b: Math.random() ? (arg) => "first" as const : (arg) => "two" as const,  c: (arg) => Boolean(arg),}) : [string[], "first" | "two", boolean]
 >                                                                                                                                                      : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->withConditionalExpression : <T, T2, T3>(arg: { a: (arg1: string) => T; b: (arg2: T) => T2; c: (arg2: T2) => T3; }) => [T, T2, T3]
->                          : ^ ^^  ^^  ^^   ^^                                                                    ^^^^^           
+>withConditionalExpression : <T extends {} | null | undefined, T2 extends {} | null | undefined, T3 extends {} | null | undefined>(arg: { a: (arg1: string) => T; b: (arg2: T) => T2; c: (arg2: T2) => T3; }) => [T, T2, T3]
+>                          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                    ^^^^^           
 >{  a: (arg) => [arg],  b: Math.random() ? (arg) => "first" as const : (arg) => "two" as const,  c: (arg) => Boolean(arg),} : { a: (arg: string) => string[]; b: ((arg: string[]) => "first") | ((arg: string[]) => "two"); c: (arg: "first" | "two") => boolean; }
 >                                                                                                                           : ^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1426,8 +1426,8 @@ const resWithConditionalExpression = withConditionalExpression({
 });
 
 declare function onion<T, T2, T3>(arg: {
->onion : <T, T2, T3>(arg: { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; nested2: { c: (arg2: T2) => T3; }; }; }) => [T, T2, T3]
->      : ^ ^^  ^^  ^^   ^^                                                                                               ^^^^^           
+>onion : <T extends {} | null | undefined, T2 extends {} | null | undefined, T3 extends {} | null | undefined>(arg: { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; nested2: { c: (arg2: T2) => T3; }; }; }) => [T, T2, T3]
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                                               ^^^^^           
 >arg : { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; nested2: { c: (arg2: T2) => T3; }; }; }
 >    : ^^^^^                   ^^^^^^^^^^                                                          ^^^
 
@@ -1466,8 +1466,8 @@ const resOnion = onion({
 >         : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >onion({  a: (arg) => [arg],  nested: {    b: (arg) => arg.join(","),    nested2: {      c: (arg) => Boolean(arg),    },  },}) : [string[], string, boolean]
 >                                                                                                                              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->onion : <T, T2, T3>(arg: { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; nested2: { c: (arg2: T2) => T3; }; }; }) => [T, T2, T3]
->      : ^ ^^  ^^  ^^   ^^                                                                                               ^^^^^           
+>onion : <T extends {} | null | undefined, T2 extends {} | null | undefined, T3 extends {} | null | undefined>(arg: { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; nested2: { c: (arg2: T2) => T3; }; }; }) => [T, T2, T3]
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                                               ^^^^^           
 >{  a: (arg) => [arg],  nested: {    b: (arg) => arg.join(","),    nested2: {      c: (arg) => Boolean(arg),    },  },} : { a: (arg: string) => string[]; nested: { b: (arg: string[]) => string; nested2: { c: (arg: string) => boolean; }; }; }
 >                                                                                                                       : ^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1532,8 +1532,8 @@ const resOnion = onion({
 });
 
 declare function onion2<T, T2, T3, T4>(arg: {
->onion2 : <T, T2, T3, T4>(arg: { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; c: (arg3: T) => T3; nested2: { d: (arg4: T3) => T4; }; }; }) => [T, T2, T3, T4]
->       : ^ ^^  ^^  ^^  ^^   ^^                                                                                                                   ^^^^^               
+>onion2 : <T extends {} | null | undefined, T2 extends {} | null | undefined, T3 extends {} | null | undefined, T4 extends {} | null | undefined>(arg: { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; c: (arg3: T) => T3; nested2: { d: (arg4: T3) => T4; }; }; }) => [T, T2, T3, T4]
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                                                                   ^^^^^               
 >arg : { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; c: (arg3: T) => T3; nested2: { d: (arg4: T3) => T4; }; }; }
 >    : ^^^^^                   ^^^^^^^^^^                                                                              ^^^
 
@@ -1578,8 +1578,8 @@ const resOnion2 = onion2({
 >          : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >onion2({  a: (arg) => [arg],  nested: {    b: (arg) => arg.join(","),    c: (arg) => Number(arg),    nested2: {      d: (arg) => Boolean(arg),    },  },}) : [string[], string, number, boolean]
 >                                                                                                                                                           : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->onion2 : <T, T2, T3, T4>(arg: { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; c: (arg3: T) => T3; nested2: { d: (arg4: T3) => T4; }; }; }) => [T, T2, T3, T4]
->       : ^ ^^  ^^  ^^  ^^   ^^                                                                                                                   ^^^^^               
+>onion2 : <T extends {} | null | undefined, T2 extends {} | null | undefined, T3 extends {} | null | undefined, T4 extends {} | null | undefined>(arg: { a: (arg1: string) => T; nested: { b: (arg2: T) => T2; c: (arg3: T) => T3; nested2: { d: (arg4: T3) => T4; }; }; }) => [T, T2, T3, T4]
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                                                                                                                   ^^^^^               
 >{  a: (arg) => [arg],  nested: {    b: (arg) => arg.join(","),    c: (arg) => Number(arg),    nested2: {      d: (arg) => Boolean(arg),    },  },} : { a: (arg: string) => string[]; nested: { b: (arg: string[]) => string; c: (arg: string[]) => number; nested2: { d: (arg: number) => boolean; }; }; }
 >                                                                                                                                                   : ^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1658,8 +1658,8 @@ const resOnion2 = onion2({
 });
 
 declare function distant<T>(args: {
->distant : <T>(args: { foo: { bar: { baz: { producer: (arg: string) => T; }; }; }; consumer: (val: T) => unknown; }) => T
->        : ^ ^^    ^^                                                                                              ^^^^^ 
+>distant : <T extends {} | null | undefined>(args: { foo: { bar: { baz: { producer: (arg: string) => T; }; }; }; consumer: (val: T) => unknown; }) => T
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^                                                                                              ^^^^^ 
 >args : { foo: { bar: { baz: { producer: (arg: string) => T; }; }; }; consumer: (val: T) => unknown; }
 >     : ^^^^^^^                                                     ^^^^^^^^^^^^                   ^^^
 
@@ -1697,8 +1697,8 @@ const distantRes = distant({
 >           : ^^^^^^
 >distant({  foo: {    bar: {      baz: {        producer: (arg) => 1,      },    },  },  consumer: (val) => {},}) : number
 >                                                                                                                 : ^^^^^^
->distant : <T>(args: { foo: { bar: { baz: { producer: (arg: string) => T; }; }; }; consumer: (val: T) => unknown; }) => T
->        : ^ ^^    ^^                                                                                              ^^^^^ 
+>distant : <T extends {} | null | undefined>(args: { foo: { bar: { baz: { producer: (arg: string) => T; }; }; }; consumer: (val: T) => unknown; }) => T
+>        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^                                                                                              ^^^^^ 
 >{  foo: {    bar: {      baz: {        producer: (arg) => 1,      },    },  },  consumer: (val) => {},} : { foo: { bar: { baz: { producer: (arg: string) => number; }; }; }; consumer: (val: number) => void; }
 >                                                                                                        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^
 

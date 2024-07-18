@@ -564,8 +564,8 @@ let q5 = <const> { x: 10, y: 20 };
 >   : ^^
 
 declare function id<T>(x: T): T;
->id : <T>(x: T) => T
->   : ^ ^^ ^^ ^^^^^ 
+>id : <T extends {} | null | undefined>(x: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >x : T
 >  : ^
 
@@ -600,8 +600,8 @@ let e3 = id(1) as const;  // Error
 >               : ^
 >id(1) : 1
 >      : ^
->id : <T>(x: T) => T
->   : ^ ^^ ^^ ^^^^^ 
+>id : <T extends {} | null | undefined>(x: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >1 : 1
 >  : ^
 

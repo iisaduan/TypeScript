@@ -5,8 +5,8 @@
 
 interface Y {
     foo<T>(this: T, arg: keyof T): void;
->foo : <T>(this: T, arg: keyof T) => void
->    : ^ ^^    ^^ ^^   ^^       ^^^^^    
+>foo : <T extends {} | null | undefined>(this: T, arg: keyof T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^   ^^       ^^^^^    
 >this : T
 >     : ^
 >arg : keyof T
@@ -32,12 +32,12 @@ if (value) {
     value?.foo("a");
 >value?.foo("a") : void
 >                : ^^^^
->value?.foo : <T>(this: T, arg: keyof T) => void
->           : ^ ^^    ^^ ^^   ^^       ^^^^^    
+>value?.foo : <T extends {} | null | undefined>(this: T, arg: keyof T) => void
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^   ^^       ^^^^^    
 >value : Y
 >      : ^
->foo : <T>(this: T, arg: keyof T) => void
->    : ^ ^^    ^^ ^^   ^^       ^^^^^    
+>foo : <T extends {} | null | undefined>(this: T, arg: keyof T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^   ^^       ^^^^^    
 >"a" : "a"
 >    : ^^^
 }
@@ -45,12 +45,12 @@ if (value) {
 value?.foo("a");
 >value?.foo("a") : void | undefined
 >                : ^^^^^^^^^^^^^^^^
->value?.foo : (<T>(this: T, arg: keyof T) => void) | undefined
->           : ^^ ^^    ^^ ^^   ^^       ^^^^^    ^^^^^^^^^^^^^
+>value?.foo : (<T extends {} | null | undefined>(this: T, arg: keyof T) => void) | undefined
+>           : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^   ^^       ^^^^^    ^^^^^^^^^^^^^
 >value : Y | undefined
 >      : ^^^^^^^^^^^^^
->foo : (<T>(this: T, arg: keyof T) => void) | undefined
->    : ^^ ^^    ^^ ^^   ^^       ^^^^^    ^^^^^^^^^^^^^
+>foo : (<T extends {} | null | undefined>(this: T, arg: keyof T) => void) | undefined
+>    : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^ ^^   ^^       ^^^^^    ^^^^^^^^^^^^^
 >"a" : "a"
 >    : ^^^
 

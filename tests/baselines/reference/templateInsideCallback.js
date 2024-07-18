@@ -122,7 +122,7 @@ function flatMap(array, iterable) {
  * @param {(x: T) => U[]} iterable
  * @returns {U[]}
  */
-declare function flatMap<U>(): any;
+declare function flatMap<U extends {} | null | undefined>(): any;
 /**
  * @overload
  * @template T

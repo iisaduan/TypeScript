@@ -36,8 +36,8 @@ let b: B<{ a: 0 | 1 }, 0> = { a: 0 };
 >  : ^
 
 function foo<T, U>(x: T) {
->foo : <T, U>(x: T) => void
->    : ^ ^^ ^^ ^^ ^^^^^^^^^
+>foo : <T extends {} | null | undefined, U extends {} | null | undefined>(x: T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >x : T
 >  : ^
 

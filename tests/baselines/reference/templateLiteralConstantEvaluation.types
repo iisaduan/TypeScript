@@ -4,8 +4,8 @@
 // https://github.com/microsoft/TypeScript/issues/58494
 
 function fn<T>(arg: T): T {
->fn : <T>(arg: T) => T
->   : ^ ^^   ^^ ^^^^^ 
+>fn : <T extends {} | null | undefined>(arg: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^^^^ 
 >arg : T
 >    : ^
 
@@ -51,8 +51,8 @@ const d = `${b} 3` as const;
 fn(`${b} 3`);
 >fn(`${b} 3`) : "1 2 3"
 >             : ^^^^^^^
->fn : <T>(arg: T) => T
->   : ^ ^^   ^^ ^^^^^ 
+>fn : <T extends {} | null | undefined>(arg: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^^^^ 
 >`${b} 3` : "1 2 3"
 >         : ^^^^^^^
 >b : string

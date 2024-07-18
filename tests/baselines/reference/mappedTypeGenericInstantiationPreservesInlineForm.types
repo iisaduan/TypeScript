@@ -4,10 +4,10 @@
 // repro from #53109
 
 export const test1 = <T = Record<string, never>>(schema: {
->test1 : <T = Record<string, never>>(schema: { [K in keyof Required<T>]: T[K]; }) => void
->      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                   ^^^^^^^^^
-><T = Record<string, never>>(schema: {    [K in keyof Required<T>]: T[K];}) => {} : <T = Record<string, never>>(schema: { [K in keyof Required<T>]: T[K]; }) => void
->                                                                                 : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                   ^^^^^^^^^
+>test1 : <T extends {} | null | undefined = Record<string, never>>(schema: { [K in keyof Required<T>]: T[K]; }) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                   ^^^^^^^^^
+><T = Record<string, never>>(schema: {    [K in keyof Required<T>]: T[K];}) => {} : <T extends {} | null | undefined = Record<string, never>>(schema: { [K in keyof Required<T>]: T[K]; }) => void
+>                                                                                 : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                   ^^^^^^^^^
 >schema : { [K in keyof Required<T>]: T[K]; }
 >       : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -15,8 +15,8 @@ export const test1 = <T = Record<string, never>>(schema: {
 }) => {}
 
 export function test2<T = Record<string, never>>(schema: {
->test2 : <T = Record<string, never>>(schema: { [K in keyof Required<T>]: T[K]; }) => void
->      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                   ^^^^^^^^^
+>test2 : <T extends {} | null | undefined = Record<string, never>>(schema: { [K in keyof Required<T>]: T[K]; }) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                   ^^^^^^^^^
 >schema : { [K in keyof Required<T>]: T[K]; }
 >       : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

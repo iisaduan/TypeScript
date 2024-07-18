@@ -37,8 +37,8 @@ function f1(a: (F & Meta) | string) {
 }
 
 function f2<T>(x: (T & F) | T & string) {
->f2 : <T>(x: (T & F) | (T & string)) => void
->   : ^ ^^ ^^          ^          ^^^^^^^^^^
+>f2 : <T extends {} | null | undefined>(x: (T & F) | (T & string)) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^          ^          ^^^^^^^^^^
 >x : (T & F) | (T & string)
 >  : ^^^^^^^^^^^^^^^^^^^^^^
 
