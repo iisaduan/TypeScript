@@ -120,8 +120,8 @@ type T54 = ReadWrite<Required<T53>>;
 >    : ^^^^^^^^
 
 declare function unboxify<T>(x: Boxified<T>): T;
->unboxify : <T>(x: Boxified<T>) => T
->         : ^ ^^ ^^           ^^^^^ 
+>unboxify : <T extends unknown>(x: Boxified<T>) => T
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^ 
 >x : Boxified<T>
 >  : ^^^^^^^^^^^
 
@@ -134,8 +134,8 @@ let y10 = unboxify(x10);
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >unboxify(x10) : [number, string, ...boolean[]]
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->unboxify : <T>(x: Boxified<T>) => T
->         : ^ ^^ ^^           ^^^^^ 
+>unboxify : <T extends unknown>(x: Boxified<T>) => T
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^ 
 >x10 : [Box<number>, Box<string>, ...Box<boolean>[]]
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -148,8 +148,8 @@ let y11 = unboxify(x11);
 >    : ^^^^^^^^
 >unboxify(x11) : number[]
 >              : ^^^^^^^^
->unboxify : <T>(x: Boxified<T>) => T
->         : ^ ^^ ^^           ^^^^^ 
+>unboxify : <T extends unknown>(x: Boxified<T>) => T
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^ 
 >x11 : Box<number>[]
 >    : ^^^^^^^^^^^^^
 
@@ -166,14 +166,14 @@ let y12 = unboxify(x12);
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >unboxify(x12) : { a: number; b: string[]; }
 >              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->unboxify : <T>(x: Boxified<T>) => T
->         : ^ ^^ ^^           ^^^^^ 
+>unboxify : <T extends unknown>(x: Boxified<T>) => T
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^ 
 >x12 : { a: Box<number>; b: Box<string[]>; }
 >    : ^^^^^           ^^^^^             ^^^
 
 declare function nonpartial<T>(x: Partial<T>): T;
->nonpartial : <T>(x: Partial<T>) => T
->           : ^ ^^ ^^          ^^^^^ 
+>nonpartial : <T extends unknown>(x: Partial<T>) => T
+>           : ^ ^^^^^^^^^^^^^^^^^^ ^^          ^^^^^ 
 >x : Partial<T>
 >  : ^^^^^^^^^^
 
@@ -186,8 +186,8 @@ let y20 = nonpartial(x20);
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >nonpartial(x20) : [number, string, ...boolean[]]
 >                : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->nonpartial : <T>(x: Partial<T>) => T
->           : ^ ^^ ^^          ^^^^^ 
+>nonpartial : <T extends unknown>(x: Partial<T>) => T
+>           : ^ ^^^^^^^^^^^^^^^^^^ ^^          ^^^^^ 
 >x20 : [number | undefined, (string | undefined)?, ...boolean[]]
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -200,8 +200,8 @@ let y21 = nonpartial(x21);
 >    : ^^^^^^^^
 >nonpartial(x21) : number[]
 >                : ^^^^^^^^
->nonpartial : <T>(x: Partial<T>) => T
->           : ^ ^^ ^^          ^^^^^ 
+>nonpartial : <T extends unknown>(x: Partial<T>) => T
+>           : ^ ^^^^^^^^^^^^^^^^^^ ^^          ^^^^^ 
 >x21 : (number | undefined)[]
 >    : ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -218,8 +218,8 @@ let y22 = nonpartial(x22);
 >    : ^^^^^^^^^^^^^^^^        ^^^
 >nonpartial(x22) : { a: number; b: string[]; }
 >                : ^^^^^^^^^^^^^^^^        ^^^
->nonpartial : <T>(x: Partial<T>) => T
->           : ^ ^^ ^^          ^^^^^ 
+>nonpartial : <T extends unknown>(x: Partial<T>) => T
+>           : ^ ^^^^^^^^^^^^^^^^^^ ^^          ^^^^^ 
 >x22 : { a: number | undefined; b?: string[]; }
 >    : ^^^^^                  ^^^^^^        ^^^
 

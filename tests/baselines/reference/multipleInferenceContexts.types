@@ -27,8 +27,8 @@ interface Instance<Data> {
 }
 
 declare var Moon: {
->Moon : <Data>(options?: ConstructorOptions<Data>) => Instance<Data>
->     : ^    ^^       ^^^                        ^^^^^              
+>Moon : <Data extends unknown>(options?: ConstructorOptions<Data>) => Instance<Data>
+>     : ^    ^^^^^^^^^^^^^^^^^^       ^^^                        ^^^^^              
 
     <Data>(options?: ConstructorOptions<Data>): Instance<Data>;
 >options : ConstructorOptions<Data> | undefined
@@ -41,8 +41,8 @@ const r2 = Moon({
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^^
 >Moon({    data: { msg: "" },    render() {        const h = (x: unknown) => x;        return h(this.get("msg"));    },}) : Instance<{ msg: string; }>
 >                                                                                                                         : ^^^^^^^^^^^^^^^^^^^^^^^^^^
->Moon : <Data>(options?: ConstructorOptions<Data>) => Instance<Data>
->     : ^    ^^       ^^^                        ^^^^^              
+>Moon : <Data extends unknown>(options?: ConstructorOptions<Data>) => Instance<Data>
+>     : ^    ^^^^^^^^^^^^^^^^^^       ^^^                        ^^^^^              
 >{    data: { msg: "" },    render() {        const h = (x: unknown) => x;        return h(this.get("msg"));    },} : { data: { msg: string; }; render(): unknown; }
 >                                                                                                                   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

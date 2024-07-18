@@ -4,8 +4,8 @@
 // https://github.com/microsoft/TypeScript/issues/55382
 
 declare function test1<T>(arg: {
->test1 : <T>(arg: { [K in keyof T]: T[K]; }) => T
->      : ^ ^^   ^^                         ^^^^^ 
+>test1 : <T extends unknown>(arg: { [K in keyof T]: T[K]; }) => T
+>      : ^ ^^^^^^^^^^^^^^^^^^   ^^                         ^^^^^ 
 >arg : { [K in keyof T]: T[K]; }
 >    : ^^^ ^^^^^^^^^^^^^^^^^^^^^
 
@@ -16,8 +16,8 @@ const result1 = test1(["foo", 42]);
 >        : ^^^^^^^^^^^^^^^^
 >test1(["foo", 42]) : [string, number]
 >                   : ^^^^^^^^^^^^^^^^
->test1 : <T>(arg: { [K in keyof T]: T[K]; }) => T
->      : ^ ^^   ^^                         ^^^^^ 
+>test1 : <T extends unknown>(arg: { [K in keyof T]: T[K]; }) => T
+>      : ^ ^^^^^^^^^^^^^^^^^^   ^^                         ^^^^^ 
 >["foo", 42] : [string, number]
 >            : ^^^^^^^^^^^^^^^^
 >"foo" : "foo"

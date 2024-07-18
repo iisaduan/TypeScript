@@ -327,12 +327,12 @@ declare const qq: ActionObject<{
     value: number;
 }>;
 declare let Anon: {
-    new <out T>(): {
+    new <out T extends unknown>(): {
         foo(): InstanceType<(typeof Anon<T>)>;
     };
 };
 declare let OuterC: {
-    new <out T>(): {
+    new <out T extends unknown>(): {
         foo(): any;
     };
 };

@@ -40,12 +40,12 @@ var anyPromise = Promise.resolve(5);
 >           : ^^^^^^^^^^^^
 >Promise.resolve(5) : Promise<number>
 >                   : ^^^^^^^^^^^^^^^
->Promise.resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->                : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>Promise.resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>                : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->        : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>        : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >5 : 5
 >  : ^
 
@@ -55,12 +55,12 @@ var numberPromise = Promise.resolve(5);
 >              : ^^^^^^^^^^^^^^^
 >Promise.resolve(5) : Promise<number>
 >                   : ^^^^^^^^^^^^^^^
->Promise.resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->                : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>Promise.resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>                : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->        : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>        : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >5 : 5
 >  : ^
 

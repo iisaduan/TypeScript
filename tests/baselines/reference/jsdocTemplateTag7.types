@@ -19,8 +19,8 @@ class C { }
  * @returns {T}
  */
 function f(x) {
->f : <T>(x: T) => T
->  : ^ ^^ ^^ ^^^^^ 
+>f : <T extends unknown>(x: T) => T
+>  : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >x : T
 >  : ^
 

@@ -29,8 +29,8 @@ class Left<L, A> {
 
     /** The given function is applied if this is a `Right` */
     map<B>(f: (a: A) => B): Either<L, B> {
->map : <B>(f: (a: A) => B) => Either<L, B>
->    : ^ ^^ ^^           ^^^^^            
+>map : <B extends unknown>(f: (a: A) => B) => Either<L, B>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^            
 >f : (a: A) => B
 >  : ^ ^^ ^^^^^ 
 >a : A
@@ -42,8 +42,8 @@ class Left<L, A> {
 >     : ^^^^
     }
     ap<B>(fab: Either<L, (a: A) => B>): Either<L, B> {
->ap : <B>(fab: Either<L, (a: A) => B>) => Either<L, B>
->   : ^ ^^   ^^                      ^^^^^            
+>ap : <B extends unknown>(fab: Either<L, (a: A) => B>) => Either<L, B>
+>   : ^ ^^^^^^^^^^^^^^^^^^   ^^                      ^^^^^            
 >fab : Either<L, (a: A) => B>
 >    : ^^^^^^^^^^^ ^^ ^^^^^ ^
 >a : A
@@ -77,8 +77,8 @@ class Right<L, A> {
 >      : ^
 
     map<B>(f: (a: A) => B): Either<L, B> {
->map : <B>(f: (a: A) => B) => Either<L, B>
->    : ^ ^^ ^^           ^^^^^            
+>map : <B extends unknown>(f: (a: A) => B) => Either<L, B>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^           ^^^^^            
 >f : (a: A) => B
 >  : ^ ^^ ^^^^^ 
 >a : A
@@ -101,8 +101,8 @@ class Right<L, A> {
 >      : ^
     }
     ap<B>(fab: Either<L, (a: A) => B>): Either<L, B> {
->ap : <B>(fab: Either<L, (a: A) => B>) => Either<L, B>
->   : ^ ^^   ^^                      ^^^^^            
+>ap : <B extends unknown>(fab: Either<L, (a: A) => B>) => Either<L, B>
+>   : ^ ^^^^^^^^^^^^^^^^^^   ^^                      ^^^^^            
 >fab : Either<L, (a: A) => B>
 >    : ^^^^^^^^^^^ ^^ ^^^^^ ^
 >a : A

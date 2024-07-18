@@ -725,24 +725,24 @@ pipe(...sa);  // Error
 >   : ^^^^^^^^
 
 declare function fn1<T, U>(t: [...unknown[], T, U]): [T, U];
->fn1 : <T, U>(t: [...unknown[], T, U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn1 : <T extends unknown, U extends unknown>(t: [...unknown[], T, U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >t : [...unknown[], T, U]
 >  : ^^^^^^^^^^^^^^^^^^^^
 
 fn1([]);  // Error
 >fn1([]) : [unknown, unknown]
 >        : ^^^^^^^^^^^^^^^^^^
->fn1 : <T, U>(t: [...unknown[], T, U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn1 : <T extends unknown, U extends unknown>(t: [...unknown[], T, U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >[] : []
 >   : ^^
 
 fn1([1]);  // Error
 >fn1([1]) : [unknown, unknown]
 >         : ^^^^^^^^^^^^^^^^^^
->fn1 : <T, U>(t: [...unknown[], T, U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn1 : <T extends unknown, U extends unknown>(t: [...unknown[], T, U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >[1] : [number]
 >    : ^^^^^^^^
 >1 : 1
@@ -751,8 +751,8 @@ fn1([1]);  // Error
 fn1([1, 'abc']);  // [number, string]
 >fn1([1, 'abc']) : [number, string]
 >                : ^^^^^^^^^^^^^^^^
->fn1 : <T, U>(t: [...unknown[], T, U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn1 : <T extends unknown, U extends unknown>(t: [...unknown[], T, U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >[1, 'abc'] : [number, string]
 >           : ^^^^^^^^^^^^^^^^
 >1 : 1
@@ -763,8 +763,8 @@ fn1([1, 'abc']);  // [number, string]
 fn1([1, 'abc', true]);  // [string, boolean]
 >fn1([1, 'abc', true]) : [string, boolean]
 >                      : ^^^^^^^^^^^^^^^^^
->fn1 : <T, U>(t: [...unknown[], T, U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn1 : <T extends unknown, U extends unknown>(t: [...unknown[], T, U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >[1, 'abc', true] : [number, string, true]
 >                 : ^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
@@ -775,24 +775,24 @@ fn1([1, 'abc', true]);  // [string, boolean]
 >     : ^^^^
 
 declare function fn2<T, U>(t: [T, ...unknown[], U]): [T, U];
->fn2 : <T, U>(t: [T, ...unknown[], U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn2 : <T extends unknown, U extends unknown>(t: [T, ...unknown[], U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >t : [T, ...unknown[], U]
 >  : ^^^^^^^^^^^^^^^^^^^^
 
 fn2([]);  // Error
 >fn2([]) : [unknown, unknown]
 >        : ^^^^^^^^^^^^^^^^^^
->fn2 : <T, U>(t: [T, ...unknown[], U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn2 : <T extends unknown, U extends unknown>(t: [T, ...unknown[], U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >[] : []
 >   : ^^
 
 fn2([1]);  // Error
 >fn2([1]) : [unknown, unknown]
 >         : ^^^^^^^^^^^^^^^^^^
->fn2 : <T, U>(t: [T, ...unknown[], U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn2 : <T extends unknown, U extends unknown>(t: [T, ...unknown[], U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >[1] : [number]
 >    : ^^^^^^^^
 >1 : 1
@@ -801,8 +801,8 @@ fn2([1]);  // Error
 fn2([1, 'abc']);  // [number, string]
 >fn2([1, 'abc']) : [number, string]
 >                : ^^^^^^^^^^^^^^^^
->fn2 : <T, U>(t: [T, ...unknown[], U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn2 : <T extends unknown, U extends unknown>(t: [T, ...unknown[], U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >[1, 'abc'] : [number, string]
 >           : ^^^^^^^^^^^^^^^^
 >1 : 1
@@ -813,8 +813,8 @@ fn2([1, 'abc']);  // [number, string]
 fn2([1, 'abc', true]);  // [number, boolean]
 >fn2([1, 'abc', true]) : [number, boolean]
 >                      : ^^^^^^^^^^^^^^^^^
->fn2 : <T, U>(t: [T, ...unknown[], U]) => [T, U]
->    : ^ ^^ ^^ ^^                    ^^^^^      
+>fn2 : <T extends unknown, U extends unknown>(t: [T, ...unknown[], U]) => [T, U]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^ ^^                    ^^^^^      
 >[1, 'abc', true] : [number, string, true]
 >                 : ^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1

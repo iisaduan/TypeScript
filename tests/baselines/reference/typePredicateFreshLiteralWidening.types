@@ -13,12 +13,12 @@ type Narrow<A> = (A extends Narrowable ? A : never) | ({
 });
 
 const satisfies =
->satisfies : <TWide>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
->          : ^     ^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
+>satisfies : <TWide extends unknown>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
+>          : ^     ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
 
   <TWide,>() =>
-><TWide,>() =>  <TNarrow extends TWide>(narrow: Narrow<TNarrow>) =>    narrow : <TWide>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
->                                                                             : ^     ^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
+><TWide,>() =>  <TNarrow extends TWide>(narrow: Narrow<TNarrow>) =>    narrow : <TWide extends unknown>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
+>                                                                             : ^     ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
 
   <TNarrow extends TWide>(narrow: Narrow<TNarrow>) =>
 ><TNarrow extends TWide>(narrow: Narrow<TNarrow>) =>    narrow : <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
@@ -33,10 +33,10 @@ const satisfies =
 /* ========================================================================== */
 
 const isNotNull = <T,>(value: T | null): value is T => value !== null;
->isNotNull : <T>(value: T | null) => value is T
->          : ^ ^^     ^^        ^^^^^          
-><T,>(value: T | null): value is T => value !== null : <T>(value: T | null) => value is T
->                                                    : ^ ^^     ^^        ^^^^^          
+>isNotNull : <T extends unknown>(value: T | null) => value is T
+>          : ^ ^^^^^^^^^^^^^^^^^^     ^^        ^^^^^          
+><T,>(value: T | null): value is T => value !== null : <T extends unknown>(value: T | null) => value is T
+>                                                    : ^ ^^^^^^^^^^^^^^^^^^     ^^        ^^^^^          
 >value : T | null
 >      : ^^^^^^^^
 >value !== null : boolean
@@ -57,8 +57,8 @@ const item1 = satisfies<Item>()({ value: "1" });
 >                                  : ^^^^^^^^^^^^^^^
 >satisfies<Item>() : <TNarrow extends Item>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
 >                  : ^       ^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->satisfies : <TWide>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
->          : ^     ^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
+>satisfies : <TWide extends unknown>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
+>          : ^     ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
 >{ value: "1" } : { value: "1"; }
 >               : ^^^^^^^^^^^^^^^
 >value : "1"
@@ -73,8 +73,8 @@ const item2 = satisfies<Item>()({ value: "2" });
 >                                  : ^^^^^^^^^^^^^^^
 >satisfies<Item>() : <TNarrow extends Item>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
 >                  : ^       ^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->satisfies : <TWide>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
->          : ^     ^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
+>satisfies : <TWide extends unknown>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
+>          : ^     ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
 >{ value: "2" } : { value: "2"; }
 >               : ^^^^^^^^^^^^^^^
 >value : "2"
@@ -89,8 +89,8 @@ const item3 = satisfies<Item>()({ value: null });
 >                                   : ^^^^^^^^^^^^^^^^
 >satisfies<Item>() : <TNarrow extends Item>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
 >                  : ^       ^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->satisfies : <TWide>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
->          : ^     ^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
+>satisfies : <TWide extends unknown>() => <TNarrow extends TWide>(narrow: Narrow<TNarrow>) => Narrow<TNarrow>
+>          : ^     ^^^^^^^^^^^^^^^^^^^^^^^^       ^^^^^^^^^     ^^      ^^               ^^^^^^^^^^^^^^^^^^^^
 >{ value: null } : { value: null; }
 >                : ^^^^^^^^^^^^^^^^
 >value : null
@@ -117,16 +117,16 @@ const filteredValues2 = values2.filter(isNotNull);
 >        : ^^^^^^^^^^^^^^^^^^^^
 >filter : { <S extends "1" | "2" | null>(predicate: (value: "1" | "2" | null, index: number, array: ("1" | "2" | null)[]) => value is S, thisArg?: any): S[]; (predicate: (value: "1" | "2" | null, index: number, array: ("1" | "2" | null)[]) => unknown, thisArg?: any): ("1" | "2" | null)[]; }
 >       : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^       ^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^
->isNotNull : <T>(value: T | null) => value is T
->          : ^ ^^     ^^        ^^^^^          
+>isNotNull : <T extends unknown>(value: T | null) => value is T
+>          : ^ ^^^^^^^^^^^^^^^^^^     ^^        ^^^^^          
 
 const values1 = [item1, item2, item3].map(item => item.value);
 >values1 : ("1" | "2" | null)[]
 >        : ^^^^^^^^^^^^^^^^^^^^
 >[item1, item2, item3].map(item => item.value) : ("1" | "2" | null)[]
 >                                              : ^^^^^^^^^^^^^^^^^^^^
->[item1, item2, item3].map : <U>(callbackfn: (value: { value: "1"; } | { value: "2"; } | { value: null; }, index: number, array: ({ value: "1"; } | { value: "2"; } | { value: null; })[]) => U, thisArg?: any) => U[]
->                          : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>[item1, item2, item3].map : <U extends unknown>(callbackfn: (value: { value: "1"; } | { value: "2"; } | { value: null; }, index: number, array: ({ value: "1"; } | { value: "2"; } | { value: null; })[]) => U, thisArg?: any) => U[]
+>                          : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >[item1, item2, item3] : ({ value: "1"; } | { value: "2"; } | { value: null; })[]
 >                      : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >item1 : { value: "1"; }
@@ -135,8 +135,8 @@ const values1 = [item1, item2, item3].map(item => item.value);
 >      : ^^^^^^^^^^^^^^^
 >item3 : { value: null; }
 >      : ^^^^^^^^^^^^^^^^
->map : <U>(callbackfn: (value: { value: "1"; } | { value: "2"; } | { value: null; }, index: number, array: ({ value: "1"; } | { value: "2"; } | { value: null; })[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends unknown>(callbackfn: (value: { value: "1"; } | { value: "2"; } | { value: null; }, index: number, array: ({ value: "1"; } | { value: "2"; } | { value: null; })[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >item => item.value : (item: { value: "1"; } | { value: "2"; } | { value: null; }) => "1" | "2" | null
 >                   : ^    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >item : { value: "1"; } | { value: "2"; } | { value: null; }
@@ -159,6 +159,6 @@ const filteredValues1 = values1.filter(isNotNull);
 >        : ^^^^^^^^^^^^^^^^^^^^
 >filter : { <S extends "1" | "2" | null>(predicate: (value: "1" | "2" | null, index: number, array: ("1" | "2" | null)[]) => value is S, thisArg?: any): S[]; (predicate: (value: "1" | "2" | null, index: number, array: ("1" | "2" | null)[]) => unknown, thisArg?: any): ("1" | "2" | null)[]; }
 >       : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^       ^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^
->isNotNull : <T>(value: T | null) => value is T
->          : ^ ^^     ^^        ^^^^^          
+>isNotNull : <T extends unknown>(value: T | null) => value is T
+>          : ^ ^^^^^^^^^^^^^^^^^^     ^^        ^^^^^          
 

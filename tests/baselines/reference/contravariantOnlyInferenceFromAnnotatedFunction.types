@@ -24,8 +24,8 @@ type Funcs<A, B extends Record<string, unknown>> = {
 }
 
 declare function foo<A, B extends Record<string, unknown>>(fns: Funcs<A, B>): [A, B]
->foo : <A, B extends Record<string, unknown>>(fns: Funcs<A, B>) => [A, B]
->    : ^ ^^ ^^^^^^^^^                       ^^   ^^           ^^^^^      
+>foo : <A extends unknown, B extends Record<string, unknown>>(fns: Funcs<A, B>) => [A, B]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^                       ^^   ^^           ^^^^^      
 >fns : Funcs<A, B>
 >    : ^^^^^^^^^^^
 
@@ -34,8 +34,8 @@ const result = foo({
 >       : ^^^^^^^^^^^^^^^^^^^^^^^^^^
 >foo({  bar: {    fn: (a: string) => {},    thing: 'asd',  },}) : [string, { bar: string; }]
 >                                                               : ^^^^^^^^^^^^^^^^^^^^^^^^^^
->foo : <A, B extends Record<string, unknown>>(fns: Funcs<A, B>) => [A, B]
->    : ^ ^^ ^^^^^^^^^                       ^^   ^^           ^^^^^      
+>foo : <A extends unknown, B extends Record<string, unknown>>(fns: Funcs<A, B>) => [A, B]
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^                       ^^   ^^           ^^^^^      
 >{  bar: {    fn: (a: string) => {},    thing: 'asd',  },} : { bar: { fn: (a: string) => void; thing: string; }; }
 >                                                          : ^^^^^^^^^^^^^^ ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -2,8 +2,8 @@
 
 === contextuallyTypedParametersWithInitializers1.ts ===
 declare function id1<T>(input: T): T;
->id1 : <T>(input: T) => T
->    : ^ ^^     ^^ ^^^^^ 
+>id1 : <T extends unknown>(input: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^ 
 >input : T
 >      : ^
 
@@ -60,8 +60,8 @@ const f11 = id1(function ({ foo = 42 }) { return foo });
 >    : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >id1(function ({ foo = 42 }) { return foo }) : ({ foo }: { foo?: number | undefined; }) => number
 >                                            : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->id1 : <T>(input: T) => T
->    : ^ ^^     ^^ ^^^^^ 
+>id1 : <T extends unknown>(input: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^ 
 >function ({ foo = 42 }) { return foo } : ({ foo }: { foo?: number | undefined; }) => number
 >                                       : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >foo : number
@@ -136,8 +136,8 @@ const f21 = id1(function (foo = 42) { return foo });
 >    : ^   ^^^^^^^^^^^^^^^^^^^^
 >id1(function (foo = 42) { return foo }) : (foo?: number) => number
 >                                        : ^   ^^^^^^^^^^^^^^^^^^^^
->id1 : <T>(input: T) => T
->    : ^ ^^     ^^ ^^^^^ 
+>id1 : <T extends unknown>(input: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^ 
 >function (foo = 42) { return foo } : (foo?: number) => number
 >                                   : ^   ^^^^^^^^^^^^^^^^^^^^
 >foo : number
@@ -274,8 +274,8 @@ const f8: () => any = (...x) => 0;  // []
 >  : ^
 
 declare function g1<T>(x: T): T;
->g1 : <T>(x: T) => T
->   : ^ ^^ ^^ ^^^^^ 
+>g1 : <T extends unknown>(x: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >x : T
 >  : ^
 
@@ -314,8 +314,8 @@ declare function g6<T extends () => any>(x: T): T;
 g1((x = 1) => 0);  // number
 >g1((x = 1) => 0) : (x?: number) => 0
 >                 : ^ ^^^^^^^^^^^^^^^
->g1 : <T>(x: T) => T
->   : ^ ^^ ^^ ^^^^^ 
+>g1 : <T extends unknown>(x: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >(x = 1) => 0 : (x?: number) => 0
 >             : ^ ^^^^^^^^^^^^^^^
 >x : number
@@ -422,8 +422,8 @@ g6((...x) => 0);   // []
 // Repro from #28816
 
 function id<T>(input: T): T { return input }
->id : <T>(input: T) => T
->   : ^ ^^     ^^ ^^^^^ 
+>id : <T extends unknown>(input: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^ 
 >input : T
 >      : ^
 >input : T
@@ -447,8 +447,8 @@ const newGetFoo = id(getFoo);
 >          : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >id(getFoo) : ({ foo }: { foo?: number | undefined; }) => number
 >           : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->id : <T>(input: T) => T
->   : ^ ^^     ^^ ^^^^^ 
+>id : <T extends unknown>(input: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^ 
 >getFoo : ({ foo }: { foo?: number | undefined; }) => number
 >       : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -457,8 +457,8 @@ const newGetFoo2 = id(function getFoo ({ foo = 42 }) {
 >           : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >id(function getFoo ({ foo = 42 }) {  return foo;}) : ({ foo }: { foo?: number | undefined; }) => number
 >                                                   : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->id : <T>(input: T) => T
->   : ^ ^^     ^^ ^^^^^ 
+>id : <T extends unknown>(input: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^^^ 
 >function getFoo ({ foo = 42 }) {  return foo;} : ({ foo }: { foo?: number | undefined; }) => number
 >                                               : ^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >getFoo : ({ foo }: { foo?: number | undefined; }) => number

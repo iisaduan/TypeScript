@@ -29,8 +29,8 @@ type T05 = NonNullable<(() => string) | string[] | null | undefined>;  // (() =>
 >    : ^^^
 
 function f1<T>(x: T, y: NonNullable<T>) {
->f1 : <T>(x: T, y: NonNullable<T>) => void
->   : ^ ^^ ^^ ^^ ^^              ^^^^^^^^^
+>f1 : <T extends unknown>(x: T, y: NonNullable<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^              ^^^^^^^^^
 >x : T
 >  : ^
 >y : NonNullable<T>
@@ -91,8 +91,8 @@ function f2<T extends string | undefined>(x: T, y: NonNullable<T>) {
 }
 
 function f3<T>(x: Partial<T>[keyof T], y: NonNullable<Partial<T>[keyof T]>) {
->f3 : <T>(x: Partial<T>[keyof T], y: NonNullable<Partial<T>[keyof T]>) => void
->   : ^ ^^ ^^                   ^^ ^^                                ^^^^^^^^^
+>f3 : <T extends unknown>(x: Partial<T>[keyof T], y: NonNullable<Partial<T>[keyof T]>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^                   ^^ ^^                                ^^^^^^^^^
 >x : Partial<T>[keyof T]
 >  : ^^^^^^^^^^^^^^^^^^^
 >y : NonNullable<Partial<T>[keyof T]>
@@ -359,8 +359,8 @@ type T31 = NonFunctionProperties<Part>;
 >    : ^^^
 
 function f7<T>(x: T, y: FunctionProperties<T>, z: NonFunctionProperties<T>) {
->f7 : <T>(x: T, y: FunctionProperties<T>, z: NonFunctionProperties<T>) => void
->   : ^ ^^ ^^ ^^ ^^                     ^^ ^^                        ^^^^^^^^^
+>f7 : <T extends unknown>(x: T, y: FunctionProperties<T>, z: NonFunctionProperties<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^                     ^^ ^^                        ^^^^^^^^^
 >x : T
 >  : ^
 >y : FunctionProperties<T>
@@ -418,8 +418,8 @@ function f7<T>(x: T, y: FunctionProperties<T>, z: NonFunctionProperties<T>) {
 }
 
 function f8<T>(x: keyof T, y: FunctionPropertyNames<T>, z: NonFunctionPropertyNames<T>) {
->f8 : <T>(x: keyof T, y: FunctionPropertyNames<T>, z: NonFunctionPropertyNames<T>) => void
->   : ^ ^^ ^^       ^^ ^^                        ^^ ^^                           ^^^^^^^^^
+>f8 : <T extends unknown>(x: keyof T, y: FunctionPropertyNames<T>, z: NonFunctionPropertyNames<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^       ^^ ^^                        ^^ ^^                           ^^^^^^^^^
 >x : keyof T
 >  : ^^^^^^^
 >y : FunctionPropertyNames<T>
@@ -1030,18 +1030,18 @@ type T52 = IsNever<any>;  // false
 >    : ^^^^^
 
 function f22<T>(x: T extends (infer U)[] ? U[] : never) {
->f22 : <T>(x: T extends (infer U)[] ? U[] : never) => void
->    : ^ ^^ ^^                                   ^^^^^^^^^
->x : T extends (infer U)[] ? U[] : never
->  : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^
+>f22 : <T extends unknown>(x: T extends (infer U)[] ? U[] : never) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^                                   ^^^^^^^^^
+>x : T extends (infer U extends unknown)[] ? U[] : never
+>  : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     let e = x[0];  // {}
 >e : unknown
 >  : ^^^^^^^
 >x[0] : unknown
 >     : ^^^^^^^
->x : T extends (infer U)[] ? U[] : never
->  : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^
+>x : T extends (infer U extends unknown)[] ? U[] : never
+>  : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >0 : 0
 >  : ^
 }
@@ -1049,16 +1049,16 @@ function f22<T>(x: T extends (infer U)[] ? U[] : never) {
 function f23<T extends string[]>(x: T extends (infer U)[] ? U[] : never) {
 >f23 : <T extends string[]>(x: T extends (infer U)[] ? U[] : never) => void
 >    : ^ ^^^^^^^^^        ^^ ^^                                   ^^^^^^^^^
->x : T extends (infer U)[] ? U[] : never
->  : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^
+>x : T extends (infer U extends unknown)[] ? U[] : never
+>  : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     let e = x[0];  // string
 >e : string
 >  : ^^^^^^
 >x[0] : string
 >     : ^^^^^^
->x : T extends (infer U)[] ? U[] : never
->  : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^
+>x : T extends (infer U extends unknown)[] ? U[] : never
+>  : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >0 : 0
 >  : ^
 }
@@ -1202,10 +1202,10 @@ type Bar<T> = T extends string ? boolean : number;
 >    : ^^^^^^
 
 const convert = <U>(value: Foo<U>): Bar<U> => value;
->convert : <U>(value: Foo<U>) => Bar<U>
->        : ^ ^^     ^^      ^^^^^      
-><U>(value: Foo<U>): Bar<U> => value : <U>(value: Foo<U>) => Bar<U>
->                                    : ^ ^^     ^^      ^^^^^      
+>convert : <U extends unknown>(value: Foo<U>) => Bar<U>
+>        : ^ ^^^^^^^^^^^^^^^^^^     ^^      ^^^^^      
+><U>(value: Foo<U>): Bar<U> => value : <U extends unknown>(value: Foo<U>) => Bar<U>
+>                                    : ^ ^^^^^^^^^^^^^^^^^^     ^^      ^^^^^      
 >value : Foo<U>
 >      : ^^^^^^
 >value : Foo<U>
@@ -1216,18 +1216,18 @@ type Baz<T> = Foo<T>;
 >    : ^^^^^^
 
 const convert2 = <T>(value: Foo<T>): Baz<T> => value;
->convert2 : <T>(value: Foo<T>) => Baz<T>
->         : ^ ^^     ^^      ^^^^^      
-><T>(value: Foo<T>): Baz<T> => value : <T>(value: Foo<T>) => Baz<T>
->                                    : ^ ^^     ^^      ^^^^^      
+>convert2 : <T extends unknown>(value: Foo<T>) => Baz<T>
+>         : ^ ^^^^^^^^^^^^^^^^^^     ^^      ^^^^^      
+><T>(value: Foo<T>): Baz<T> => value : <T extends unknown>(value: Foo<T>) => Baz<T>
+>                                    : ^ ^^^^^^^^^^^^^^^^^^     ^^      ^^^^^      
 >value : Foo<T>
 >      : ^^^^^^
 >value : Foo<T>
 >      : ^^^^^^
 
 function f31<T>() {
->f31 : <T>() => void
->    : ^ ^^^^^^^^^^^
+>f31 : <T extends unknown>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     type T1 = T extends string ? boolean : number;
 >T1 : T extends string ? boolean : number
@@ -1247,8 +1247,8 @@ function f31<T>() {
 }
 
 function f32<T, U>() {
->f32 : <T, U>() => void
->    : ^ ^^ ^^^^^^^^^^^
+>f32 : <T extends unknown, U extends unknown>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     type T1 = T & U extends string ? boolean : number;
 >T1 : T & U extends string ? boolean : number
@@ -1268,8 +1268,8 @@ function f32<T, U>() {
 }
 
 function f33<T, U>() {
->f33 : <T, U>() => void
->    : ^ ^^ ^^^^^^^^^^^
+>f33 : <T extends unknown, U extends unknown>() => void
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     type T1 = Foo<T & U>;
 >T1 : Foo<T & U>
@@ -1299,20 +1299,20 @@ type T91<T> = T extends 0 ? 0 : () => 0;
 >    : ^^^^^^
 
 const f40 = <U>(a: T90<U>): T91<U> => a;
->f40 : <U>(a: T90<U>) => T91<U>
->    : ^ ^^ ^^      ^^^^^      
-><U>(a: T90<U>): T91<U> => a : <U>(a: T90<U>) => T91<U>
->                            : ^ ^^ ^^      ^^^^^      
+>f40 : <U extends unknown>(a: T90<U>) => T91<U>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^^^^      
+><U>(a: T90<U>): T91<U> => a : <U extends unknown>(a: T90<U>) => T91<U>
+>                            : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^^^^      
 >a : T90<U>
 >  : ^^^^^^
 >a : T90<U>
 >  : ^^^^^^
 
 const f41 = <U>(a: T91<U>): T90<U> => a;
->f41 : <U>(a: T91<U>) => T90<U>
->    : ^ ^^ ^^      ^^^^^      
-><U>(a: T91<U>): T90<U> => a : <U>(a: T91<U>) => T90<U>
->                            : ^ ^^ ^^      ^^^^^      
+>f41 : <U extends unknown>(a: T91<U>) => T90<U>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^^^^      
+><U>(a: T91<U>): T90<U> => a : <U extends unknown>(a: T91<U>) => T90<U>
+>                            : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^^^^      
 >a : T91<U>
 >  : ^^^^^^
 >a : T91<U>
@@ -1327,20 +1327,20 @@ type T93<T> = T extends () => 0 ? () => 1 : () => 2;
 >    : ^^^^^^
 
 const f42 = <U>(a: T92<U>): T93<U> => a;
->f42 : <U>(a: T92<U>) => T93<U>
->    : ^ ^^ ^^      ^^^^^      
-><U>(a: T92<U>): T93<U> => a : <U>(a: T92<U>) => T93<U>
->                            : ^ ^^ ^^      ^^^^^      
+>f42 : <U extends unknown>(a: T92<U>) => T93<U>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^^^^      
+><U>(a: T92<U>): T93<U> => a : <U extends unknown>(a: T92<U>) => T93<U>
+>                            : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^^^^      
 >a : T92<U>
 >  : ^^^^^^
 >a : T92<U>
 >  : ^^^^^^
 
 const f43 = <U>(a: T93<U>): T92<U> => a;
->f43 : <U>(a: T93<U>) => T92<U>
->    : ^ ^^ ^^      ^^^^^      
-><U>(a: T93<U>): T92<U> => a : <U>(a: T93<U>) => T92<U>
->                            : ^ ^^ ^^      ^^^^^      
+>f43 : <U extends unknown>(a: T93<U>) => T92<U>
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^^^^      
+><U>(a: T93<U>): T92<U> => a : <U extends unknown>(a: T93<U>) => T92<U>
+>                            : ^ ^^^^^^^^^^^^^^^^^^ ^^      ^^^^^      
 >a : T93<U>
 >  : ^^^^^^
 >a : T93<U>
@@ -1357,20 +1357,20 @@ type T95<T> = T extends string ? boolean : number;
 >    : ^^^^^^
 
 const f44 = <U>(value: T94<U>): T95<U> => value;
->f44 : <U>(value: T94<U>) => T95<U>
->    : ^ ^^     ^^      ^^^^^      
-><U>(value: T94<U>): T95<U> => value : <U>(value: T94<U>) => T95<U>
->                                    : ^ ^^     ^^      ^^^^^      
+>f44 : <U extends unknown>(value: T94<U>) => T95<U>
+>    : ^ ^^^^^^^^^^^^^^^^^^     ^^      ^^^^^      
+><U>(value: T94<U>): T95<U> => value : <U extends unknown>(value: T94<U>) => T95<U>
+>                                    : ^ ^^^^^^^^^^^^^^^^^^     ^^      ^^^^^      
 >value : T94<U>
 >      : ^^^^^^
 >value : T94<U>
 >      : ^^^^^^
 
 const f45 = <U>(value: T95<U>): T94<U> => value;  // Error
->f45 : <U>(value: T95<U>) => T94<U>
->    : ^ ^^     ^^      ^^^^^      
-><U>(value: T95<U>): T94<U> => value : <U>(value: T95<U>) => T94<U>
->                                    : ^ ^^     ^^      ^^^^^      
+>f45 : <U extends unknown>(value: T95<U>) => T94<U>
+>    : ^ ^^^^^^^^^^^^^^^^^^     ^^      ^^^^^      
+><U>(value: T95<U>): T94<U> => value : <U extends unknown>(value: T95<U>) => T94<U>
+>                                    : ^ ^^^^^^^^^^^^^^^^^^     ^^      ^^^^^      
 >value : T95<U>
 >      : ^^^^^^
 >value : T95<U>
@@ -1538,8 +1538,8 @@ type RecursivePartial<T> = {
 };
 
 declare function assign<T>(o: T, a: RecursivePartial<T>): void;
->assign : <T>(o: T, a: RecursivePartial<T>) => void
->       : ^ ^^ ^^ ^^ ^^                   ^^^^^    
+>assign : <T extends unknown>(o: T, a: RecursivePartial<T>) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^                   ^^^^^    
 >o : T
 >  : ^
 >a : RecursivePartial<T>
@@ -1576,8 +1576,8 @@ var a = {o: 1, b: 2, c: [{a: 1, c: '213'}]}
 assign(a, {o: 2, c: {0: {a: 2, c: '213123'}}})
 >assign(a, {o: 2, c: {0: {a: 2, c: '213123'}}}) : void
 >                                               : ^^^^
->assign : <T>(o: T, a: RecursivePartial<T>) => void
->       : ^ ^^ ^^ ^^ ^^                   ^^^^^    
+>assign : <T extends unknown>(o: T, a: RecursivePartial<T>) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^                   ^^^^^    
 >a : { o: number; b: number; c: { a: number; c: string; }[]; }
 >  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >{o: 2, c: {0: {a: 2, c: '213123'}}} : { o: number; c: { 0: { a: number; c: string; }; }; }

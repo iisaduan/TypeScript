@@ -11,16 +11,16 @@ class ErrImpl<E> {
 }
 
 declare const Err: typeof ErrImpl & (<T>() => T);
->Err : typeof ErrImpl & (<T>() => T)
->    : ^^^^^^^^^^^^^^^^^^^ ^^^^^^^ ^
+>Err : typeof ErrImpl & (<T extends unknown>() => T)
+>    : ^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^ ^
 >ErrImpl : typeof ErrImpl
 >        : ^^^^^^^^^^^^^^
 
 type ErrAlias<U> = typeof Err<U>;
 >ErrAlias : { new (): ErrImpl<U>; prototype: ErrImpl<any>; } & (() => U)
 >         : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Err : typeof ErrImpl & (<T>() => T)
->    : ^^^^^^^^^^^^^^^^^^^ ^^^^^^^ ^
+>Err : typeof ErrImpl & (<T extends unknown>() => T)
+>    : ^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^ ^
 
 declare const e: ErrAlias<number>;
 >e : { new (): ErrImpl<number>; prototype: ErrImpl<any>; } & (() => number)

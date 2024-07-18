@@ -4,8 +4,8 @@
 // #48966
 
 export async function* test<T>(a: T): AsyncGenerator<T, T, T> {
->test : <T>(a: T) => AsyncGenerator<T, T, T>
->     : ^ ^^ ^^ ^^^^^                       
+>test : <T extends unknown>(a: T) => AsyncGenerator<T, T, T>
+>     : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^                       
 >a : T
 >  : ^
 

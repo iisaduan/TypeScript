@@ -3,8 +3,8 @@
 === discriminantNarrowingCouldBeCircular.ts ===
 // #57705, 57690
 declare function is<T>(v: T): v is T;
->is : <T>(v: T) => v is T
->   : ^ ^^ ^^ ^^^^^      
+>is : <T extends unknown>(v: T) => v is T
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^      
 >v : T
 >  : ^
 
@@ -37,8 +37,8 @@ if (o) {
     if (is<string>(value)) {
 >is<string>(value) : boolean
 >                  : ^^^^^^^
->is : <T>(v: T) => v is T
->   : ^ ^^ ^^ ^^^^^      
+>is : <T extends unknown>(v: T) => v is T
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^      
 >value : string
 >      : ^^^^^^
     }
@@ -145,8 +145,8 @@ function getImplicitAriaRole(element: SomeRecord) {
 }
 
 declare function isPlainObject2<T>(
->isPlainObject2 : <T>(data: unknown) => data is Record<PropertyKey, unknown>
->               : ^ ^^    ^^       ^^^^^                                    
+>isPlainObject2 : <T extends unknown>(data: unknown) => data is Record<PropertyKey, unknown>
+>               : ^ ^^^^^^^^^^^^^^^^^^    ^^       ^^^^^                                    
 
     data: unknown,
 >data : unknown
@@ -161,8 +161,8 @@ declare function isPlainObject2<T>(
   if (isPlainObject2(myObj2)) {
 >isPlainObject2(myObj2) : boolean
 >                       : ^^^^^^^
->isPlainObject2 : <T>(data: unknown) => data is Record<PropertyKey, unknown>
->               : ^ ^^    ^^       ^^^^^                                    
+>isPlainObject2 : <T extends unknown>(data: unknown) => data is Record<PropertyKey, unknown>
+>               : ^ ^^^^^^^^^^^^^^^^^^    ^^       ^^^^^                                    
 >myObj2 : unknown
 >       : ^^^^^^^
 
@@ -195,8 +195,8 @@ declare function isPlainObject2<T>(
 >                                                  : ^^^^^^^^
 >isPlainObject2(deeper) : boolean
 >                       : ^^^^^^^
->isPlainObject2 : <T>(data: unknown) => data is Record<PropertyKey, unknown>
->               : ^ ^^    ^^       ^^^^^                                    
+>isPlainObject2 : <T extends unknown>(data: unknown) => data is Record<PropertyKey, unknown>
+>               : ^ ^^^^^^^^^^^^^^^^^^    ^^       ^^^^^                                    
 >deeper : unknown
 >       : ^^^^^^^
 >Object.keys(deeper) : string[]

@@ -1,5 +1,8 @@
 //// [tests/cases/compiler/deferredConditionalTypes.ts] ////
 
+=== Performance Stats ===
+Instantiation count: 2,500
+
 === deferredConditionalTypes.ts ===
 type A<T> = { x: T } extends { x: 0 } ? 1 : 0;
 >A : A<T>

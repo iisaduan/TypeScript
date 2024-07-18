@@ -34,10 +34,10 @@ type Out = InexactOptionals<In>
 >    : ^^^
 
 const foo = <A = {}>() => (x: Out & A) => null
->foo : <A = {}>() => (x: Out & A) => null
->    : ^ ^^^^^^^^^^^^^ ^^       ^^^^^^^^^
-><A = {}>() => (x: Out & A) => null : <A = {}>() => (x: Out & A) => null
->                                   : ^ ^^^^^^^^^^^^^ ^^       ^^^^^^^^^
+>foo : <A extends unknown = {}>() => (x: Out & A) => null
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^^^^^
+><A = {}>() => (x: Out & A) => null : <A extends unknown = {}>() => (x: Out & A) => null
+>                                   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^^^^^
 >(x: Out & A) => null : (x: Out & A) => null
 >                     : ^ ^^       ^^^^^^^^^
 >x : { foo?: string | undefined; baz?: undefined; } & { bar: number; } & A
@@ -48,6 +48,6 @@ export const baddts = foo()
 >       : ^ ^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^         ^^^^^^^^^^^^^      ^^^^^^^^^^^^
 >foo() : (x: { foo?: string | undefined; baz?: undefined; } & { bar: number; }) => null
 >      : ^ ^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^         ^^^^^^^^^^^^^      ^^^^^^^^^^^^
->foo : <A = {}>() => (x: Out & A) => null
->    : ^ ^^^^^^^^^^^^^ ^^       ^^^^^^^^^
+>foo : <A extends unknown = {}>() => (x: Out & A) => null
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^^^^^
 

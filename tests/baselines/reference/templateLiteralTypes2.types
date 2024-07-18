@@ -327,8 +327,8 @@ function ft12(s: string) {
 }
 
 declare function widening<T>(x: T): T;
->widening : <T>(x: T) => T
->         : ^ ^^ ^^ ^^^^^ 
+>widening : <T extends unknown>(x: T) => T
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >x : T
 >  : ^
 
@@ -351,8 +351,8 @@ function ft13(s: string, cond: boolean) {
 >   : ^^^^^^
 >widening(`foo${s}`) : string
 >                    : ^^^^^^
->widening : <T>(x: T) => T
->         : ^ ^^ ^^ ^^^^^ 
+>widening : <T extends unknown>(x: T) => T
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >`foo${s}` : string
 >          : ^^^^^^
 >s : string
@@ -363,8 +363,8 @@ function ft13(s: string, cond: boolean) {
 >   : ^^^^^^
 >widening(cond ? 'a' : `foo${s}`) : string
 >                                 : ^^^^^^
->widening : <T>(x: T) => T
->         : ^ ^^ ^^ ^^^^^ 
+>widening : <T extends unknown>(x: T) => T
+>         : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >cond ? 'a' : `foo${s}` : string
 >                       : ^^^^^^
 >cond : boolean
@@ -451,8 +451,8 @@ function ft14(t: `foo${number}`) {
 }
 
 declare function g1<T>(x: T): T;
->g1 : <T>(x: T) => T
->   : ^ ^^ ^^ ^^^^^ 
+>g1 : <T extends unknown>(x: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >x : T
 >  : ^
 
@@ -473,8 +473,8 @@ function ft20(s: string) {
 >   : ^^^^^^
 >g1(`xyz-${s}`) : string
 >               : ^^^^^^
->g1 : <T>(x: T) => T
->   : ^ ^^ ^^ ^^^^^ 
+>g1 : <T extends unknown>(x: T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >`xyz-${s}` : string
 >           : ^^^^^^
 >s : string

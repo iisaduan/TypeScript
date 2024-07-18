@@ -12,8 +12,8 @@ type Callback<TFoo, TBar> = (foo: TFoo, bar: TBar) => any
 >    : ^^^^
 
 declare function example<TFoo, TBar, TCallback extends Callback<TFoo, TBar>>(
->example : <TFoo, TBar, TCallback extends Callback<TFoo, TBar>>(foo: TFoo, callback: TCallback, bar: TBar) => TCallback
->        : ^    ^^    ^^         ^^^^^^^^^                    ^^   ^^    ^^        ^^         ^^   ^^    ^^^^^         
+>example : <TFoo extends unknown, TBar extends unknown, TCallback extends Callback<TFoo, TBar>>(foo: TFoo, callback: TCallback, bar: TBar) => TCallback
+>        : ^    ^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^         ^^^^^^^^^                    ^^   ^^    ^^        ^^         ^^   ^^    ^^^^^         
 
     foo: TFoo,
 >foo : TFoo
@@ -32,8 +32,8 @@ declare function example<TFoo, TBar, TCallback extends Callback<TFoo, TBar>>(
 example(42, (foo, bar) => ({
 >example(42, (foo, bar) => ({    t: () => {        let s: string = bar;    }}), '42') : (foo: number, bar: string) => { t: () => void; }
 >                                                                                     : ^   ^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->example : <TFoo, TBar, TCallback extends Callback<TFoo, TBar>>(foo: TFoo, callback: TCallback, bar: TBar) => TCallback
->        : ^    ^^    ^^         ^^^^^^^^^                    ^^   ^^    ^^        ^^         ^^   ^^    ^^^^^         
+>example : <TFoo extends unknown, TBar extends unknown, TCallback extends Callback<TFoo, TBar>>(foo: TFoo, callback: TCallback, bar: TBar) => TCallback
+>        : ^    ^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^         ^^^^^^^^^                    ^^   ^^    ^^        ^^         ^^   ^^    ^^^^^         
 >42 : 42
 >   : ^^
 >(foo, bar) => ({    t: () => {        let s: string = bar;    }}) : (foo: number, bar: string) => { t: () => void; }
@@ -66,8 +66,8 @@ example(42, (foo, bar) => ({
 example(42, (foo, bar) => ({
 >example(42, (foo, bar) => ({    t() {        let s: string = bar;    }}), '42') : (foo: number, bar: string) => { t(): void; }
 >                                                                                : ^   ^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->example : <TFoo, TBar, TCallback extends Callback<TFoo, TBar>>(foo: TFoo, callback: TCallback, bar: TBar) => TCallback
->        : ^    ^^    ^^         ^^^^^^^^^                    ^^   ^^    ^^        ^^         ^^   ^^    ^^^^^         
+>example : <TFoo extends unknown, TBar extends unknown, TCallback extends Callback<TFoo, TBar>>(foo: TFoo, callback: TCallback, bar: TBar) => TCallback
+>        : ^    ^^^^^^^^^^^^^^^^^^    ^^^^^^^^^^^^^^^^^^         ^^^^^^^^^                    ^^   ^^    ^^        ^^         ^^   ^^    ^^^^^         
 >42 : 42
 >   : ^^
 >(foo, bar) => ({    t() {        let s: string = bar;    }}) : (foo: number, bar: string) => { t(): void; }

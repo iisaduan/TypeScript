@@ -30,8 +30,8 @@ type Animal = Cat | Dog;
 >       : ^^^^^^
 
 declare function assertEqual<T>(value: any, type: T): asserts value is T;
->assertEqual : <T>(value: any, type: T) => asserts value is T
->            : ^ ^^     ^^   ^^    ^^ ^^^^^                  
+>assertEqual : <T extends unknown>(value: any, type: T) => asserts value is T
+>            : ^ ^^^^^^^^^^^^^^^^^^     ^^   ^^    ^^ ^^^^^                  
 >value : any
 >type : T
 >     : ^
@@ -55,8 +55,8 @@ const animal = { type: 'cat', canMeow: true } as Animal;
 assertEqual(animal.type, 'cat' as const);
 >assertEqual(animal.type, 'cat' as const) : void
 >                                         : ^^^^
->assertEqual : <T>(value: any, type: T) => asserts value is T
->            : ^ ^^     ^^   ^^    ^^ ^^^^^                  
+>assertEqual : <T extends unknown>(value: any, type: T) => asserts value is T
+>            : ^ ^^^^^^^^^^^^^^^^^^     ^^   ^^    ^^ ^^^^^                  
 >animal.type : "cat" | "dog"
 >            : ^^^^^^^^^^^^^
 >animal : Animal
@@ -95,8 +95,8 @@ const animalOrUndef = { type: 'cat', canMeow: true } as Animal | undefined;
 assertEqual(animalOrUndef?.type, 'cat' as const);
 >assertEqual(animalOrUndef?.type, 'cat' as const) : void
 >                                                 : ^^^^
->assertEqual : <T>(value: any, type: T) => asserts value is T
->            : ^ ^^     ^^   ^^    ^^ ^^^^^                  
+>assertEqual : <T extends unknown>(value: any, type: T) => asserts value is T
+>            : ^ ^^^^^^^^^^^^^^^^^^     ^^   ^^    ^^ ^^^^^                  
 >animalOrUndef?.type : "cat" | "dog" | undefined
 >                    : ^^^^^^^^^^^^^^^^^^^^^^^^^
 >animalOrUndef : Animal | undefined

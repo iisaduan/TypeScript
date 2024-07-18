@@ -34,8 +34,8 @@ function fx1(x: string | number | undefined) {
 }
 
 function fx2<T>(x: T | undefined) {
->fx2 : <T>(x: T | undefined) => void
->    : ^ ^^ ^^             ^^^^^^^^^
+>fx2 : <T extends unknown>(x: T | undefined) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^ ^^             ^^^^^^^^^
 >x : T | undefined
 >  : ^^^^^^^^^^^^^
 
@@ -295,14 +295,14 @@ declare function isMaybeZero(value: number | null | undefined): value is 0 | nul
 >      : ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 declare function isEmptyArray<T>(value: T[]): value is [];
->isEmptyArray : <T>(value: T[]) => value is []
->             : ^ ^^     ^^   ^^^^^           
+>isEmptyArray : <T extends unknown>(value: T[]) => value is []
+>             : ^ ^^^^^^^^^^^^^^^^^^     ^^   ^^^^^           
 >value : T[]
 >      : ^^^
 
 declare function isMaybeEmptyArray<T>(value: T[] | null | undefined): value is [] | null | undefined;
->isMaybeEmptyArray : <T>(value: T[] | null | undefined) => value is [] | null | undefined
->                  : ^ ^^     ^^                      ^^^^^                              
+>isMaybeEmptyArray : <T extends unknown>(value: T[] | null | undefined) => value is [] | null | undefined
+>                  : ^ ^^^^^^^^^^^^^^^^^^     ^^                      ^^^^^                              
 >value : T[] | null | undefined
 >      : ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -451,8 +451,8 @@ const TEST_CASES = [
         if (isEmptyArray(value)) {
 >isEmptyArray(value) : boolean
 >                    : ^^^^^^^
->isEmptyArray : <T>(value: T[]) => value is []
->             : ^ ^^     ^^   ^^^^^           
+>isEmptyArray : <T extends unknown>(value: T[]) => value is []
+>             : ^ ^^^^^^^^^^^^^^^^^^     ^^   ^^^^^           
 >value : string[]
 >      : ^^^^^^^^
 
@@ -468,8 +468,8 @@ const TEST_CASES = [
         if (isMaybeEmptyArray(value)) {
 >isMaybeEmptyArray(value) : boolean
 >                         : ^^^^^^^
->isMaybeEmptyArray : <T>(value: T[] | null | undefined) => value is [] | null | undefined
->                  : ^ ^^     ^^                      ^^^^^                              
+>isMaybeEmptyArray : <T extends unknown>(value: T[] | null | undefined) => value is [] | null | undefined
+>                  : ^ ^^^^^^^^^^^^^^^^^^     ^^                      ^^^^^                              
 >value : string[]
 >      : ^^^^^^^^
 
@@ -492,8 +492,8 @@ const TEST_CASES = [
         if (isMaybeEmptyArray(value)) {
 >isMaybeEmptyArray(value) : boolean
 >                         : ^^^^^^^
->isMaybeEmptyArray : <T>(value: T[] | null | undefined) => value is [] | null | undefined
->                  : ^ ^^     ^^                      ^^^^^                              
+>isMaybeEmptyArray : <T extends unknown>(value: T[] | null | undefined) => value is [] | null | undefined
+>                  : ^ ^^^^^^^^^^^^^^^^^^     ^^                      ^^^^^                              
 >value : string[] | undefined
 >      : ^^^^^^^^^^^^^^^^^^^^
 
@@ -564,8 +564,8 @@ if (isEmpty(test)) {
 // Repro from #43825
 
 declare function assert<T>(value: any): asserts value is T
->assert : <T>(value: any) => asserts value is T
->       : ^ ^^     ^^   ^^^^^                  
+>assert : <T extends unknown>(value: any) => asserts value is T
+>       : ^ ^^^^^^^^^^^^^^^^^^     ^^   ^^^^^                  
 >value : any
 
 function test1(foo: number | string | boolean) {
@@ -577,8 +577,8 @@ function test1(foo: number | string | boolean) {
     assert<1 | string>(foo);
 >assert<1 | string>(foo) : void
 >                        : ^^^^
->assert : <T>(value: any) => asserts value is T
->       : ^ ^^     ^^   ^^^^^                  
+>assert : <T extends unknown>(value: any) => asserts value is T
+>       : ^ ^^^^^^^^^^^^^^^^^^     ^^   ^^^^^                  
 >foo : string | number | boolean
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^
 

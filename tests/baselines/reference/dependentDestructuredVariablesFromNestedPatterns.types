@@ -60,12 +60,12 @@ async function myAllSettled<T extends readonly unknown[]>(fn: () => T) {
 >                               : ^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >Promise.allSettled(fn()) : Promise<{ -readonly [P in keyof T]: PromiseSettledResult<Awaited<T[P]>>; }>
 >                         : ^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Promise.allSettled : { <T_1 extends readonly unknown[] | []>(values: T_1): Promise<{ -readonly [P in keyof T_1]: PromiseSettledResult<Awaited<T_1[P]>>; }>; <T_1>(values: Iterable<T_1 | PromiseLike<T_1>>): Promise<PromiseSettledResult<Awaited<T_1>>[]>; }
->                   : ^^^^^^^^^^^^^^^                       ^^      ^^   ^^^                                                                               ^^^^^^^^      ^^                                ^^^                                             ^^^
+>Promise.allSettled : { <T_1 extends readonly unknown[] | []>(values: T_1): Promise<{ -readonly [P in keyof T_1]: PromiseSettledResult<Awaited<T_1[P]>>; }>; <T_1 extends unknown>(values: Iterable<T_1 | PromiseLike<T_1>>): Promise<PromiseSettledResult<Awaited<T_1>>[]>; }
+>                   : ^^^^^^^^^^^^^^^                       ^^      ^^   ^^^                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                ^^^                                             ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->allSettled : { <T_1 extends readonly unknown[] | []>(values: T_1): Promise<{ -readonly [P in keyof T_1]: PromiseSettledResult<Awaited<T_1[P]>>; }>; <T_1>(values: Iterable<T_1 | PromiseLike<T_1>>): Promise<PromiseSettledResult<Awaited<T_1>>[]>; }
->           : ^^^^^^^^^^^^^^^                       ^^      ^^   ^^^                                                                               ^^^^^^^^      ^^                                ^^^                                             ^^^
+>allSettled : { <T_1 extends readonly unknown[] | []>(values: T_1): Promise<{ -readonly [P in keyof T_1]: PromiseSettledResult<Awaited<T_1[P]>>; }>; <T_1 extends unknown>(values: Iterable<T_1 | PromiseLike<T_1>>): Promise<PromiseSettledResult<Awaited<T_1>>[]>; }
+>           : ^^^^^^^^^^^^^^^                       ^^      ^^   ^^^                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                ^^^                                             ^^^
 >fn() : T
 >     : ^
 >fn : () => T
@@ -76,12 +76,12 @@ async function myAllSettled<T extends readonly unknown[]>(fn: () => T) {
 >                                                                                                                                                                                                                           : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >promises.map((result) =>    result.status === "fulfilled"      ? [result.value, undefined]      : [undefined, new Error(String(result.reason))],  ) : ([undefined, Error] | [unknown, undefined])[]
 >                                                                                                                                                    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->promises.map : <U>(callbackfn: (value: PromiseSettledResult<unknown>, index: number, array: PromiseSettledResult<unknown>[]) => U, thisArg?: any) => U[]
->             : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>promises.map : <U extends unknown>(callbackfn: (value: PromiseSettledResult<unknown>, index: number, array: PromiseSettledResult<unknown>[]) => U, thisArg?: any) => U[]
+>             : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >promises : { -readonly [P in keyof T]: PromiseSettledResult<Awaited<T[P]>>; }
 >         : ^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->map : <U>(callbackfn: (value: PromiseSettledResult<unknown>, index: number, array: PromiseSettledResult<unknown>[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends unknown>(callbackfn: (value: PromiseSettledResult<unknown>, index: number, array: PromiseSettledResult<unknown>[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >(result) =>    result.status === "fulfilled"      ? [result.value, undefined]      : [undefined, new Error(String(result.reason))] : (result: PromiseSettledResult<unknown>) => [undefined, Error] | [unknown, undefined]
 >                                                                                                                                   : ^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >result : PromiseSettledResult<unknown>
@@ -162,22 +162,22 @@ async function test3() {
 >                                        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >Promise.resolve(0) : Promise<number>
 >                   : ^^^^^^^^^^^^^^^
->Promise.resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->                : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>Promise.resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>                : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->        : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>        : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >0 : 0
 >  : ^
 >Promise.reject(1) : Promise<never>
 >                  : ^^^^^^^^^^^^^^
->Promise.reject : <T = never>(reason?: any) => Promise<T>
->               : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>Promise.reject : <T extends unknown = never>(reason?: any) => Promise<T>
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->reject : <T = never>(reason?: any) => Promise<T>
->       : ^ ^^^^^^^^^^      ^^^   ^^^^^          
+>reject : <T extends unknown = never>(reason?: any) => Promise<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^   ^^^^^          
 >1 : 1
 >  : ^
 

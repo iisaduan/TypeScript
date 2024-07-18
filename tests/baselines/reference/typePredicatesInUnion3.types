@@ -169,8 +169,8 @@ class Type2 {
 }
 
 function assertType<T>(_val: T) {
->assertType : <T>(_val: T) => void
->           : ^ ^^    ^^ ^^^^^^^^^
+>assertType : <T extends unknown>(_val: T) => void
+>           : ^ ^^^^^^^^^^^^^^^^^^    ^^ ^^^^^^^^^
 >_val : T
 >     : ^
 }
@@ -192,8 +192,8 @@ if (val.predicate()) {
     assertType<number>(val.attribute);  // Error
 >assertType<number>(val.attribute) : void
 >                                  : ^^^^
->assertType : <T>(_val: T) => void
->           : ^ ^^    ^^ ^^^^^^^^^
+>assertType : <T extends unknown>(_val: T) => void
+>           : ^ ^^^^^^^^^^^^^^^^^^    ^^ ^^^^^^^^^
 >val.attribute : number | null
 >              : ^^^^^^^^^^^^^
 >val : Type1 | Type2

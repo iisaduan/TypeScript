@@ -102,8 +102,8 @@ function test2() {
 // Repro from #8511
 
 function mapUntilCant<a, b>(
->mapUntilCant : <a, b>(values: a[], canTake: (value: a, index: number) => boolean, mapping: (value: a, index: number) => b) => b[]
->             : ^ ^^ ^^      ^^   ^^       ^^                                    ^^       ^^                              ^^^^^   
+>mapUntilCant : <a extends unknown, b extends unknown>(values: a[], canTake: (value: a, index: number) => boolean, mapping: (value: a, index: number) => b) => b[]
+>             : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^      ^^   ^^       ^^                                    ^^       ^^                              ^^^^^   
 
     values: a[],
 >values : a[]

@@ -15,24 +15,24 @@ type narrow<def> = def extends string
     };
 
 declare const parse: <def>(def: narrow<def>) => def;
->parse : <def>(def: narrow<def>) => def
->      : ^   ^^   ^^           ^^^^^   
+>parse : <def extends unknown>(def: narrow<def>) => def
+>      : ^   ^^^^^^^^^^^^^^^^^^   ^^           ^^^^^   
 >def : narrow<def>
 >    : ^^^^^^^^^^^
 
 const result = parse([{ a: "foo" }]);
->result : [{ a: "foo"; }]
->       : ^^^^^^^^^^^^^^^
->parse([{ a: "foo" }]) : [{ a: "foo"; }]
->                      : ^^^^^^^^^^^^^^^
->parse : <def>(def: narrow<def>) => def
->      : ^   ^^   ^^           ^^^^^   
->[{ a: "foo" }] : [{ a: "foo"; }]
->               : ^^^^^^^^^^^^^^^
->{ a: "foo" } : { a: "foo"; }
->             : ^^^^^^^^^^^^^
->a : "foo"
->  : ^^^^^
+>result : [{ a: string; }]
+>       : ^^^^^^^^^^^^^^^^
+>parse([{ a: "foo" }]) : [{ a: string; }]
+>                      : ^^^^^^^^^^^^^^^^
+>parse : <def extends unknown>(def: narrow<def>) => def
+>      : ^   ^^^^^^^^^^^^^^^^^^   ^^           ^^^^^   
+>[{ a: "foo" }] : [{ a: string; }]
+>               : ^^^^^^^^^^^^^^^^
+>{ a: "foo" } : { a: string; }
+>             : ^^^^^^^^^^^^^^
+>a : string
+>  : ^^^^^^
 >"foo" : "foo"
 >      : ^^^^^
 

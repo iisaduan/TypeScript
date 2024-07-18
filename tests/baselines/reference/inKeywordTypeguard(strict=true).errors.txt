@@ -278,7 +278,6 @@ inKeywordTypeguard.ts(186,21): error TS2638: Type 'NonNullable<T>' may represent
         if ("a" in x) {
                    ~
 !!! error TS2322: Type 'T' is not assignable to type 'object'.
-!!! related TS2208 inKeywordTypeguard.ts:182:13: This type parameter might need an `extends object` constraint.
             x.a;
         }
         if (x && "a" in x) {

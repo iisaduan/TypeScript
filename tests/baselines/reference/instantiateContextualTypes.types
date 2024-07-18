@@ -10,8 +10,8 @@ export interface A<a> {
 }
 
 function fn<a>(values: A<a>, value: a) : void {
->fn : <a>(values: A<a>, value: a) => void
->   : ^ ^^      ^^    ^^     ^^ ^^^^^    
+>fn : <a extends unknown>(values: A<a>, value: a) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^      ^^    ^^     ^^ ^^^^^    
 >values : A<a>
 >       : ^^^^
 >value : a
@@ -27,8 +27,8 @@ declare let handlers: A<(value: number) => void>;
 fn(handlers, value => alert(value));
 >fn(handlers, value => alert(value)) : void
 >                                    : ^^^^
->fn : <a>(values: A<a>, value: a) => void
->   : ^ ^^      ^^    ^^     ^^ ^^^^^    
+>fn : <a extends unknown>(values: A<a>, value: a) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^      ^^    ^^     ^^ ^^^^^    
 >handlers : A<(value: number) => void>
 >         : ^^^     ^^      ^^^^^    ^
 >value => alert(value) : (value: number) => void
@@ -155,16 +155,16 @@ interface ActionHandler<S, P> {
 }
 
 declare function handler<S, P>(actionType: ActionType<P>, handler: Handler<S, P>): ActionHandler<S, P>
->handler : <S, P>(actionType: ActionType<P>, handler: Handler<S, P>) => ActionHandler<S, P>
->        : ^ ^^ ^^          ^^             ^^       ^^             ^^^^^                   
+>handler : <S extends unknown, P extends unknown>(actionType: ActionType<P>, handler: Handler<S, P>) => ActionHandler<S, P>
+>        : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^          ^^             ^^       ^^             ^^^^^                   
 >actionType : ActionType<P>
 >           : ^^^^^^^^^^^^^
 >handler : Handler<S, P>
 >        : ^^^^^^^^^^^^^
 
 declare function createReducer<S>(
->createReducer : <S>(defaultState: S, ...actionHandlers: ActionHandler<S, any>[]) => any
->              : ^ ^^            ^^ ^^^^^              ^^                       ^^^^^   
+>createReducer : <S extends unknown>(defaultState: S, ...actionHandlers: ActionHandler<S, any>[]) => any
+>              : ^ ^^^^^^^^^^^^^^^^^^            ^^ ^^^^^              ^^                       ^^^^^   
 
         defaultState: S,
 >defaultState : S
@@ -209,8 +209,8 @@ const NON_VOID_ACTION: ActionType<number> = 'NON_VOID_ACTION'
 
 createReducer(
 >createReducer(    defaultState,    handler(NON_VOID_ACTION, (state, _payload) => state),    handler(VOID_ACTION, state => state)) : any
->createReducer : <S>(defaultState: S, ...actionHandlers: ActionHandler<S, any>[]) => any
->              : ^ ^^            ^^ ^^^^^              ^^                       ^^^^^   
+>createReducer : <S extends unknown>(defaultState: S, ...actionHandlers: ActionHandler<S, any>[]) => any
+>              : ^ ^^^^^^^^^^^^^^^^^^            ^^ ^^^^^              ^^                       ^^^^^   
 
     defaultState,
 >defaultState : AppState
@@ -219,8 +219,8 @@ createReducer(
     handler(NON_VOID_ACTION, (state, _payload) => state),
 >handler(NON_VOID_ACTION, (state, _payload) => state) : ActionHandler<AppState, number>
 >                                                     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->handler : <S, P>(actionType: ActionType<P>, handler: Handler<S, P>) => ActionHandler<S, P>
->        : ^ ^^ ^^          ^^             ^^       ^^             ^^^^^                   
+>handler : <S extends unknown, P extends unknown>(actionType: ActionType<P>, handler: Handler<S, P>) => ActionHandler<S, P>
+>        : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^          ^^             ^^       ^^             ^^^^^                   
 >NON_VOID_ACTION : ActionType<number>
 >                : ^^^^^^^^^^^^^^^^^^
 >(state, _payload) => state : (state: AppState, _payload: number) => AppState
@@ -235,8 +235,8 @@ createReducer(
     handler(VOID_ACTION, state => state)
 >handler(VOID_ACTION, state => state) : ActionHandler<AppState, void>
 >                                     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->handler : <S, P>(actionType: ActionType<P>, handler: Handler<S, P>) => ActionHandler<S, P>
->        : ^ ^^ ^^          ^^             ^^       ^^             ^^^^^                   
+>handler : <S extends unknown, P extends unknown>(actionType: ActionType<P>, handler: Handler<S, P>) => ActionHandler<S, P>
+>        : ^ ^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^          ^^             ^^       ^^             ^^^^^                   
 >VOID_ACTION : ActionType<void>
 >            : ^^^^^^^^^^^^^^^^
 >state => state : (state: AppState) => AppState
@@ -445,8 +445,8 @@ type BoxConsumerFromOuterBox<T> =
       never;
 
 declare function passContentsToFunc<T>(outerBox: T, consumer: BoxConsumerFromOuterBox<T>): void;
->passContentsToFunc : <T>(outerBox: T, consumer: BoxConsumerFromOuterBox<T>) => void
->                   : ^ ^^        ^^ ^^        ^^                          ^^^^^    
+>passContentsToFunc : <T extends unknown>(outerBox: T, consumer: BoxConsumerFromOuterBox<T>) => void
+>                   : ^ ^^^^^^^^^^^^^^^^^^        ^^ ^^        ^^                          ^^^^^    
 >outerBox : T
 >         : ^
 >consumer : BoxConsumerFromOuterBox<T>
@@ -459,8 +459,8 @@ declare const outerBoxOfString: OuterBox<string>;
 passContentsToFunc(outerBoxOfString, box => box.value);
 >passContentsToFunc(outerBoxOfString, box => box.value) : void
 >                                                       : ^^^^
->passContentsToFunc : <T>(outerBox: T, consumer: BoxConsumerFromOuterBox<T>) => void
->                   : ^ ^^        ^^ ^^        ^^                          ^^^^^    
+>passContentsToFunc : <T extends unknown>(outerBox: T, consumer: BoxConsumerFromOuterBox<T>) => void
+>                   : ^ ^^^^^^^^^^^^^^^^^^        ^^ ^^        ^^                          ^^^^^    
 >outerBoxOfString : OuterBox<string>
 >                 : ^^^^^^^^^^^^^^^^
 >box => box.value : (box: InnerBox<string>) => string
@@ -493,18 +493,18 @@ class Interesting {
 		return Promise.resolve().then(() => {
 >Promise.resolve().then(() => {			if (1 < 2) {				return 'SOMETHING';			}			return 'ELSE';		}) : Promise<"SOMETHING" | "ELSE">
 >                                                                                              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Promise.resolve().then : <TResult1 = void, TResult2 = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
->                       : ^        ^^^^^^^^^        ^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>Promise.resolve().then : <TResult1 extends unknown = void, TResult2 extends unknown = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
+>                       : ^        ^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^^^^^^^^^^^^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >Promise.resolve() : Promise<void>
 >                  : ^^^^^^^^^^^^^
->Promise.resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->                : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>Promise.resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>                : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->        : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
->then : <TResult1 = void, TResult2 = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
->     : ^        ^^^^^^^^^        ^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>        : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
+>then : <TResult1 extends unknown = void, TResult2 extends unknown = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
+>     : ^        ^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^^^^^^^^^^^^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >() => {			if (1 < 2) {				return 'SOMETHING';			}			return 'ELSE';		} : () => "SOMETHING" | "ELSE"
 >                                                                      : ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -535,18 +535,18 @@ class Interesting {
 		return Promise.resolve().then(() => {
 >Promise.resolve().then(() => {			return 'ELSE';		}) : Promise<"SOMETHING" | "ELSE">
 >                                                    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Promise.resolve().then : <TResult1 = void, TResult2 = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
->                       : ^        ^^^^^^^^^        ^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>Promise.resolve().then : <TResult1 extends unknown = void, TResult2 extends unknown = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
+>                       : ^        ^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^^^^^^^^^^^^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >Promise.resolve() : Promise<void>
 >                  : ^^^^^^^^^^^^^
->Promise.resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->                : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>Promise.resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>                : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->        : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
->then : <TResult1 = void, TResult2 = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
->     : ^        ^^^^^^^^^        ^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>        : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
+>then : <TResult1 extends unknown = void, TResult2 extends unknown = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
+>     : ^        ^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^^^^^^^^^^^^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >() => {			return 'ELSE';		} : () => "ELSE"
 >                            : ^^^^^^^^^^^^
 
@@ -565,18 +565,18 @@ class Interesting {
 		return Promise.resolve().then(() => {
 >Promise.resolve().then(() => {			if (1 < 2) {				return 'SOMETHING';			}			return 'SOMETHING';		}) : Promise<"SOMETHING" | "ELSE">
 >                                                                                                   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Promise.resolve().then : <TResult1 = void, TResult2 = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
->                       : ^        ^^^^^^^^^        ^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>Promise.resolve().then : <TResult1 extends unknown = void, TResult2 extends unknown = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
+>                       : ^        ^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^^^^^^^^^^^^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >Promise.resolve() : Promise<void>
 >                  : ^^^^^^^^^^^^^
->Promise.resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->                : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
+>Promise.resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>                : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
 >Promise : PromiseConstructor
 >        : ^^^^^^^^^^^^^^^^^^
->resolve : { (): Promise<void>; <T>(value: T): Promise<Awaited<T>>; <T>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
->        : ^^^^^^             ^^^ ^^     ^^ ^^^                   ^^^ ^^     ^^                  ^^^                   ^^^
->then : <TResult1 = void, TResult2 = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
->     : ^        ^^^^^^^^^        ^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>resolve : { (): Promise<void>; <T extends unknown>(value: T): Promise<Awaited<T>>; <T extends unknown>(value: T | PromiseLike<T>): Promise<Awaited<T>>; }
+>        : ^^^^^^             ^^^ ^^^^^^^^^^^^^^^^^^     ^^ ^^^                   ^^^ ^^^^^^^^^^^^^^^^^^     ^^                  ^^^                   ^^^
+>then : <TResult1 extends unknown = void, TResult2 extends unknown = never>(onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
+>     : ^        ^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^^^^^^^^^^^^^^^^^^^^^           ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^^^      ^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >() => {			if (1 < 2) {				return 'SOMETHING';			}			return 'SOMETHING';		} : () => "SOMETHING"
 >                                                                           : ^^^^^^^^^^^^^^^^^
 
@@ -603,8 +603,8 @@ class Interesting {
 // Repro from #32349
 
 declare function invoke<T>(f: () => T): T;
->invoke : <T>(f: () => T) => T
->       : ^ ^^ ^^       ^^^^^ 
+>invoke : <T extends unknown>(f: () => T) => T
+>       : ^ ^^^^^^^^^^^^^^^^^^ ^^       ^^^^^ 
 >f : () => T
 >  : ^^^^^^ 
 
@@ -613,8 +613,8 @@ let xx: 0 | 1 | 2 = invoke(() => 1);
 >   : ^^^^^^^^^
 >invoke(() => 1) : 1
 >                : ^
->invoke : <T>(f: () => T) => T
->       : ^ ^^ ^^       ^^^^^ 
+>invoke : <T extends unknown>(f: () => T) => T
+>       : ^ ^^^^^^^^^^^^^^^^^^ ^^       ^^^^^ 
 >() => 1 : () => 1
 >        : ^^^^^^^
 >1 : 1
@@ -623,8 +623,8 @@ let xx: 0 | 1 | 2 = invoke(() => 1);
 // Repro from #32416
 
 declare function assignPartial<T>(target: T, partial: Partial<T>): T;
->assignPartial : <T>(target: T, partial: Partial<T>) => T
->              : ^ ^^      ^^ ^^       ^^          ^^^^^ 
+>assignPartial : <T extends unknown>(target: T, partial: Partial<T>) => T
+>              : ^ ^^^^^^^^^^^^^^^^^^      ^^ ^^       ^^          ^^^^^ 
 >target : T
 >       : ^
 >partial : Partial<T>
@@ -646,8 +646,8 @@ let obj = {
 assignPartial(obj, { foo(...args) {} });  // args has type [string]
 >assignPartial(obj, { foo(...args) {} }) : { foo(bar: string): void; }
 >                                        : ^^^^^^   ^^      ^^^^^^^^^^
->assignPartial : <T>(target: T, partial: Partial<T>) => T
->              : ^ ^^      ^^ ^^       ^^          ^^^^^ 
+>assignPartial : <T extends unknown>(target: T, partial: Partial<T>) => T
+>              : ^ ^^^^^^^^^^^^^^^^^^      ^^ ^^       ^^          ^^^^^ 
 >obj : { foo(bar: string): void; }
 >    : ^^^^^^   ^^      ^^^^^^^^^^
 >{ foo(...args) {} } : { foo(bar: string): void; }

@@ -245,8 +245,8 @@ function f7(x: {}) {
 }
 
 function f8<T>(x: T) {
->f8 : <T>(x: T) => void
->   : ^ ^^ ^^ ^^^^^^^^^
+>f8 : <T extends unknown>(x: T) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >x : T
 >  : ^
 

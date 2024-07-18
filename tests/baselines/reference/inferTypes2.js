@@ -50,5 +50,5 @@ export declare function foo2<T>(obj: T): T extends {
     [K in keyof BadNested<infer P>]: BadNested<infer P>[K];
 } ? P : never;
 export declare function bar2<T>(obj: T): T extends {
-    x: infer P extends number ? infer P : string;
+    x: infer P extends unknown extends number ? infer P extends unknown : string;
 } ? P : never;
