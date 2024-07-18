@@ -4,8 +4,8 @@
 // repro from https://github.com/microsoft/TypeScript/issues/55164
 
 declare function match<T>(cb: (value: T) => boolean): T;
->match : <T>(cb: (value: T) => boolean) => T
->      : ^ ^^  ^^                     ^^^^^ 
+>match : <T extends {} | null | undefined>(cb: (value: T) => boolean) => T
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                     ^^^^^ 
 >cb : (value: T) => boolean
 >   : ^     ^^ ^^^^^       
 >value : T
@@ -32,8 +32,8 @@ foo({ y: match(y => y > 0) })
 >  : ^^^^^^
 >match(y => y > 0) : number
 >                  : ^^^^^^
->match : <T>(cb: (value: T) => boolean) => T
->      : ^ ^^  ^^                     ^^^^^ 
+>match : <T extends {} | null | undefined>(cb: (value: T) => boolean) => T
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                     ^^^^^ 
 >y => y > 0 : (y: number) => boolean
 >           : ^ ^^^^^^^^^^^^^^^^^^^^
 >y : number
@@ -60,8 +60,8 @@ foo2([match(y => y > 0)])
 >                    : ^^^^^^^^
 >match(y => y > 0) : number
 >                  : ^^^^^^
->match : <T>(cb: (value: T) => boolean) => T
->      : ^ ^^  ^^                     ^^^^^ 
+>match : <T extends {} | null | undefined>(cb: (value: T) => boolean) => T
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                     ^^^^^ 
 >y => y > 0 : (y: number) => boolean
 >           : ^ ^^^^^^^^^^^^^^^^^^^^
 >y : number

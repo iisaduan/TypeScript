@@ -318,8 +318,8 @@ interface Props<T> {
 }
 
 function Foo<T>(props: Props<T>) {
->Foo : <T>(props: Props<T>) => JSX.Element
->    : ^ ^^     ^^        ^^^^^^^^^^^^^^^^
+>Foo : <T extends {} | null | undefined>(props: Props<T>) => JSX.Element
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^        ^^^^^^^^^^^^^^^^
 >props : Props<T>
 >      : ^^^^^^^^
 
@@ -333,8 +333,8 @@ function Foo<T>(props: Props<T>) {
 <Foo
 ><Foo  a={() => 10}  b={(arg) => { arg.toString(); }}/> : JSX.Element
 >                                                       : ^^^^^^^^^^^
->Foo : <T>(props: Props<T>) => JSX.Element
->    : ^ ^^     ^^        ^^^^^^^^^^^^^^^^
+>Foo : <T extends {} | null | undefined>(props: Props<T>) => JSX.Element
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^        ^^^^^^^^^^^^^^^^
 
   a={() => 10}
 >a : () => number
@@ -365,8 +365,8 @@ function Foo<T>(props: Props<T>) {
 <Foo
 ><Foo  a={(x) => 10}  b={(arg) => { arg.toString(); }}/> : JSX.Element
 >                                                        : ^^^^^^^^^^^
->Foo : <T>(props: Props<T>) => JSX.Element
->    : ^ ^^     ^^        ^^^^^^^^^^^^^^^^
+>Foo : <T extends {} | null | undefined>(props: Props<T>) => JSX.Element
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^        ^^^^^^^^^^^^^^^^
 
   a={(x) => 10}
 >a : (x: string) => number
@@ -399,8 +399,8 @@ function Foo<T>(props: Props<T>) {
 <Foo {...{
 ><Foo {...{  a: (x) => 10,  b: (arg) => { arg.toString(); },}} /> : JSX.Element
 >                                                                 : ^^^^^^^^^^^
->Foo : <T>(props: Props<T>) => JSX.Element
->    : ^ ^^     ^^        ^^^^^^^^^^^^^^^^
+>Foo : <T extends {} | null | undefined>(props: Props<T>) => JSX.Element
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^        ^^^^^^^^^^^^^^^^
 >{  a: (x) => 10,  b: (arg) => { arg.toString(); },} : { a: (x: string) => number; b: (arg: number) => void; }
 >                                                    : ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^
 

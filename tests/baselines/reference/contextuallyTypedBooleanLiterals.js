@@ -45,9 +45,9 @@ type Box<T> = {
     set: (value: T) => void;
 };
 declare function box<T>(value: T): Box<T>;
-declare const bn1: Box<number>;
+declare const bn1: Box<0>;
 declare const bn2: Box<number>;
-declare const bb1: Box<boolean>;
+declare const bb1: Box<false>;
 declare const bb2: Box<boolean>;
 interface Observable<T> {
     (): T;

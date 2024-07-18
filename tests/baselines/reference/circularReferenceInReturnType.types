@@ -3,8 +3,8 @@
 === circularReferenceInReturnType.ts ===
 // inference fails for res1 and res2, but ideally should not
 declare function fn1<T>(cb: () => T): string;
->fn1 : <T>(cb: () => T) => string
->    : ^ ^^  ^^       ^^^^^      
+>fn1 : <T extends {} | null | undefined>(cb: () => T) => string
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^       ^^^^^      
 >cb : () => T
 >   : ^^^^^^ 
 
@@ -13,38 +13,38 @@ const res1 = fn1(() => res1);
 >     : ^^^
 >fn1(() => res1) : string
 >                : ^^^^^^
->fn1 : <T>(cb: () => T) => string
->    : ^ ^^  ^^       ^^^^^      
+>fn1 : <T extends {} | null | undefined>(cb: () => T) => string
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^       ^^^^^      
 >() => res1 : () => any
 >           : ^^^^^^^^^
 >res1 : any
 >     : ^^^
 
 declare function fn2<T>(): (cb: () => any) => (a: T) => void;
->fn2 : <T>() => (cb: () => any) => (a: T) => void
->    : ^ ^^^^^^^                                 
+>fn2 : <T extends {} | null | undefined>() => (cb: () => any) => (a: T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                 
 >cb : () => any
 >   : ^^^^^^   
 >a : T
 >  : ^
 
 const res2 = fn2()(() => res2);
->res2 : (a: unknown) => void
->     : ^ ^^^^^^^^^^^^^^    
->fn2()(() => res2) : (a: unknown) => void
->                  : ^ ^^^^^^^^^^^^^^    
->fn2() : (cb: () => any) => (a: unknown) => void
->      : ^  ^^         ^^^^^^ ^^^^^^^^^^^^^^    
->fn2 : <T>() => (cb: () => any) => (a: T) => void
->    : ^ ^^^^^^^                                 
->() => res2 : () => (a: unknown) => void
->           : ^^^^^^^ ^^^^^^^^^^^^^^    
->res2 : (a: unknown) => void
->     : ^ ^^^^^^^^^^^^^^    
+>res2 : (a: {} | null | undefined) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+>fn2()(() => res2) : (a: {} | null | undefined) => void
+>                  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+>fn2() : (cb: () => any) => (a: {} | null | undefined) => void
+>      : ^  ^^         ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+>fn2 : <T extends {} | null | undefined>() => (cb: () => any) => (a: T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                 
+>() => res2 : () => (a: {} | null | undefined) => void
+>           : ^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+>res2 : (a: {} | null | undefined) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
 
 declare function fn3<T>(): <T2>(cb: (arg: T2) => any) => (a: T) => void;
->fn3 : <T>() => <T2>(cb: (arg: T2) => any) => (a: T) => void
->    : ^ ^^^^^^^                                            
+>fn3 : <T extends {} | null | undefined>() => <T2>(cb: (arg: T2) => any) => (a: T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                            
 >cb : (arg: T2) => any
 >   : ^   ^^  ^^^^^   
 >arg : T2
@@ -53,18 +53,18 @@ declare function fn3<T>(): <T2>(cb: (arg: T2) => any) => (a: T) => void;
 >  : ^
 
 const res3 = fn3()(() => res3);
->res3 : (a: unknown) => void
->     : ^ ^^^^^^^^^^^^^^    
->fn3()(() => res3) : (a: unknown) => void
->                  : ^ ^^^^^^^^^^^^^^    
->fn3() : <T2>(cb: (arg: T2) => any) => (a: unknown) => void
->      : ^  ^^  ^^^   ^^^^^^^^^   ^^^^^^ ^^^^^^^^^^^^^^    
->fn3 : <T>() => <T2>(cb: (arg: T2) => any) => (a: T) => void
->    : ^ ^^^^^^^                                            
->() => res3 : () => (a: unknown) => void
->           : ^^^^^^^ ^^^^^^^^^^^^^^    
->res3 : (a: unknown) => void
->     : ^ ^^^^^^^^^^^^^^    
+>res3 : (a: {} | null | undefined) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+>fn3()(() => res3) : (a: {} | null | undefined) => void
+>                  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+>fn3() : <T2 extends {} | null | undefined>(cb: (arg: T2) => any) => (a: {} | null | undefined) => void
+>      : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^   ^^^^^^^^^   ^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+>fn3 : <T extends {} | null | undefined>() => <T2>(cb: (arg: T2) => any) => (a: T) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                            
+>() => res3 : () => (a: {} | null | undefined) => void
+>           : ^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
+>res3 : (a: {} | null | undefined) => void
+>     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^    
 
 // https://github.com/microsoft/TypeScript/issues/58616
 

@@ -146,10 +146,10 @@ wr.deref();
 >      : ^^^^^^^^^^^^^^^^^^^^^^^^
 
 const f = new FinalizationRegistry(() => {});
->f : FinalizationRegistry<unknown>
->  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->new FinalizationRegistry(() => {}) : FinalizationRegistry<unknown>
->                                   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>f : FinalizationRegistry<{} | null | undefined>
+>  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>new FinalizationRegistry(() => {}) : FinalizationRegistry<{} | null | undefined>
+>                                   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >FinalizationRegistry : FinalizationRegistryConstructor
 >                     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >() => {} : () => void
@@ -158,12 +158,12 @@ const f = new FinalizationRegistry(() => {});
 f.register(s, null);
 >f.register(s, null) : void
 >                    : ^^^^
->f.register : (target: WeakKey, heldValue: unknown, unregisterToken?: WeakKey) => void
->           : ^      ^^       ^^         ^^^^^^^^^^^               ^^^       ^^^^^    
->f : FinalizationRegistry<unknown>
->  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->register : (target: WeakKey, heldValue: unknown, unregisterToken?: WeakKey) => void
->         : ^      ^^       ^^         ^^^^^^^^^^^               ^^^       ^^^^^    
+>f.register : (target: WeakKey, heldValue: {} | null | undefined, unregisterToken?: WeakKey) => void
+>           : ^      ^^       ^^         ^^^^^^^^^^^^^^^^^^^^^^^^^               ^^^       ^^^^^    
+>f : FinalizationRegistry<{} | null | undefined>
+>  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>register : (target: WeakKey, heldValue: {} | null | undefined, unregisterToken?: WeakKey) => void
+>         : ^      ^^       ^^         ^^^^^^^^^^^^^^^^^^^^^^^^^               ^^^       ^^^^^    
 >s : symbol
 >  : ^^^^^^
 
@@ -172,8 +172,8 @@ f.unregister(s);
 >                : ^^^^^^^
 >f.unregister : (unregisterToken: WeakKey) => boolean
 >             : ^               ^^       ^^^^^       
->f : FinalizationRegistry<unknown>
->  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>f : FinalizationRegistry<{} | null | undefined>
+>  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >unregister : (unregisterToken: WeakKey) => boolean
 >           : ^               ^^       ^^^^^       
 >s : symbol

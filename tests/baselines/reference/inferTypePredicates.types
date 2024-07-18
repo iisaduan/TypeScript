@@ -70,8 +70,8 @@ const evenSquaresInline: number[] =  // should error
 >                                                                         : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^       ^^       ^^^   ^^^^^^^^^^^^^^^^^^^^^^^
 >[1, 2, 3, 4]        .map(x => x % 2 === 0 ? x * x : null) : (number | null)[]
 >                                                          : ^^^^^^^^^^^^^^^^^
->[1, 2, 3, 4]        .map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->                         : ^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>[1, 2, 3, 4]        .map : <U extends {} | null | undefined>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
+>                         : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >[1, 2, 3, 4] : number[]
 >             : ^^^^^^^^
 >1 : 1
@@ -84,8 +84,8 @@ const evenSquaresInline: number[] =  // should error
 >  : ^
 
         .map(x => x % 2 === 0 ? x * x : null)
->map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >x => x % 2 === 0 ? x * x : null : (x: number) => number | null
 >                                : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -148,8 +148,8 @@ const evenSquares: number[] =  // should error
 >                                                                   : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^       ^^       ^^^   ^^^^^^^^^^^^^^^^^^^^^^^
 >[1, 2, 3, 4]    .map(x => x % 2 === 0 ? x * x : null) : (number | null)[]
 >                                                      : ^^^^^^^^^^^^^^^^^
->[1, 2, 3, 4]    .map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->                     : ^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>[1, 2, 3, 4]    .map : <U extends {} | null | undefined>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
+>                     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >[1, 2, 3, 4] : number[]
 >             : ^^^^^^^^
 >1 : 1
@@ -162,8 +162,8 @@ const evenSquares: number[] =  // should error
 >  : ^
 
     .map(x => x % 2 === 0 ? x * x : null)
->map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >x => x % 2 === 0 ? x * x : null : (x: number) => number | null
 >                                : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -204,8 +204,8 @@ const evenSquaresNonNull: number[] =  // should ok
 >                                                                 : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^       ^^       ^^^   ^^^^^^^^^^^^^^^^^^^^^^^
 >[1, 2, 3, 4]    .map(x => x % 2 === 0 ? x * x : null) : (number | null)[]
 >                                                      : ^^^^^^^^^^^^^^^^^
->[1, 2, 3, 4]    .map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->                     : ^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>[1, 2, 3, 4]    .map : <U extends {} | null | undefined>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
+>                     : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >[1, 2, 3, 4] : number[]
 >             : ^^^^^^^^
 >1 : 1
@@ -218,8 +218,8 @@ const evenSquaresNonNull: number[] =  // should ok
 >  : ^
 
     .map(x => x % 2 === 0 ? x * x : null)
->map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >x => x % 2 === 0 ? x * x : null : (x: number) => number | null
 >                                : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : number
@@ -289,8 +289,8 @@ function isNonNullVar(x: number | null) {
 }
 
 function isNonNullGeneric<T>(x: T) {
->isNonNullGeneric : <T>(x: T) => x is T & ({} | undefined)
->                 : ^ ^^ ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>isNonNullGeneric : <T extends {} | null | undefined>(x: T) => x is T & ({} | undefined)
+>                 : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : T
 >  : ^
 
@@ -356,22 +356,22 @@ const result = myArray
 >       : ^^^^^^^
 >myArray  .map((arr) => arr.list)  .filter((arr) => arr && arr.length)  .map((arr) => arr // should error    .filter((obj) => obj && obj.data)    .map(obj => JSON.parse(obj.data))  // should error  ) : any[][]
 >                                                                                                                                                                                                       : ^^^^^^^
->myArray  .map((arr) => arr.list)  .filter((arr) => arr && arr.length)  .map : <U>(callbackfn: (value: MyObj[] | undefined, index: number, array: (MyObj[] | undefined)[]) => U, thisArg?: any) => U[]
->                                                                            : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>myArray  .map((arr) => arr.list)  .filter((arr) => arr && arr.length)  .map : <U extends {} | null | undefined>(callbackfn: (value: MyObj[] | undefined, index: number, array: (MyObj[] | undefined)[]) => U, thisArg?: any) => U[]
+>                                                                            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >myArray  .map((arr) => arr.list)  .filter((arr) => arr && arr.length) : (MyObj[] | undefined)[]
 >                                                                      : ^^^^^^^^^^^^^^^^^^^^^^^
 >myArray  .map((arr) => arr.list)  .filter : { <S extends MyObj[] | undefined>(predicate: (value: MyObj[] | undefined, index: number, array: (MyObj[] | undefined)[]) => value is S, thisArg?: any): S[]; (predicate: (value: MyObj[] | undefined, index: number, array: (MyObj[] | undefined)[]) => unknown, thisArg?: any): (MyObj[] | undefined)[]; }
 >                                          : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^       ^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >myArray  .map((arr) => arr.list) : (MyObj[] | undefined)[]
 >                                 : ^^^^^^^^^^^^^^^^^^^^^^^
->myArray  .map : <U>(callbackfn: (value: { list?: MyObj[]; }, index: number, array: { list?: MyObj[]; }[]) => U, thisArg?: any) => U[]
->              : ^ ^^          ^^^     ^^^^^^^^^^^       ^^^^^     ^^      ^^     ^^^^^^^^^^^       ^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>myArray  .map : <U extends {} | null | undefined>(callbackfn: (value: { list?: MyObj[]; }, index: number, array: { list?: MyObj[]; }[]) => U, thisArg?: any) => U[]
+>              : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^       ^^^^^     ^^      ^^     ^^^^^^^^^^^       ^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >myArray : MyArray
 >        : ^^^^^^^
 
   .map((arr) => arr.list)
->map : <U>(callbackfn: (value: { list?: MyObj[]; }, index: number, array: { list?: MyObj[]; }[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^^       ^^^^^     ^^      ^^     ^^^^^^^^^^^       ^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: { list?: MyObj[]; }, index: number, array: { list?: MyObj[]; }[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^       ^^^^^     ^^      ^^     ^^^^^^^^^^^       ^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >(arr) => arr.list : (arr: { list?: MyObj[]; }) => MyObj[] | undefined
 >                  : ^   ^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >arr : { list?: MyObj[]; }
@@ -402,16 +402,16 @@ const result = myArray
 >       : ^^^^^^
 
   .map((arr) => arr // should error
->map : <U>(callbackfn: (value: MyObj[] | undefined, index: number, array: (MyObj[] | undefined)[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: MyObj[] | undefined, index: number, array: (MyObj[] | undefined)[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >(arr) => arr // should error    .filter((obj) => obj && obj.data)    .map(obj => JSON.parse(obj.data)) : (arr: MyObj[] | undefined) => any[]
 >                                                                                                       : ^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >arr : MyObj[] | undefined
 >    : ^^^^^^^^^^^^^^^^^^^
 >arr // should error    .filter((obj) => obj && obj.data)    .map(obj => JSON.parse(obj.data)) : any[]
 >                                                                                              : ^^^^^
->arr // should error    .filter((obj) => obj && obj.data)    .map : <U>(callbackfn: (value: MyObj, index: number, array: MyObj[]) => U, thisArg?: any) => U[]
->                                                                 : ^ ^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>arr // should error    .filter((obj) => obj && obj.data)    .map : <U extends {} | null | undefined>(callbackfn: (value: MyObj, index: number, array: MyObj[]) => U, thisArg?: any) => U[]
+>                                                                 : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >arr // should error    .filter((obj) => obj && obj.data) : MyObj[]
 >                                                         : ^^^^^^^
 >arr // should error    .filter : { <S extends MyObj>(predicate: (value: MyObj, index: number, array: MyObj[]) => value is S, thisArg?: any): S[]; (predicate: (value: MyObj, index: number, array: MyObj[]) => unknown, thisArg?: any): MyObj[]; }
@@ -438,8 +438,8 @@ const result = myArray
 >     : ^^^^^^^^^^^^^^^^^^
 
     .map(obj => JSON.parse(obj.data))  // should error
->map : <U>(callbackfn: (value: MyObj, index: number, array: MyObj[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: MyObj, index: number, array: MyObj[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >obj => JSON.parse(obj.data) : (obj: MyObj) => any
 >                            : ^   ^^^^^^^^^^^^^^^
 >obj : MyObj
@@ -466,8 +466,8 @@ const result2 = myArray
 >        : ^^^^^^^
 >myArray  .map((arr) => arr.list)  .filter((arr) => !!arr)  .filter(arr => arr.length)  .map((arr) => arr  // should ok    .filter((obj) => obj)    // inferring a guard here would require https://github.com/microsoft/TypeScript/issues/42384    .filter(obj => !!obj.data)    .map(obj => JSON.parse(obj.data))  ) : any[][]
 >                                                                                                                                                                                                                                                                                                                      : ^^^^^^^
->myArray  .map((arr) => arr.list)  .filter((arr) => !!arr)  .filter(arr => arr.length)  .map : <U>(callbackfn: (value: MyObj[], index: number, array: MyObj[][]) => U, thisArg?: any) => U[]
->                                                                                            : ^ ^^          ^^^     ^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>myArray  .map((arr) => arr.list)  .filter((arr) => !!arr)  .filter(arr => arr.length)  .map : <U extends {} | null | undefined>(callbackfn: (value: MyObj[], index: number, array: MyObj[][]) => U, thisArg?: any) => U[]
+>                                                                                            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >myArray  .map((arr) => arr.list)  .filter((arr) => !!arr)  .filter(arr => arr.length) : MyObj[][]
 >                                                                                      : ^^^^^^^^^
 >myArray  .map((arr) => arr.list)  .filter((arr) => !!arr)  .filter : { <S extends MyObj[]>(predicate: (value: MyObj[], index: number, array: MyObj[][]) => value is S, thisArg?: any): S[]; (predicate: (value: MyObj[], index: number, array: MyObj[][]) => unknown, thisArg?: any): MyObj[][]; }
@@ -478,14 +478,14 @@ const result2 = myArray
 >                                          : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^         ^^^     ^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^       ^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >myArray  .map((arr) => arr.list) : (MyObj[] | undefined)[]
 >                                 : ^^^^^^^^^^^^^^^^^^^^^^^
->myArray  .map : <U>(callbackfn: (value: { list?: MyObj[]; }, index: number, array: { list?: MyObj[]; }[]) => U, thisArg?: any) => U[]
->              : ^ ^^          ^^^     ^^^^^^^^^^^       ^^^^^     ^^      ^^     ^^^^^^^^^^^       ^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>myArray  .map : <U extends {} | null | undefined>(callbackfn: (value: { list?: MyObj[]; }, index: number, array: { list?: MyObj[]; }[]) => U, thisArg?: any) => U[]
+>              : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^       ^^^^^     ^^      ^^     ^^^^^^^^^^^       ^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >myArray : MyArray
 >        : ^^^^^^^
 
   .map((arr) => arr.list)
->map : <U>(callbackfn: (value: { list?: MyObj[]; }, index: number, array: { list?: MyObj[]; }[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^^       ^^^^^     ^^      ^^     ^^^^^^^^^^^       ^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: { list?: MyObj[]; }, index: number, array: { list?: MyObj[]; }[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^       ^^^^^     ^^      ^^     ^^^^^^^^^^^       ^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >(arr) => arr.list : (arr: { list?: MyObj[]; }) => MyObj[] | undefined
 >                  : ^   ^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >arr : { list?: MyObj[]; }
@@ -526,16 +526,16 @@ const result2 = myArray
 >       : ^^^^^^
 
   .map((arr) => arr  // should ok
->map : <U>(callbackfn: (value: MyObj[], index: number, array: MyObj[][]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: MyObj[], index: number, array: MyObj[][]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >(arr) => arr  // should ok    .filter((obj) => obj)    // inferring a guard here would require https://github.com/microsoft/TypeScript/issues/42384    .filter(obj => !!obj.data)    .map(obj => JSON.parse(obj.data)) : (arr: MyObj[]) => any[]
 >                                                                                                                                                                                                                       : ^   ^^^^^^^^^^^^^^^^^^^
 >arr : MyObj[]
 >    : ^^^^^^^
 >arr  // should ok    .filter((obj) => obj)    // inferring a guard here would require https://github.com/microsoft/TypeScript/issues/42384    .filter(obj => !!obj.data)    .map(obj => JSON.parse(obj.data)) : any[]
 >                                                                                                                                                                                                              : ^^^^^
->arr  // should ok    .filter((obj) => obj)    // inferring a guard here would require https://github.com/microsoft/TypeScript/issues/42384    .filter(obj => !!obj.data)    .map : <U>(callbackfn: (value: MyObj, index: number, array: MyObj[]) => U, thisArg?: any) => U[]
->                                                                                                                                                                                 : ^ ^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>arr  // should ok    .filter((obj) => obj)    // inferring a guard here would require https://github.com/microsoft/TypeScript/issues/42384    .filter(obj => !!obj.data)    .map : <U extends {} | null | undefined>(callbackfn: (value: MyObj, index: number, array: MyObj[]) => U, thisArg?: any) => U[]
+>                                                                                                                                                                                 : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >arr  // should ok    .filter((obj) => obj)    // inferring a guard here would require https://github.com/microsoft/TypeScript/issues/42384    .filter(obj => !!obj.data) : MyObj[]
 >                                                                                                                                                                         : ^^^^^^^
 >arr  // should ok    .filter((obj) => obj)    // inferring a guard here would require https://github.com/microsoft/TypeScript/issues/42384    .filter : { <S extends MyObj>(predicate: (value: MyObj, index: number, array: MyObj[]) => value is S, thisArg?: any): S[]; (predicate: (value: MyObj, index: number, array: MyObj[]) => unknown, thisArg?: any): MyObj[]; }
@@ -577,8 +577,8 @@ const result2 = myArray
 >     : ^^^^^^^^^^^^^^^^^^
 
     .map(obj => JSON.parse(obj.data))
->map : <U>(callbackfn: (value: MyObj, index: number, array: MyObj[]) => U, thisArg?: any) => U[]
->    : ^ ^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
+>map : <U extends {} | null | undefined>(callbackfn: (value: MyObj, index: number, array: MyObj[]) => U, thisArg?: any) => U[]
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^
 >obj => JSON.parse(obj.data) : (obj: MyObj) => any
 >                            : ^   ^^^^^^^^^^^^^^^
 >obj : MyObj

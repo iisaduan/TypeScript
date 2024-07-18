@@ -18,72 +18,72 @@ type C4<T> = T extends unknown ? T | undefined : never;
 >   : ^^^^^
 
 declare function f0<T>(x: T): [T];
->f0 : <T>(x: T) => [T]
->   : ^ ^^ ^^ ^^^^^   
+>f0 : <T extends {} | null | undefined>(x: T) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^   
 >x : T
 >  : ^
 
 declare function f1<T>(x: C1<T>): [T];
->f1 : <T>(x: C1<T>) => [T]
->   : ^ ^^ ^^     ^^^^^   
+>f1 : <T extends {} | null | undefined>(x: C1<T>) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^     ^^^^^   
 >x : C1<T>
 >  : ^^^^^
 
 declare function f2<T>(x: C1<C2<T>>): [T];
->f2 : <T>(x: C1<C2<T>>) => [T]
->   : ^ ^^ ^^         ^^^^^   
+>f2 : <T extends {} | null | undefined>(x: C1<C2<T>>) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^         ^^^^^   
 >x : C1<C2<T>>
 >  : ^^^^^^^^^
 
 declare function f3<T>(x: C1<C2<C3<T>>>): [T];
->f3 : <T>(x: C1<C2<C3<T>>>) => [T]
->   : ^ ^^ ^^             ^^^^^   
+>f3 : <T extends {} | null | undefined>(x: C1<C2<C3<T>>>) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^             ^^^^^   
 >x : C1<C2<C3<T>>>
 >  : ^^^^^^^^^^^^^
 
 declare function f4<T>(x: C1<C2<C3<C4<T>>>>): [T];
->f4 : <T>(x: C1<C2<C3<C4<T>>>>) => [T]
->   : ^ ^^ ^^                 ^^^^^   
+>f4 : <T extends {} | null | undefined>(x: C1<C2<C3<C4<T>>>>) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                 ^^^^^   
 >x : C1<C2<C3<C4<T>>>>
 >  : ^^^^^^^^^^^^^^^^^
 
 const c0 = f0(7);  // [number]
->c0 : [number]
->   : ^^^^^^^^
->f0(7) : [number]
->      : ^^^^^^^^
->f0 : <T>(x: T) => [T]
->   : ^ ^^ ^^ ^^^^^   
+>c0 : [7]
+>   : ^^^
+>f0(7) : [7]
+>      : ^^^
+>f0 : <T extends {} | null | undefined>(x: T) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^   
 >7 : 7
 >  : ^
 
 const c1 = f1(7);  // [number]
->c1 : [number]
->   : ^^^^^^^^
->f1(7) : [number]
->      : ^^^^^^^^
->f1 : <T>(x: C1<T>) => [T]
->   : ^ ^^ ^^     ^^^^^   
+>c1 : [7]
+>   : ^^^
+>f1(7) : [7]
+>      : ^^^
+>f1 : <T extends {} | null | undefined>(x: C1<T>) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^     ^^^^^   
 >7 : 7
 >  : ^
 
 const c2 = f2(7);  // [number]
->c2 : [number]
->   : ^^^^^^^^
->f2(7) : [number]
->      : ^^^^^^^^
->f2 : <T>(x: C1<C2<T>>) => [T]
->   : ^ ^^ ^^         ^^^^^   
+>c2 : [7]
+>   : ^^^
+>f2(7) : [7]
+>      : ^^^
+>f2 : <T extends {} | null | undefined>(x: C1<C2<T>>) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^         ^^^^^   
 >7 : 7
 >  : ^
 
 const c3 = f3(7);  // [number]
->c3 : [number]
->   : ^^^^^^^^
->f3(7) : [number]
->      : ^^^^^^^^
->f3 : <T>(x: C1<C2<C3<T>>>) => [T]
->   : ^ ^^ ^^             ^^^^^   
+>c3 : [7]
+>   : ^^^
+>f3(7) : [7]
+>      : ^^^
+>f3 : <T extends {} | null | undefined>(x: C1<C2<C3<T>>>) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^             ^^^^^   
 >7 : 7
 >  : ^
 
@@ -92,8 +92,8 @@ const c4 = f4(7);  // [7] since we have an internal nesting limit of 3
 >   : ^^^
 >f4(7) : [7]
 >      : ^^^
->f4 : <T>(x: C1<C2<C3<C4<T>>>>) => [T]
->   : ^ ^^ ^^                 ^^^^^   
+>f4 : <T extends {} | null | undefined>(x: C1<C2<C3<C4<T>>>>) => [T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                 ^^^^^   
 >7 : 7
 >  : ^
 
@@ -109,10 +109,10 @@ class FormControl<T> {
 }
 
 const a = new FormControl('');  // string
->a : FormControl<string>
->  : ^^^^^^^^^^^^^^^^^^^
->new FormControl('') : FormControl<string>
->                    : ^^^^^^^^^^^^^^^^^^^
+>a : FormControl<"">
+>  : ^^^^^^^^^^^^^^^
+>new FormControl('') : FormControl<"">
+>                    : ^^^^^^^^^^^^^^^
 >FormControl : typeof FormControl
 >            : ^^^^^^^^^^^^^^^^^^
 >'' : ""
@@ -128,10 +128,10 @@ class FormControl2<T> {
 }
 
 const b = new FormControl2('');  // string
->b : FormControl2<string>
->  : ^^^^^^^^^^^^^^^^^^^^
->new FormControl2('') : FormControl2<string>
->                     : ^^^^^^^^^^^^^^^^^^^^
+>b : FormControl2<"">
+>  : ^^^^^^^^^^^^^^^^
+>new FormControl2('') : FormControl2<"">
+>                     : ^^^^^^^^^^^^^^^^
 >FormControl2 : typeof FormControl2
 >             : ^^^^^^^^^^^^^^^^^^^
 >'' : ""
@@ -147,10 +147,10 @@ class FormControl3<T> {
 }
 
 const c = new FormControl3('');  // string
->c : FormControl3<string>
->  : ^^^^^^^^^^^^^^^^^^^^
->new FormControl3('') : FormControl3<string>
->                     : ^^^^^^^^^^^^^^^^^^^^
+>c : FormControl3<"">
+>  : ^^^^^^^^^^^^^^^^
+>new FormControl3('') : FormControl3<"">
+>                     : ^^^^^^^^^^^^^^^^
 >FormControl3 : typeof FormControl3
 >             : ^^^^^^^^^^^^^^^^^^^
 >'' : ""

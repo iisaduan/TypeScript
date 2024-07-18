@@ -2,8 +2,8 @@
 
 === mappedTypesAndObjects.ts ===
 function f1<T>(x: Partial<T>, y: Readonly<T>) {
->f1 : <T>(x: Partial<T>, y: Readonly<T>) => void
->   : ^ ^^ ^^          ^^ ^^           ^^^^^^^^^
+>f1 : <T extends {} | null | undefined>(x: Partial<T>, y: Readonly<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^          ^^ ^^           ^^^^^^^^^
 >x : Partial<T>
 >  : ^^^^^^^^^^
 >y : Readonly<T>
@@ -31,8 +31,8 @@ function f1<T>(x: Partial<T>, y: Readonly<T>) {
 }
 
 function f2<T>(x: Partial<T>, y: Readonly<T>) {
->f2 : <T>(x: Partial<T>, y: Readonly<T>) => void
->   : ^ ^^ ^^          ^^ ^^           ^^^^^^^^^
+>f2 : <T extends {} | null | undefined>(x: Partial<T>, y: Readonly<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^          ^^ ^^           ^^^^^^^^^
 >x : Partial<T>
 >  : ^^^^^^^^^^
 >y : Readonly<T>
@@ -62,8 +62,8 @@ function f2<T>(x: Partial<T>, y: Readonly<T>) {
 }
 
 function f3<T>(x: Partial<T>) {
->f3 : <T>(x: Partial<T>) => void
->   : ^ ^^ ^^          ^^^^^^^^^
+>f3 : <T extends {} | null | undefined>(x: Partial<T>) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^          ^^^^^^^^^
 >x : Partial<T>
 >  : ^^^^^^^^^^
 

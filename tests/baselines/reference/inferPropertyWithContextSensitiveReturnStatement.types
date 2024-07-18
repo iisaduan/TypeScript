@@ -4,8 +4,8 @@
 // repro #50687
 
 declare function repro<T>(config: {
->repro : <T>(config: { params: T; callback: () => (params: T) => number; }) => void
->      : ^ ^^      ^^                                                     ^^^^^    
+>repro : <T extends {} | null | undefined>(config: { params: T; callback: () => (params: T) => number; }) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                                     ^^^^^    
 >config : { params: T; callback: () => (params: T) => number; }
 >       : ^^^^^^^^^^ ^^^^^^^^^^^^                           ^^^
 
@@ -24,8 +24,8 @@ declare function repro<T>(config: {
 repro({
 >repro({  params: 1,  callback: () => { return a => a + 1 },}) : void
 >                                                              : ^^^^
->repro : <T>(config: { params: T; callback: () => (params: T) => number; }) => void
->      : ^ ^^      ^^                                                     ^^^^^    
+>repro : <T extends {} | null | undefined>(config: { params: T; callback: () => (params: T) => number; }) => void
+>      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^                                                     ^^^^^    
 >{  params: 1,  callback: () => { return a => a + 1 },} : { params: number; callback: () => (a: number) => number; }
 >                                                       : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
 

@@ -1,11 +1,12 @@
+privateNamesAndGenericClasses-2.ts(22,1): error TS2322: Type '5' is not assignable to type '3'.
 privateNamesAndGenericClasses-2.ts(24,3): error TS18013: Property '#foo' is not accessible outside class 'C' because it has a private identifier.
-privateNamesAndGenericClasses-2.ts(25,1): error TS2322: Type 'C<string>' is not assignable to type 'C<number>'.
-  Type 'string' is not assignable to type 'number'.
-privateNamesAndGenericClasses-2.ts(26,1): error TS2322: Type 'C<number>' is not assignable to type 'C<string>'.
-  Type 'number' is not assignable to type 'string'.
+privateNamesAndGenericClasses-2.ts(25,1): error TS2322: Type 'C<"hello">' is not assignable to type 'C<3>'.
+  Type '"hello"' is not assignable to type '3'.
+privateNamesAndGenericClasses-2.ts(26,1): error TS2322: Type 'C<3>' is not assignable to type 'C<"hello">'.
+  Type '3' is not assignable to type '"hello"'.
 
 
-==== privateNamesAndGenericClasses-2.ts (3 errors) ====
+==== privateNamesAndGenericClasses-2.ts (4 errors) ====
     class C<T> {
         #foo: T;
         #bar(): T {
@@ -28,16 +29,18 @@ privateNamesAndGenericClasses-2.ts(26,1): error TS2322: Type 'C<number>' is not 
     let b = new C("hello");
     
     a.baz = 5                                 // OK
+    ~~~~~
+!!! error TS2322: Type '5' is not assignable to type '3'.
     const x: number = a.baz                   // OK
     a.#foo;                                   // Error
       ~~~~
 !!! error TS18013: Property '#foo' is not accessible outside class 'C' because it has a private identifier.
     a = b;                                    // Error
     ~
-!!! error TS2322: Type 'C<string>' is not assignable to type 'C<number>'.
-!!! error TS2322:   Type 'string' is not assignable to type 'number'.
+!!! error TS2322: Type 'C<"hello">' is not assignable to type 'C<3>'.
+!!! error TS2322:   Type '"hello"' is not assignable to type '3'.
     b = a;                                    // Error
     ~
-!!! error TS2322: Type 'C<number>' is not assignable to type 'C<string>'.
-!!! error TS2322:   Type 'number' is not assignable to type 'string'.
+!!! error TS2322: Type 'C<3>' is not assignable to type 'C<"hello">'.
+!!! error TS2322:   Type '3' is not assignable to type '"hello"'.
     

@@ -4,8 +4,8 @@
 // https://github.com/microsoft/TypeScript/issues/59108
 
 declare const f: <T>(f: (x: T) => unknown) => (x: T) => unknown;
->f : <T>(f: (x: T) => unknown) => (x: T) => unknown
->  : ^ ^^ ^^                 ^^^^^                 
+>f : <T extends {} | null | undefined>(f: (x: T) => unknown) => (x: T) => unknown
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                 ^^^^^                 
 >f : (x: T) => unknown
 >  : ^ ^^ ^^^^^       
 >x : T
@@ -26,8 +26,8 @@ const h = f(g);
 >  : ^ ^^^^^^^^^       ^^ ^^^^^^^^^ ^^^^^^^^       
 >f(g) : <T extends unknown>(x: { foo: T; }) => unknown
 >     : ^ ^^^^^^^^^       ^^ ^^^^^^^^^ ^^^^^^^^       
->f : <T>(f: (x: T) => unknown) => (x: T) => unknown
->  : ^ ^^ ^^                 ^^^^^                 
+>f : <T extends {} | null | undefined>(f: (x: T) => unknown) => (x: T) => unknown
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^                 ^^^^^                 
 >g : <T extends unknown>(x: { foo: T; }) => unknown
 >  : ^ ^^^^^^^^^       ^^ ^^           ^^^^^       
 

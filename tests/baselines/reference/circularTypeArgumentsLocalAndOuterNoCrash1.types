@@ -4,8 +4,8 @@
 // https://github.com/microsoft/TypeScript/issues/59062
 
 function f<_T, _S>() {
->f : <_T, _S>() => void
->  : ^  ^^  ^^^^^^^^^^^
+>f : <_T extends {} | null | undefined, _S extends {} | null | undefined>() => void
+>  : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   interface NumArray<T extends number> extends Array<T> {}
   type X = NumArray<X extends {} ? number : number>;

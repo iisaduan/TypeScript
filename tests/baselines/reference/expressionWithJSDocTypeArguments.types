@@ -4,8 +4,8 @@
 // Repro from #51802
 
 function foo<T>(x: T): T { return x }
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >x : T
 >  : ^
 >x : T
@@ -24,56 +24,56 @@ const WhatFoo = foo<?>;
 >        : ^ ^^^^^^^^^^^^^
 >foo<?> : (x: any) => any
 >       : ^ ^^^^^^^^^^^^^
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 
 const HuhFoo = foo<string?>;
 >HuhFoo : (x: string | null) => string | null
 >       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >foo<string?> : (x: string | null) => string | null
 >             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 
 const NopeFoo = foo<?string>;
 >NopeFoo : (x: string | null) => string | null
 >        : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >foo<?string> : (x: string | null) => string | null
 >             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 
 const ComeOnFoo = foo<?string?>;
 >ComeOnFoo : (x: string | null) => string | null
 >          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >foo<?string?> : (x: string | null) => string | null
 >              : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 
 type TWhatFoo = typeof foo<?>;
 >TWhatFoo : typeof foo<unknown>
 >         :                    
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 
 type THuhFoo = typeof foo<string?>;
 >THuhFoo : typeof foo<string | null>
 >        :                     ^^^^ 
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 
 type TNopeFoo = typeof foo<?string>;
 >TNopeFoo : typeof foo<string | null>
 >         :                     ^^^^ 
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 
 type TComeOnFoo = typeof foo<?string?>;
 >TComeOnFoo : typeof foo<(string | null) | null>
 >           :            ^         ^^^^^   ^^^^ 
->foo : <T>(x: T) => T
->    : ^ ^^ ^^ ^^^^^ 
+>foo : <T extends {} | null | undefined>(x: T) => T
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 
 const WhatBar = Bar<?>;
 >WhatBar : { new (x: any): Bar<any>; prototype: Bar<any>; }

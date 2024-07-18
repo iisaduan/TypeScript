@@ -2,8 +2,8 @@
 
 === neverInference.ts ===
 declare function f1<T>(x: T[]): T;
->f1 : <T>(x: T[]) => T
->   : ^ ^^ ^^   ^^^^^ 
+>f1 : <T extends {} | null | undefined>(x: T[]) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^   ^^^^^ 
 >x : T[]
 >  : ^^^
 
@@ -18,8 +18,8 @@ let a1 = f1([]);  // never
 >   : ^^^^^
 >f1([]) : never
 >       : ^^^^^
->f1 : <T>(x: T[]) => T
->   : ^ ^^ ^^   ^^^^^ 
+>f1 : <T extends {} | null | undefined>(x: T[]) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^   ^^^^^ 
 >[] : never[]
 >   : ^^^^^^^
 
@@ -28,8 +28,8 @@ let a2 = f1(neverArray);  // never
 >   : ^^^^^
 >f1(neverArray) : never
 >               : ^^^^^
->f1 : <T>(x: T[]) => T
->   : ^ ^^ ^^   ^^^^^ 
+>f1 : <T extends {} | null | undefined>(x: T[]) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^   ^^^^^ 
 >neverArray : never[]
 >           : ^^^^^^^
 
@@ -70,8 +70,8 @@ declare function compareNumbers(x: number, y: number): number;
 >  : ^^^^^^
 
 declare function mkList<T>(items: T[], comparator: Comparator<T>): LinkedList<T>;
->mkList : <T>(items: T[], comparator: Comparator<T>) => LinkedList<T>
->       : ^ ^^     ^^   ^^          ^^             ^^^^^             
+>mkList : <T extends {} | null | undefined>(items: T[], comparator: Comparator<T>) => LinkedList<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^   ^^          ^^             ^^^^^             
 >items : T[]
 >      : ^^^
 >comparator : Comparator<T>
@@ -82,8 +82,8 @@ const list: LinkedList<number> = mkList([], compareNumbers);
 >     : ^^^^^^^^^^^^^^^^^^
 >mkList([], compareNumbers) : LinkedList<number>
 >                           : ^^^^^^^^^^^^^^^^^^
->mkList : <T>(items: T[], comparator: Comparator<T>) => LinkedList<T>
->       : ^ ^^     ^^   ^^          ^^             ^^^^^             
+>mkList : <T extends {} | null | undefined>(items: T[], comparator: Comparator<T>) => LinkedList<T>
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^   ^^          ^^             ^^^^^             
 >[] : never[]
 >   : ^^^^^^^
 >compareNumbers : (x: number, y: number) => number
@@ -92,8 +92,8 @@ const list: LinkedList<number> = mkList([], compareNumbers);
 // Repro from #19858
 
 declare function f2<a>(as1: a[], as2: a[], cmp: (a1: a, a2: a) => number): void;
->f2 : <a>(as1: a[], as2: a[], cmp: (a1: a, a2: a) => number) => void
->   : ^ ^^   ^^   ^^   ^^   ^^   ^^                        ^^^^^    
+>f2 : <a extends {} | null | undefined>(as1: a[], as2: a[], cmp: (a1: a, a2: a) => number) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^   ^^   ^^   ^^                        ^^^^^    
 >as1 : a[]
 >    : ^^^
 >as2 : a[]
@@ -108,16 +108,16 @@ declare function f2<a>(as1: a[], as2: a[], cmp: (a1: a, a2: a) => number): void;
 f2(Array.from([0]), [], (a1, a2) => a1 - a2);
 >f2(Array.from([0]), [], (a1, a2) => a1 - a2) : void
 >                                             : ^^^^
->f2 : <a>(as1: a[], as2: a[], cmp: (a1: a, a2: a) => number) => void
->   : ^ ^^   ^^   ^^   ^^   ^^   ^^                        ^^^^^    
+>f2 : <a extends {} | null | undefined>(as1: a[], as2: a[], cmp: (a1: a, a2: a) => number) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^   ^^   ^^   ^^                        ^^^^^    
 >Array.from([0]) : number[]
 >                : ^^^^^^^^
->Array.from : { <T>(arrayLike: ArrayLike<T>): T[]; <T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T, U>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
->           : ^^^ ^^         ^^            ^^^   ^^^ ^^ ^^         ^^            ^^     ^^                      ^^       ^^^   ^^^   ^^^ ^^        ^^                          ^^^   ^^^ ^^ ^^        ^^                          ^^     ^^                      ^^       ^^^   ^^^   ^^^
+>Array.from : { <T extends {} | null | undefined>(arrayLike: ArrayLike<T>): T[]; <T extends {} | null | undefined, U extends {} | null | undefined>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T extends {} | null | undefined>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T extends {} | null | undefined, U extends {} | null | undefined>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
+>           : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^            ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^            ^^     ^^                      ^^       ^^^   ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                          ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                          ^^     ^^                      ^^       ^^^   ^^^   ^^^
 >Array : ArrayConstructor
 >      : ^^^^^^^^^^^^^^^^
->from : { <T>(arrayLike: ArrayLike<T>): T[]; <T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T, U>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
->     : ^^^ ^^         ^^            ^^^   ^^^ ^^ ^^         ^^            ^^     ^^                      ^^       ^^^   ^^^   ^^^ ^^        ^^                          ^^^   ^^^ ^^ ^^        ^^                          ^^     ^^                      ^^       ^^^   ^^^   ^^^
+>from : { <T extends {} | null | undefined>(arrayLike: ArrayLike<T>): T[]; <T extends {} | null | undefined, U extends {} | null | undefined>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T extends {} | null | undefined>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T extends {} | null | undefined, U extends {} | null | undefined>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
+>     : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^            ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^            ^^     ^^                      ^^       ^^^   ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                          ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                          ^^     ^^                      ^^       ^^^   ^^^   ^^^
 >[0] : number[]
 >    : ^^^^^^^^
 >0 : 0
@@ -140,16 +140,16 @@ f2(Array.from([0]), [], (a1, a2) => a1 - a2);
 f2(Array.from([]), [0], (a1, a2) => a1 - a2);
 >f2(Array.from([]), [0], (a1, a2) => a1 - a2) : void
 >                                             : ^^^^
->f2 : <a>(as1: a[], as2: a[], cmp: (a1: a, a2: a) => number) => void
->   : ^ ^^   ^^   ^^   ^^   ^^   ^^                        ^^^^^    
+>f2 : <a extends {} | null | undefined>(as1: a[], as2: a[], cmp: (a1: a, a2: a) => number) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^   ^^   ^^   ^^   ^^                        ^^^^^    
 >Array.from([]) : never[]
 >               : ^^^^^^^
->Array.from : { <T>(arrayLike: ArrayLike<T>): T[]; <T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T, U>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
->           : ^^^ ^^         ^^            ^^^   ^^^ ^^ ^^         ^^            ^^     ^^                      ^^       ^^^   ^^^   ^^^ ^^        ^^                          ^^^   ^^^ ^^ ^^        ^^                          ^^     ^^                      ^^       ^^^   ^^^   ^^^
+>Array.from : { <T extends {} | null | undefined>(arrayLike: ArrayLike<T>): T[]; <T extends {} | null | undefined, U extends {} | null | undefined>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T extends {} | null | undefined>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T extends {} | null | undefined, U extends {} | null | undefined>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
+>           : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^            ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^            ^^     ^^                      ^^       ^^^   ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                          ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                          ^^     ^^                      ^^       ^^^   ^^^   ^^^
 >Array : ArrayConstructor
 >      : ^^^^^^^^^^^^^^^^
->from : { <T>(arrayLike: ArrayLike<T>): T[]; <T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T, U>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
->     : ^^^ ^^         ^^            ^^^   ^^^ ^^ ^^         ^^            ^^     ^^                      ^^       ^^^   ^^^   ^^^ ^^        ^^                          ^^^   ^^^ ^^ ^^        ^^                          ^^     ^^                      ^^       ^^^   ^^^   ^^^
+>from : { <T extends {} | null | undefined>(arrayLike: ArrayLike<T>): T[]; <T extends {} | null | undefined, U extends {} | null | undefined>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T extends {} | null | undefined>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T extends {} | null | undefined, U extends {} | null | undefined>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
+>     : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^            ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         ^^            ^^     ^^                      ^^       ^^^   ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                          ^^^   ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^                          ^^     ^^                      ^^       ^^^   ^^^   ^^^
 >[] : never[]
 >   : ^^^^^^^
 >[0] : number[]

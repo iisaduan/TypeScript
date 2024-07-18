@@ -121,8 +121,8 @@ function f1(x: unknown) {
 }
 
 function f2<T>(x: T) {
->f2 : <T>(x: T) => x is T & Object & Record<"a", unknown>
->   : ^ ^^ ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>f2 : <T extends {} | null | undefined>(x: T) => x is T & Object & Record<"a", unknown>
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : T
 >  : ^
 
@@ -194,8 +194,8 @@ function f4<T extends {}>(x: T) {
 }
 
 function f5<T>(x: T & {}) {
->f5 : <T>(x: T & {}) => x is T & Object & Record<"a", unknown>
->   : ^ ^^ ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>f5 : <T extends {} | null | undefined>(x: T & {}) => x is T & Object & Record<"a", unknown>
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >x : T & {}
 >  : ^^^^^^
 

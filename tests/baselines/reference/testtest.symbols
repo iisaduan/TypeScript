@@ -1,0 +1,221 @@
+//// [tests/cases/compiler/testtest.ts] ////
+
+=== testtest.ts ===
+function f5<T extends {} | undefined | null>(a: T, b: T): boolean {
+>f5 : Symbol(f5, Decl(testtest.ts, 0, 0))
+>T : Symbol(T, Decl(testtest.ts, 0, 12))
+>a : Symbol(a, Decl(testtest.ts, 0, 45))
+>T : Symbol(T, Decl(testtest.ts, 0, 12))
+>b : Symbol(b, Decl(testtest.ts, 0, 50))
+>T : Symbol(T, Decl(testtest.ts, 0, 12))
+
+    return a > b;
+>a : Symbol(a, Decl(testtest.ts, 0, 45))
+>b : Symbol(b, Decl(testtest.ts, 0, 50))
+}
+
+function g5<T>(a: T, b: T): boolean {
+>g5 : Symbol(g5, Decl(testtest.ts, 2, 1))
+>T : Symbol(T, Decl(testtest.ts, 4, 12))
+>a : Symbol(a, Decl(testtest.ts, 4, 15))
+>T : Symbol(T, Decl(testtest.ts, 4, 12))
+>b : Symbol(b, Decl(testtest.ts, 4, 20))
+>T : Symbol(T, Decl(testtest.ts, 4, 12))
+
+    return a > b;
+>a : Symbol(a, Decl(testtest.ts, 4, 15))
+>b : Symbol(b, Decl(testtest.ts, 4, 20))
+}
+
+function h5<T extends unknown>(a: T, b: T): boolean {
+>h5 : Symbol(h5, Decl(testtest.ts, 6, 1))
+>T : Symbol(T, Decl(testtest.ts, 8, 12))
+>a : Symbol(a, Decl(testtest.ts, 8, 31))
+>T : Symbol(T, Decl(testtest.ts, 8, 12))
+>b : Symbol(b, Decl(testtest.ts, 8, 36))
+>T : Symbol(T, Decl(testtest.ts, 8, 12))
+
+    return a > b;
+>a : Symbol(a, Decl(testtest.ts, 8, 31))
+>b : Symbol(b, Decl(testtest.ts, 8, 36))
+}
+  
+
+function d<T, U extends T>(x: T, y: U, k: keyof T) {
+>d : Symbol(d, Decl(testtest.ts, 10, 1))
+>T : Symbol(T, Decl(testtest.ts, 13, 11))
+>U : Symbol(U, Decl(testtest.ts, 13, 13))
+>T : Symbol(T, Decl(testtest.ts, 13, 11))
+>x : Symbol(x, Decl(testtest.ts, 13, 27))
+>T : Symbol(T, Decl(testtest.ts, 13, 11))
+>y : Symbol(y, Decl(testtest.ts, 13, 32))
+>U : Symbol(U, Decl(testtest.ts, 13, 13))
+>k : Symbol(k, Decl(testtest.ts, 13, 38))
+>T : Symbol(T, Decl(testtest.ts, 13, 11))
+
+    x[k] = y[k];
+>x : Symbol(x, Decl(testtest.ts, 13, 27))
+>k : Symbol(k, Decl(testtest.ts, 13, 38))
+>y : Symbol(y, Decl(testtest.ts, 13, 32))
+>k : Symbol(k, Decl(testtest.ts, 13, 38))
+
+    y[k] = x[k]; 
+>y : Symbol(y, Decl(testtest.ts, 13, 32))
+>k : Symbol(k, Decl(testtest.ts, 13, 38))
+>x : Symbol(x, Decl(testtest.ts, 13, 27))
+>k : Symbol(k, Decl(testtest.ts, 13, 38))
+}
+
+function f<T, K extends keyof T>(obj: T, key: K) {
+>f : Symbol(f, Decl(testtest.ts, 16, 1))
+>T : Symbol(T, Decl(testtest.ts, 18, 11))
+>K : Symbol(K, Decl(testtest.ts, 18, 13))
+>T : Symbol(T, Decl(testtest.ts, 18, 11))
+>obj : Symbol(obj, Decl(testtest.ts, 18, 33))
+>T : Symbol(T, Decl(testtest.ts, 18, 11))
+>key : Symbol(key, Decl(testtest.ts, 18, 40))
+>K : Symbol(K, Decl(testtest.ts, 18, 13))
+
+    return obj[key];
+>obj : Symbol(obj, Decl(testtest.ts, 18, 33))
+>key : Symbol(key, Decl(testtest.ts, 18, 40))
+}
+
+function f2<T extends {} | null | undefined , K extends keyof T>(obj: T, key: K) {
+>f2 : Symbol(f2, Decl(testtest.ts, 20, 1))
+>T : Symbol(T, Decl(testtest.ts, 22, 12))
+>K : Symbol(K, Decl(testtest.ts, 22, 45))
+>T : Symbol(T, Decl(testtest.ts, 22, 12))
+>obj : Symbol(obj, Decl(testtest.ts, 22, 65))
+>T : Symbol(T, Decl(testtest.ts, 22, 12))
+>key : Symbol(key, Decl(testtest.ts, 22, 72))
+>K : Symbol(K, Decl(testtest.ts, 22, 45))
+
+    return obj[key];
+>obj : Symbol(obj, Decl(testtest.ts, 22, 65))
+>key : Symbol(key, Decl(testtest.ts, 22, 72))
+}
+
+function f3<T extends unknown, K extends keyof T>(obj: T, key: K) {
+>f3 : Symbol(f3, Decl(testtest.ts, 24, 1))
+>T : Symbol(T, Decl(testtest.ts, 26, 12))
+>K : Symbol(K, Decl(testtest.ts, 26, 30))
+>T : Symbol(T, Decl(testtest.ts, 26, 12))
+>obj : Symbol(obj, Decl(testtest.ts, 26, 50))
+>T : Symbol(T, Decl(testtest.ts, 26, 12))
+>key : Symbol(key, Decl(testtest.ts, 26, 57))
+>K : Symbol(K, Decl(testtest.ts, 26, 30))
+
+    return obj[key];
+>obj : Symbol(obj, Decl(testtest.ts, 26, 50))
+>key : Symbol(key, Decl(testtest.ts, 26, 57))
+}
+
+// ************
+function g1<T>(obj: T, key: keyof T) {
+>g1 : Symbol(g1, Decl(testtest.ts, 28, 1))
+>T : Symbol(T, Decl(testtest.ts, 31, 12))
+>obj : Symbol(obj, Decl(testtest.ts, 31, 15))
+>T : Symbol(T, Decl(testtest.ts, 31, 12))
+>key : Symbol(key, Decl(testtest.ts, 31, 22))
+>T : Symbol(T, Decl(testtest.ts, 31, 12))
+
+    return obj[key];
+>obj : Symbol(obj, Decl(testtest.ts, 31, 15))
+>key : Symbol(key, Decl(testtest.ts, 31, 22))
+}
+
+function g2<T extends {} | null | undefined>(obj: T, key: keyof T) {
+>g2 : Symbol(g2, Decl(testtest.ts, 33, 1))
+>T : Symbol(T, Decl(testtest.ts, 35, 12))
+>obj : Symbol(obj, Decl(testtest.ts, 35, 45))
+>T : Symbol(T, Decl(testtest.ts, 35, 12))
+>key : Symbol(key, Decl(testtest.ts, 35, 52))
+>T : Symbol(T, Decl(testtest.ts, 35, 12))
+
+    return obj[key];
+>obj : Symbol(obj, Decl(testtest.ts, 35, 45))
+>key : Symbol(key, Decl(testtest.ts, 35, 52))
+}
+
+function g3<T extends unknown>(obj: T, key: keyof T) {
+>g3 : Symbol(g3, Decl(testtest.ts, 37, 1))
+>T : Symbol(T, Decl(testtest.ts, 39, 12))
+>obj : Symbol(obj, Decl(testtest.ts, 39, 31))
+>T : Symbol(T, Decl(testtest.ts, 39, 12))
+>key : Symbol(key, Decl(testtest.ts, 39, 38))
+>T : Symbol(T, Decl(testtest.ts, 39, 12))
+
+    return obj[key];
+>obj : Symbol(obj, Decl(testtest.ts, 39, 31))
+>key : Symbol(key, Decl(testtest.ts, 39, 38))
+}
+
+// **************
+function h1<T, K extends keyof T>(obj: T, other: T, key: K) {
+>h1 : Symbol(h1, Decl(testtest.ts, 41, 1))
+>T : Symbol(T, Decl(testtest.ts, 44, 12))
+>K : Symbol(K, Decl(testtest.ts, 44, 14))
+>T : Symbol(T, Decl(testtest.ts, 44, 12))
+>obj : Symbol(obj, Decl(testtest.ts, 44, 34))
+>T : Symbol(T, Decl(testtest.ts, 44, 12))
+>other : Symbol(other, Decl(testtest.ts, 44, 41))
+>T : Symbol(T, Decl(testtest.ts, 44, 12))
+>key : Symbol(key, Decl(testtest.ts, 44, 51))
+>K : Symbol(K, Decl(testtest.ts, 44, 14))
+
+    obj[key]; 
+>obj : Symbol(obj, Decl(testtest.ts, 44, 34))
+>key : Symbol(key, Decl(testtest.ts, 44, 51))
+
+    other[key];
+>other : Symbol(other, Decl(testtest.ts, 44, 41))
+>key : Symbol(key, Decl(testtest.ts, 44, 51))
+
+    return;
+}
+
+function h2<T extends {} | null | undefined , K extends keyof T>(obj: T, other: T, key: K) {
+>h2 : Symbol(h2, Decl(testtest.ts, 48, 1))
+>T : Symbol(T, Decl(testtest.ts, 50, 12))
+>K : Symbol(K, Decl(testtest.ts, 50, 45))
+>T : Symbol(T, Decl(testtest.ts, 50, 12))
+>obj : Symbol(obj, Decl(testtest.ts, 50, 65))
+>T : Symbol(T, Decl(testtest.ts, 50, 12))
+>other : Symbol(other, Decl(testtest.ts, 50, 72))
+>T : Symbol(T, Decl(testtest.ts, 50, 12))
+>key : Symbol(key, Decl(testtest.ts, 50, 82))
+>K : Symbol(K, Decl(testtest.ts, 50, 45))
+
+    obj[key]; 
+>obj : Symbol(obj, Decl(testtest.ts, 50, 65))
+>key : Symbol(key, Decl(testtest.ts, 50, 82))
+
+    other[key];
+>other : Symbol(other, Decl(testtest.ts, 50, 72))
+>key : Symbol(key, Decl(testtest.ts, 50, 82))
+
+    return;}
+
+function h3<T extends unknown, K extends keyof T>(obj: T, other: T, key: K) {
+>h3 : Symbol(h3, Decl(testtest.ts, 53, 12))
+>T : Symbol(T, Decl(testtest.ts, 55, 12))
+>K : Symbol(K, Decl(testtest.ts, 55, 30))
+>T : Symbol(T, Decl(testtest.ts, 55, 12))
+>obj : Symbol(obj, Decl(testtest.ts, 55, 50))
+>T : Symbol(T, Decl(testtest.ts, 55, 12))
+>other : Symbol(other, Decl(testtest.ts, 55, 57))
+>T : Symbol(T, Decl(testtest.ts, 55, 12))
+>key : Symbol(key, Decl(testtest.ts, 55, 67))
+>K : Symbol(K, Decl(testtest.ts, 55, 30))
+
+    obj[key]; 
+>obj : Symbol(obj, Decl(testtest.ts, 55, 50))
+>key : Symbol(key, Decl(testtest.ts, 55, 67))
+
+    other[key];
+>other : Symbol(other, Decl(testtest.ts, 55, 57))
+>key : Symbol(key, Decl(testtest.ts, 55, 67))
+
+    return;
+}

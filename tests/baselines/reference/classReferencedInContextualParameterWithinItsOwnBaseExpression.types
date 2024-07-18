@@ -18,8 +18,8 @@ interface Class<A> {
 }
 
 declare const Class: <Self>(
->Class : <Self>(identifier: string) => <Fields>(fields: Fields, annotations?: Schema<Self>) => Class<OutputFrom<Fields>>
->      : ^    ^^          ^^      ^^^^^                                                                                 
+>Class : <Self extends {} | null | undefined>(identifier: string) => <Fields>(fields: Fields, annotations?: Schema<Self>) => Class<OutputFrom<Fields>>
+>      : ^    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^      ^^^^^                                                                                 
 
   identifier: string,
 >identifier : string
@@ -62,12 +62,12 @@ declare function string(): Type<string>;
 export class A extends Class<A>("A")(
 >A : A
 >  : ^
->Class<A>("A")(  { a: string },  {    pretty: (a) => JSON.stringify(a),  },) : OutputFrom<{ a: () => Type<string>; }>
->                                                                            : ^^^^^^^^^^^^^^^^^^^^^^            ^^^^
->Class<A>("A") : <Fields>(fields: Fields, annotations?: Schema<A> | undefined) => Class<OutputFrom<Fields>>
->              : ^      ^^      ^^^^^^^^^^           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Class : <Self>(identifier: string) => <Fields>(fields: Fields, annotations?: Schema<Self>) => Class<OutputFrom<Fields>>
->      : ^    ^^          ^^      ^^^^^                                                                                 
+>Class<A>("A")(  { a: string },  {    pretty: (a) => JSON.stringify(a),  },) : Class<OutputFrom<{ a: () => Type<string>; }>>
+>                                                                            : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^            ^^^^^
+>Class<A>("A") : <Fields extends {} | null | undefined>(fields: Fields, annotations?: Schema<A> | undefined) => Class<OutputFrom<Fields>>
+>              : ^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>Class : <Self extends {} | null | undefined>(identifier: string) => <Fields>(fields: Fields, annotations?: Schema<Self>) => Class<OutputFrom<Fields>>
+>      : ^    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^      ^^^^^                                                                                 
 >"A" : "A"
 >    : ^^^
 

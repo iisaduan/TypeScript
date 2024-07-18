@@ -75,20 +75,20 @@ class C<T> {
 }
 
 let a = new C(3);
->a : C<number>
->  : ^^^^^^^^^
->new C(3) : C<number>
->         : ^^^^^^^^^
+>a : C<3>
+>  : ^^^^
+>new C(3) : C<3>
+>         : ^^^^
 >C : typeof C
 >  : ^^^^^^^^
 >3 : 3
 >  : ^
 
 let b = new C("hello");
->b : C<string>
->  : ^^^^^^^^^
->new C("hello") : C<string>
->               : ^^^^^^^^^
+>b : C<"hello">
+>  : ^^^^^^^^^^
+>new C("hello") : C<"hello">
+>               : ^^^^^^^^^^
 >C : typeof C
 >  : ^^^^^^^^
 >"hello" : "hello"
@@ -97,44 +97,44 @@ let b = new C("hello");
 a.baz = 5                                 // OK
 >a.baz = 5 : 5
 >          : ^
->a.baz : number
->      : ^^^^^^
->a : C<number>
->  : ^^^^^^^^^
->baz : number
->    : ^^^^^^
+>a.baz : 3
+>      : ^
+>a : C<3>
+>  : ^^^^
+>baz : 3
+>    : ^
 >5 : 5
 >  : ^
 
 const x: number = a.baz                   // OK
 >x : number
 >  : ^^^^^^
->a.baz : number
->      : ^^^^^^
->a : C<number>
->  : ^^^^^^^^^
->baz : number
->    : ^^^^^^
+>a.baz : 3
+>      : ^
+>a : C<3>
+>  : ^^^^
+>baz : 3
+>    : ^
 
 a.#foo;                                   // Error
 >a.#foo : any
 >       : ^^^
->a : C<number>
->  : ^^^^^^^^^
+>a : C<3>
+>  : ^^^^
 
 a = b;                                    // Error
->a = b : C<string>
->      : ^^^^^^^^^
->a : C<number>
->  : ^^^^^^^^^
->b : C<string>
->  : ^^^^^^^^^
+>a = b : C<"hello">
+>      : ^^^^^^^^^^
+>a : C<3>
+>  : ^^^^
+>b : C<"hello">
+>  : ^^^^^^^^^^
 
 b = a;                                    // Error
->b = a : C<number>
->      : ^^^^^^^^^
->b : C<string>
->  : ^^^^^^^^^
->a : C<number>
->  : ^^^^^^^^^
+>b = a : C<3>
+>      : ^^^^
+>b : C<"hello">
+>  : ^^^^^^^^^^
+>a : C<3>
+>  : ^^^^
 

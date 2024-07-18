@@ -54,13 +54,13 @@ variadicTuples2.ts(116,16): error TS2345: Argument of type '[1, 2, 3, number]' i
     Type 'number' is not assignable to type '(...values: number[]) => void'.
 variadicTuples2.ts(117,6): error TS2345: Argument of type 'string[]' is not assignable to parameter of type '[...string[], (...values: string[]) => void]'.
   Source provides no match for required element at position 1 in target.
-variadicTuples2.ts(120,5): error TS2345: Argument of type '[]' is not assignable to parameter of type '[...unknown[], unknown, unknown]'.
+variadicTuples2.ts(120,5): error TS2345: Argument of type '[]' is not assignable to parameter of type '[...unknown[], {} | null | undefined, {} | null | undefined]'.
   Source has 0 element(s) but target requires 2.
-variadicTuples2.ts(121,5): error TS2345: Argument of type '[number]' is not assignable to parameter of type '[...unknown[], unknown, unknown]'.
+variadicTuples2.ts(121,5): error TS2345: Argument of type '[number]' is not assignable to parameter of type '[...unknown[], {} | null | undefined, {} | null | undefined]'.
   Source has 1 element(s) but target requires 2.
-variadicTuples2.ts(126,5): error TS2345: Argument of type '[]' is not assignable to parameter of type '[unknown, ...unknown[], unknown]'.
+variadicTuples2.ts(126,5): error TS2345: Argument of type '[]' is not assignable to parameter of type '[{} | null | undefined, ...unknown[], {} | null | undefined]'.
   Source has 0 element(s) but target requires 2.
-variadicTuples2.ts(127,5): error TS2345: Argument of type '[number]' is not assignable to parameter of type '[unknown, ...unknown[], unknown]'.
+variadicTuples2.ts(127,5): error TS2345: Argument of type '[number]' is not assignable to parameter of type '[{} | null | undefined, ...unknown[], {} | null | undefined]'.
   Source has 1 element(s) but target requires 2.
 variadicTuples2.ts(137,16): error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
 variadicTuples2.ts(138,16): error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
@@ -273,11 +273,11 @@ variadicTuples2.ts(139,25): error TS2345: Argument of type '["blah2", 1, 2, 3]' 
     declare function fn1<T, U>(t: [...unknown[], T, U]): [T, U];
     fn1([]);  // Error
         ~~
-!!! error TS2345: Argument of type '[]' is not assignable to parameter of type '[...unknown[], unknown, unknown]'.
+!!! error TS2345: Argument of type '[]' is not assignable to parameter of type '[...unknown[], {} | null | undefined, {} | null | undefined]'.
 !!! error TS2345:   Source has 0 element(s) but target requires 2.
     fn1([1]);  // Error
         ~~~
-!!! error TS2345: Argument of type '[number]' is not assignable to parameter of type '[...unknown[], unknown, unknown]'.
+!!! error TS2345: Argument of type '[number]' is not assignable to parameter of type '[...unknown[], {} | null | undefined, {} | null | undefined]'.
 !!! error TS2345:   Source has 1 element(s) but target requires 2.
     fn1([1, 'abc']);  // [number, string]
     fn1([1, 'abc', true]);  // [string, boolean]
@@ -285,11 +285,11 @@ variadicTuples2.ts(139,25): error TS2345: Argument of type '["blah2", 1, 2, 3]' 
     declare function fn2<T, U>(t: [T, ...unknown[], U]): [T, U];
     fn2([]);  // Error
         ~~
-!!! error TS2345: Argument of type '[]' is not assignable to parameter of type '[unknown, ...unknown[], unknown]'.
+!!! error TS2345: Argument of type '[]' is not assignable to parameter of type '[{} | null | undefined, ...unknown[], {} | null | undefined]'.
 !!! error TS2345:   Source has 0 element(s) but target requires 2.
     fn2([1]);  // Error
         ~~~
-!!! error TS2345: Argument of type '[number]' is not assignable to parameter of type '[unknown, ...unknown[], unknown]'.
+!!! error TS2345: Argument of type '[number]' is not assignable to parameter of type '[{} | null | undefined, ...unknown[], {} | null | undefined]'.
 !!! error TS2345:   Source has 1 element(s) but target requires 2.
     fn2([1, 'abc']);  // [number, string]
     fn2([1, 'abc', true]);  // [number, boolean]

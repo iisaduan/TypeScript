@@ -2,26 +2,26 @@
 
 === propagateNonInferrableType.ts ===
 declare function resolver<T>(): () => void;
->resolver : <T>() => () => void
->         : ^ ^^^^^^^          
+>resolver : <T extends {} | null | undefined>() => () => void
+>         : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          
 
 declare function wrapResolver<T>(resolverFunction: () => void): void;
->wrapResolver : <T>(resolverFunction: () => void) => void
->             : ^ ^^                ^^          ^^^^^    
+>wrapResolver : <T extends {} | null | undefined>(resolverFunction: () => void) => void
+>             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                ^^          ^^^^^    
 >resolverFunction : () => void
 >                 : ^^^^^^    
 
 wrapResolver(resolver() || []);
 >wrapResolver(resolver() || []) : void
 >                               : ^^^^
->wrapResolver : <T>(resolverFunction: () => void) => void
->             : ^ ^^                ^^          ^^^^^    
+>wrapResolver : <T extends {} | null | undefined>(resolverFunction: () => void) => void
+>             : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                ^^          ^^^^^    
 >resolver() || [] : () => void
 >                 : ^^^^^^    
 >resolver() : () => void
 >           : ^^^^^^    
->resolver : <T>() => () => void
->         : ^ ^^^^^^^          
+>resolver : <T extends {} | null | undefined>() => () => void
+>         : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          
 >[] : never[]
 >   : ^^^^^^^
 

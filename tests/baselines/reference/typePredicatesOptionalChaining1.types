@@ -30,8 +30,8 @@ const x: X = {
 };
 // type guard
 function isNotNull<A>(x: A): x is NonNullable<A> {
->isNotNull : <A>(x: A) => x is NonNullable<A>
->          : ^ ^^ ^^ ^^^^^                   
+>isNotNull : <A extends {} | null | undefined>(x: A) => x is NonNullable<A>
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^                   
 >x : A
 >  : ^
 
@@ -84,8 +84,8 @@ isNotNull(x?.y?.z) ? title(x.y.z) : null; // should not error
 >                                         : ^^^^^^^^^^^^^
 >isNotNull(x?.y?.z) : boolean
 >                   : ^^^^^^^
->isNotNull : <A>(x: A) => x is NonNullable<A>
->          : ^ ^^ ^^ ^^^^^                   
+>isNotNull : <A extends {} | null | undefined>(x: A) => x is NonNullable<A>
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^                   
 >x?.y?.z : string | undefined
 >        : ^^^^^^^^^^^^^^^^^^
 >x?.y : { z?: string; } | undefined

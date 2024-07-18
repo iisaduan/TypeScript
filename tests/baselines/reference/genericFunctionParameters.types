@@ -2,50 +2,50 @@
 
 === genericFunctionParameters.ts ===
 declare function f1<T>(cb: <S>(x: S) => T): T;
->f1 : <T>(cb: <S>(x: S) => T) => T
->   : ^ ^^  ^^              ^^^^^ 
->cb : <S>(x: S) => T
->   : ^ ^^ ^^ ^^^^^ 
+>f1 : <T extends {} | null | undefined>(cb: <S>(x: S) => T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^              ^^^^^ 
+>cb : <S extends {} | null | undefined>(x: S) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ 
 >x : S
 >  : ^
 
 declare function f2<T>(cb: <S extends number>(x: S) => T): T;
->f2 : <T>(cb: <S extends number>(x: S) => T) => T
->   : ^ ^^  ^^                             ^^^^^ 
+>f2 : <T extends {} | null | undefined>(cb: <S extends number>(x: S) => T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                             ^^^^^ 
 >cb : <S extends number>(x: S) => T
 >   : ^ ^^^^^^^^^      ^^ ^^ ^^^^^ 
 >x : S
 >  : ^
 
 declare function f3<T>(cb: <S extends Array<S>>(x: S) => T): T;
->f3 : <T>(cb: <S extends Array<S>>(x: S) => T) => T
->   : ^ ^^  ^^                               ^^^^^ 
+>f3 : <T extends {} | null | undefined>(cb: <S extends Array<S>>(x: S) => T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                               ^^^^^ 
 >cb : <S extends Array<S>>(x: S) => T
 >   : ^ ^^^^^^^^^        ^^ ^^ ^^^^^ 
 >x : S
 >  : ^
 
 let x1 = f1(x => x);  // {}
->x1 : unknown
->   : ^^^^^^^
->f1(x => x) : unknown
->           : ^^^^^^^
->f1 : <T>(cb: <S>(x: S) => T) => T
->   : ^ ^^  ^^              ^^^^^ 
->x => x : <S>(x: S) => S
->       : ^ ^^ ^^^^^^^^^
+>x1 : {} | null | undefined
+>   : ^^^^^^^^^^^^^^^^^^^^^
+>f1(x => x) : {} | null | undefined
+>           : ^^^^^^^^^^^^^^^^^^^^^
+>f1 : <T extends {} | null | undefined>(cb: <S>(x: S) => T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^              ^^^^^ 
+>x => x : <S extends {} | null | undefined>(x: S) => S
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^
 >x : S
 >  : ^
->x : S
->  : ^
+>x : {} | null | undefined
+>  : ^^^^^^^^^^^^^^^^^^^^^
 
 let x2 = f2(x => x);  // number
 >x2 : number
 >   : ^^^^^^
 >f2(x => x) : number
 >           : ^^^^^^
->f2 : <T>(cb: <S extends number>(x: S) => T) => T
->   : ^ ^^  ^^                             ^^^^^ 
+>f2 : <T extends {} | null | undefined>(cb: <S extends number>(x: S) => T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                             ^^^^^ 
 >x => x : <S extends number>(x: S) => S
 >       : ^ ^^^^^^^^^      ^^ ^^^^^^^^^
 >x : S
@@ -58,8 +58,8 @@ let x3 = f3(x => x);  // Array<any>
 >   : ^^^^^
 >f3(x => x) : any[]
 >           : ^^^^^
->f3 : <T>(cb: <S extends Array<S>>(x: S) => T) => T
->   : ^ ^^  ^^                               ^^^^^ 
+>f3 : <T extends {} | null | undefined>(cb: <S extends Array<S>>(x: S) => T) => T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                               ^^^^^ 
 >x => x : <S extends S[]>(x: S) => S
 >       : ^ ^^^^^^^^^^^^^^ ^^^^^^^^^
 >x : S
@@ -70,24 +70,24 @@ let x3 = f3(x => x);  // Array<any>
 // Repro from #19345
 
 declare const s: <R>(go: <S>(ops: { init(): S; }) => R) => R;
->s : <R>(go: <S>(ops: { init(): S; }) => R) => R
->  : ^ ^^  ^^                             ^^^^^ 
->go : <S>(ops: { init(): S; }) => R
->   : ^ ^^   ^^              ^^^^^ 
+>s : <R extends {} | null | undefined>(go: <S>(ops: { init(): S; }) => R) => R
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                             ^^^^^ 
+>go : <S extends {} | null | undefined>(ops: { init(): S; }) => R
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^              ^^^^^ 
 >ops : { init(): S; }
 >    : ^^^^^^^^^^ ^^^
 >init : () => S
 >     : ^^^^^^ 
 
 const x = s(a => a.init());  // x is any, should have been {}
->x : unknown
->  : ^^^^^^^
->s(a => a.init()) : unknown
->                 : ^^^^^^^
->s : <R>(go: <S>(ops: { init(): S; }) => R) => R
->  : ^ ^^  ^^                             ^^^^^ 
->a => a.init() : <S>(a: { init(): S; }) => S
->              : ^ ^^ ^^^^^^^^^^^^^^^^^^^^^^
+>x : {} | null | undefined
+>  : ^^^^^^^^^^^^^^^^^^^^^
+>s(a => a.init()) : {} | null | undefined
+>                 : ^^^^^^^^^^^^^^^^^^^^^
+>s : <R extends {} | null | undefined>(go: <S>(ops: { init(): S; }) => R) => R
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^                             ^^^^^ 
+>a => a.init() : <S extends {} | null | undefined>(a: { init(): S; }) => S
+>              : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
 >a : { init(): S; }
 >  : ^^^^^^^^^^^^^^
 >a.init() : S

@@ -291,12 +291,12 @@ m2.setonlyAccessor = 0;
 Object.defineProperty(exports, "thing", { value: 42, writable: true });
 >Object.defineProperty(exports, "thing", { value: 42, writable: true }) : typeof import("mod1")
 >                                                                       : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >exports : typeof import("mod1")
 >        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >"thing" : "thing"
@@ -315,12 +315,12 @@ Object.defineProperty(exports, "thing", { value: 42, writable: true });
 Object.defineProperty(exports, "readonlyProp", { value: "Smith", writable: false });
 >Object.defineProperty(exports, "readonlyProp", { value: "Smith", writable: false }) : typeof import("mod1")
 >                                                                                    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >exports : typeof import("mod1")
 >        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >"readonlyProp" : "readonlyProp"
@@ -339,12 +339,12 @@ Object.defineProperty(exports, "readonlyProp", { value: "Smith", writable: false
 Object.defineProperty(exports, "rwAccessors", { get() { return 98122 }, set(_) { /*ignore*/ } });
 >Object.defineProperty(exports, "rwAccessors", { get() { return 98122 }, set(_) { /*ignore*/ } }) : typeof import("mod1")
 >                                                                                                 : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >exports : typeof import("mod1")
 >        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >"rwAccessors" : "rwAccessors"
@@ -363,12 +363,12 @@ Object.defineProperty(exports, "rwAccessors", { get() { return 98122 }, set(_) {
 Object.defineProperty(exports, "readonlyAccessor", { get() { return 21.75 } });
 >Object.defineProperty(exports, "readonlyAccessor", { get() { return 21.75 } }) : typeof import("mod1")
 >                                                                               : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >exports : typeof import("mod1")
 >        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >"readonlyAccessor" : "readonlyAccessor"
@@ -383,12 +383,12 @@ Object.defineProperty(exports, "readonlyAccessor", { get() { return 21.75 } });
 Object.defineProperty(exports, "setonlyAccessor", {
 >Object.defineProperty(exports, "setonlyAccessor", {    /** @param {string} str */    set(str) {        this.rwAccessors = Number(str)     }}) : typeof import("mod1")
 >                                                                                                                                              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >exports : typeof import("mod1")
 >        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >"setonlyAccessor" : "setonlyAccessor"
@@ -425,12 +425,12 @@ Object.defineProperty(exports, "setonlyAccessor", {
 Object.defineProperty(module.exports, "thing", { value: "yes", writable: true });
 >Object.defineProperty(module.exports, "thing", { value: "yes", writable: true }) : typeof module.exports
 >                                                                                 : ^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >module.exports : typeof module.exports
 >               : ^^^^^^^^^^^^^^^^^^^^^
 >module : { exports: typeof module.exports; }
@@ -453,12 +453,12 @@ Object.defineProperty(module.exports, "thing", { value: "yes", writable: true })
 Object.defineProperty(module.exports, "readonlyProp", { value: "Smith", writable: false });
 >Object.defineProperty(module.exports, "readonlyProp", { value: "Smith", writable: false }) : typeof module.exports
 >                                                                                           : ^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >module.exports : typeof module.exports
 >               : ^^^^^^^^^^^^^^^^^^^^^
 >module : { exports: typeof module.exports; }
@@ -481,12 +481,12 @@ Object.defineProperty(module.exports, "readonlyProp", { value: "Smith", writable
 Object.defineProperty(module.exports, "rwAccessors", { get() { return 98122 }, set(_) { /*ignore*/ } });
 >Object.defineProperty(module.exports, "rwAccessors", { get() { return 98122 }, set(_) { /*ignore*/ } }) : typeof module.exports
 >                                                                                                        : ^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >module.exports : typeof module.exports
 >               : ^^^^^^^^^^^^^^^^^^^^^
 >module : { exports: typeof module.exports; }
@@ -509,12 +509,12 @@ Object.defineProperty(module.exports, "rwAccessors", { get() { return 98122 }, s
 Object.defineProperty(module.exports, "readonlyAccessor", { get() { return 21.75 } });
 >Object.defineProperty(module.exports, "readonlyAccessor", { get() { return 21.75 } }) : typeof module.exports
 >                                                                                      : ^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >module.exports : typeof module.exports
 >               : ^^^^^^^^^^^^^^^^^^^^^
 >module : { exports: typeof module.exports; }
@@ -533,12 +533,12 @@ Object.defineProperty(module.exports, "readonlyAccessor", { get() { return 21.75
 Object.defineProperty(module.exports, "setonlyAccessor", {
 >Object.defineProperty(module.exports, "setonlyAccessor", {    /** @param {string} str */    set(str) {        this.rwAccessors = Number(str)     }}) : typeof module.exports
 >                                                                                                                                                     : ^^^^^^^^^^^^^^^^^^^^^
->Object.defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->                      : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>Object.defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>                      : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >Object : ObjectConstructor
 >       : ^^^^^^^^^^^^^^^^^
->defineProperty : <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
->               : ^ ^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
+>defineProperty : <T extends {} | null | undefined>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T
+>               : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^           ^^          ^^                                  ^^^^^ 
 >module.exports : typeof module.exports
 >               : ^^^^^^^^^^^^^^^^^^^^^
 >module : { exports: typeof module.exports; }

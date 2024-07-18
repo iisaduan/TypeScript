@@ -259,8 +259,8 @@ let b = bar<CoolArray<number>>(10, 20);  // Error
 >   : ^^
 
 declare function baz<T>(...args: CoolArray<T>): void;
->baz : <T>(...args: CoolArray<T>) => void
->    : ^ ^^^^^    ^^            ^^^^^    
+>baz : <T extends {} | null | undefined>(...args: CoolArray<T>) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^            ^^^^^    
 >args : CoolArray<T>
 >     : ^^^^^^^^^^^^
 
@@ -271,22 +271,22 @@ declare const ca: CoolArray<number>;
 baz();       // Error
 >baz() : void
 >      : ^^^^
->baz : <T>(...args: CoolArray<T>) => void
->    : ^ ^^^^^    ^^            ^^^^^    
+>baz : <T extends {} | null | undefined>(...args: CoolArray<T>) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^            ^^^^^    
 
 baz(1);      // Error
 >baz(1) : void
 >       : ^^^^
->baz : <T>(...args: CoolArray<T>) => void
->    : ^ ^^^^^    ^^            ^^^^^    
+>baz : <T extends {} | null | undefined>(...args: CoolArray<T>) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^            ^^^^^    
 >1 : 1
 >  : ^
 
 baz(1, 2);   // Error
 >baz(1, 2) : void
 >          : ^^^^
->baz : <T>(...args: CoolArray<T>) => void
->    : ^ ^^^^^    ^^            ^^^^^    
+>baz : <T extends {} | null | undefined>(...args: CoolArray<T>) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^            ^^^^^    
 >1 : 1
 >  : ^
 >2 : 2
@@ -295,8 +295,8 @@ baz(1, 2);   // Error
 baz(...ca);  // Error
 >baz(...ca) : void
 >           : ^^^^
->baz : <T>(...args: CoolArray<T>) => void
->    : ^ ^^^^^    ^^            ^^^^^    
+>baz : <T extends {} | null | undefined>(...args: CoolArray<T>) => void
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^            ^^^^^    
 >...ca : number
 >      : ^^^^^^
 >ca : CoolArray<number>

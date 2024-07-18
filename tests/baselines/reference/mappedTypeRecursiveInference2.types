@@ -25,86 +25,86 @@ type validateDefinition<def> = def extends MorphTuple
       }
 
 declare function type<def>(def: validateDefinition<def>): def
->type : <def>(def: validateDefinition<def>) => def
->     : ^   ^^   ^^                       ^^^^^   
+>type : <def extends {} | null | undefined>(def: validateDefinition<def>) => def
+>     : ^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                       ^^^^^   
 >def : validateDefinition<def>
 >    : ^^^^^^^^^^^^^^^^^^^^^^^
 
 const shallow = type(["ark", "|>", (x) => x.length])
->shallow : ["ark", "|>", (x: "ark") => number]
->        : ^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
->type(["ark", "|>", (x) => x.length]) : ["ark", "|>", (x: "ark") => number]
->                                     : ^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
->type : <def>(def: validateDefinition<def>) => def
->     : ^   ^^   ^^                       ^^^^^   
->["ark", "|>", (x) => x.length] : ["ark", "|>", (x: "ark") => number]
->                               : ^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
+>shallow : [string, "|>", (x: string) => number]
+>        : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
+>type(["ark", "|>", (x) => x.length]) : [string, "|>", (x: string) => number]
+>                                     : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
+>type : <def extends {} | null | undefined>(def: validateDefinition<def>) => def
+>     : ^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                       ^^^^^   
+>["ark", "|>", (x) => x.length] : [string, "|>", (x: string) => number]
+>                               : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
 >"ark" : "ark"
 >      : ^^^^^
 >"|>" : "|>"
 >     : ^^^^
->(x) => x.length : (x: "ark") => number
->                : ^ ^^^^^^^^^^^^^^^^^^
->x : "ark"
->  : ^^^^^
+>(x) => x.length : (x: string) => number
+>                : ^ ^^^^^^^^^^^^^^^^^^^
+>x : string
+>  : ^^^^^^
 >x.length : number
 >         : ^^^^^^
->x : "ark"
->  : ^^^^^
+>x : string
+>  : ^^^^^^
 >length : number
 >       : ^^^^^^
 
 const objectLiteral = type({ a: ["ark", "|>", (x) => x.length] })
->objectLiteral : { a: ["ark", "|>", (x: "ark") => number]; }
->              : ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
->type({ a: ["ark", "|>", (x) => x.length] }) : { a: ["ark", "|>", (x: "ark") => number]; }
->                                            : ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
->type : <def>(def: validateDefinition<def>) => def
->     : ^   ^^   ^^                       ^^^^^   
->{ a: ["ark", "|>", (x) => x.length] } : { a: ["ark", "|>", (x: "ark") => number]; }
->                                      : ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^
->a : ["ark", "|>", (x: "ark") => number]
->  : ^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
->["ark", "|>", (x) => x.length] : ["ark", "|>", (x: "ark") => number]
->                               : ^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
+>objectLiteral : { a: (string | ((x: any) => any))[]; }
+>              : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
+>type({ a: ["ark", "|>", (x) => x.length] }) : { a: (string | ((x: any) => any))[]; }
+>                                            : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
+>type : <def extends {} | null | undefined>(def: validateDefinition<def>) => def
+>     : ^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                       ^^^^^   
+>{ a: ["ark", "|>", (x) => x.length] } : { a: (string | ((x: any) => any))[]; }
+>                                      : ^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
+>a : (string | ((x: any) => any))[]
+>  : ^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^
+>["ark", "|>", (x) => x.length] : (string | ((x: any) => any))[]
+>                               : ^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^
 >"ark" : "ark"
 >      : ^^^^^
 >"|>" : "|>"
 >     : ^^^^
->(x) => x.length : (x: "ark") => number
->                : ^ ^^^^^^^^^^^^^^^^^^
->x : "ark"
->  : ^^^^^
->x.length : number
->         : ^^^^^^
->x : "ark"
->  : ^^^^^
->length : number
->       : ^^^^^^
+>(x) => x.length : (x: any) => any
+>                : ^ ^^^^^^^^^^^^^
+>x : any
+>  : ^^^
+>x.length : any
+>         : ^^^
+>x : any
+>  : ^^^
+>length : any
+>       : ^^^
 
 const nestedTuple = type([["ark", "|>", (x) => x.length]])
->nestedTuple : [["ark", "|>", (x: "ark") => number]]
->            : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
->type([["ark", "|>", (x) => x.length]]) : [["ark", "|>", (x: "ark") => number]]
->                                       : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
->type : <def>(def: validateDefinition<def>) => def
->     : ^   ^^   ^^                       ^^^^^   
->[["ark", "|>", (x) => x.length]] : [["ark", "|>", (x: "ark") => number]]
->                                 : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^
->["ark", "|>", (x) => x.length] : ["ark", "|>", (x: "ark") => number]
->                               : ^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^
+>nestedTuple : [(string | ((x: any) => any))[]]
+>            : ^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^
+>type([["ark", "|>", (x) => x.length]]) : [(string | ((x: any) => any))[]]
+>                                       : ^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^
+>type : <def extends {} | null | undefined>(def: validateDefinition<def>) => def
+>     : ^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^                       ^^^^^   
+>[["ark", "|>", (x) => x.length]] : [(string | ((x: any) => any))[]]
+>                                 : ^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^
+>["ark", "|>", (x) => x.length] : (string | ((x: any) => any))[]
+>                               : ^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^
 >"ark" : "ark"
 >      : ^^^^^
 >"|>" : "|>"
 >     : ^^^^
->(x) => x.length : (x: "ark") => number
->                : ^ ^^^^^^^^^^^^^^^^^^
->x : "ark"
->  : ^^^^^
->x.length : number
->         : ^^^^^^
->x : "ark"
->  : ^^^^^
->length : number
->       : ^^^^^^
+>(x) => x.length : (x: any) => any
+>                : ^ ^^^^^^^^^^^^^
+>x : any
+>  : ^^^
+>x.length : any
+>         : ^^^
+>x : any
+>  : ^^^
+>length : any
+>       : ^^^
 

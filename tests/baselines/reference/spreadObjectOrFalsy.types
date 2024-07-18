@@ -2,8 +2,8 @@
 
 === spreadObjectOrFalsy.ts ===
 function f1<T>(a: T & undefined) {
->f1 : <T>(a: T & undefined) => any
->   : ^ ^^ ^^             ^^^^^^^^
+>f1 : <T extends {} | null | undefined>(a: T & undefined) => any
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^             ^^^^^^^^
 >a : T & undefined
 >  : ^^^^^^^^^^^^^
 
@@ -15,8 +15,8 @@ function f1<T>(a: T & undefined) {
 }
 
 function f2<T>(a: T | T & undefined) {
->f2 : <T>(a: T | (T & undefined)) => T | (T & undefined)
->   : ^ ^^ ^^    ^             ^^^^^^^^^^^^^^^^^^^^^^^^^
+>f2 : <T extends {} | null | undefined>(a: T | (T & undefined)) => T | (T & undefined)
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^    ^             ^^^^^^^^^^^^^^^^^^^^^^^^^
 >a : T | (T & undefined)
 >  : ^^^^^^^^^^^^^^^^^^^
 
@@ -54,8 +54,8 @@ function f4<T extends undefined>(a: object | T) {
 }
 
 function f5<S, T extends undefined>(a: S | T) {
->f5 : <S, T extends undefined>(a: S | T) => S | T
->   : ^ ^^ ^^^^^^^^^         ^^ ^^     ^^^^^^^^^^
+>f5 : <S extends {} | null | undefined, T extends undefined>(a: S | T) => S | T
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^         ^^ ^^     ^^^^^^^^^^
 >a : S | T
 >  : ^^^^^
 

@@ -1266,9 +1266,9 @@ type Thing = {
     b: boolean;
 };
 declare function f1(thing: Thing): void;
-declare const assignTo2: <T, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) => (value: T[K1][K2]) => T[K1][K2];
+declare const assignTo2: <T extends {} | null | undefined, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) => (value: T[K1][K2]) => T[K1][K2];
 declare function one<T>(handler: (t: T) => void): T;
-declare var empty: unknown;
+declare var empty: {} | null | undefined;
 type Handlers<T> = {
     [K in keyof T]: (t: T[K]) => void;
 };
@@ -1289,7 +1289,7 @@ declare class Component1<Data, Computed> {
 }
 declare let c1: Component1<{
     hello: string;
-}, unknown>;
+}, {} | null | undefined>;
 interface Options2<Data, Computed> {
     data?: Data;
     computed?: Computed;

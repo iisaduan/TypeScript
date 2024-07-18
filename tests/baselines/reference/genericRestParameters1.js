@@ -335,7 +335,7 @@ declare const g21: (y?: string | undefined, z?: boolean | undefined) => string[]
 declare const g22: (z?: boolean | undefined) => string[];
 declare const g23: () => string[];
 declare function f30<T, U extends ((x: T) => any)[]>(x: T, ...args: U): U;
-declare const c30: [(x: number) => string, (x: number) => number];
+declare const c30: [(x: 42) => string, (x: 42) => number];
 type T01 = Parameters<(x: number, y: string, z: boolean) => void>;
 type T02 = Parameters<(...args: [number, string, boolean]) => void>;
 type T03 = ConstructorParameters<new (x: number, y: string, z: boolean) => void>;

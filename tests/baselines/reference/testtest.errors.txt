@@ -1,0 +1,100 @@
+testtest.ts(2,12): error TS18049: 'a' is possibly 'null' or 'undefined'.
+testtest.ts(2,16): error TS18049: 'b' is possibly 'null' or 'undefined'.
+testtest.ts(16,5): error TS2322: Type 'T[keyof T]' is not assignable to type 'U[keyof T]'.
+  Type 'T' is not assignable to type 'U'.
+    'U' could be instantiated with an arbitrary type which could be unrelated to 'T'.
+testtest.ts(24,12): error TS18049: 'obj' is possibly 'null' or 'undefined'.
+testtest.ts(24,12): error TS2536: Type 'K' cannot be used to index type '{}'.
+testtest.ts(37,12): error TS18049: 'obj' is possibly 'null' or 'undefined'.
+testtest.ts(37,12): error TS2536: Type 'keyof T' cannot be used to index type '{}'.
+testtest.ts(52,5): error TS18049: 'obj' is possibly 'null' or 'undefined'.
+testtest.ts(52,5): error TS2536: Type 'K' cannot be used to index type '{}'.
+testtest.ts(53,5): error TS18049: 'other' is possibly 'null' or 'undefined'.
+testtest.ts(53,5): error TS2536: Type 'K' cannot be used to index type '{}'.
+
+
+==== testtest.ts (11 errors) ====
+    function f5<T extends {} | undefined | null>(a: T, b: T): boolean {
+        return a > b;
+               ~
+!!! error TS18049: 'a' is possibly 'null' or 'undefined'.
+                   ~
+!!! error TS18049: 'b' is possibly 'null' or 'undefined'.
+    }
+    
+    function g5<T>(a: T, b: T): boolean {
+        return a > b;
+    }
+    
+    function h5<T extends unknown>(a: T, b: T): boolean {
+        return a > b;
+    }
+      
+    
+    function d<T, U extends T>(x: T, y: U, k: keyof T) {
+        x[k] = y[k];
+        y[k] = x[k]; 
+        ~~~~
+!!! error TS2322: Type 'T[keyof T]' is not assignable to type 'U[keyof T]'.
+!!! error TS2322:   Type 'T' is not assignable to type 'U'.
+!!! error TS2322:     'U' could be instantiated with an arbitrary type which could be unrelated to 'T'.
+    }
+    
+    function f<T, K extends keyof T>(obj: T, key: K) {
+        return obj[key];
+    }
+    
+    function f2<T extends {} | null | undefined , K extends keyof T>(obj: T, key: K) {
+        return obj[key];
+               ~~~
+!!! error TS18049: 'obj' is possibly 'null' or 'undefined'.
+               ~~~~~~~~
+!!! error TS2536: Type 'K' cannot be used to index type '{}'.
+    }
+    
+    function f3<T extends unknown, K extends keyof T>(obj: T, key: K) {
+        return obj[key];
+    }
+    
+    // ************
+    function g1<T>(obj: T, key: keyof T) {
+        return obj[key];
+    }
+    
+    function g2<T extends {} | null | undefined>(obj: T, key: keyof T) {
+        return obj[key];
+               ~~~
+!!! error TS18049: 'obj' is possibly 'null' or 'undefined'.
+               ~~~~~~~~
+!!! error TS2536: Type 'keyof T' cannot be used to index type '{}'.
+    }
+    
+    function g3<T extends unknown>(obj: T, key: keyof T) {
+        return obj[key];
+    }
+    
+    // **************
+    function h1<T, K extends keyof T>(obj: T, other: T, key: K) {
+        obj[key]; 
+        other[key];
+        return;
+    }
+    
+    function h2<T extends {} | null | undefined , K extends keyof T>(obj: T, other: T, key: K) {
+        obj[key]; 
+        ~~~
+!!! error TS18049: 'obj' is possibly 'null' or 'undefined'.
+        ~~~~~~~~
+!!! error TS2536: Type 'K' cannot be used to index type '{}'.
+        other[key];
+        ~~~~~
+!!! error TS18049: 'other' is possibly 'null' or 'undefined'.
+        ~~~~~~~~~~
+!!! error TS2536: Type 'K' cannot be used to index type '{}'.
+        return;}
+    
+    function h3<T extends unknown, K extends keyof T>(obj: T, other: T, key: K) {
+        obj[key]; 
+        other[key];
+        return;
+    }

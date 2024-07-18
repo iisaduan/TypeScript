@@ -2,8 +2,8 @@
 
 === nonNullableTypes1.ts ===
 function f1<T>(x: T) {
->f1 : <T>(x: T) => void
->   : ^ ^^ ^^ ^^^^^^^^^
+>f1 : <T extends {} | null | undefined>(x: T) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^
 >x : T
 >  : ^
 
@@ -30,8 +30,8 @@ function error(): never {
 }
 
 function f2<T>(x: T) {  // NonNullable<T>
->f2 : <T>(x: T) => NonNullable<T>
->   : ^ ^^ ^^ ^^^^^^^^^^^^^^^^^^^
+>f2 : <T extends {} | null | undefined>(x: T) => NonNullable<T>
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^^^^^^^^^^^^^^^
 >x : T
 >  : ^
 

@@ -1,8 +1,13 @@
 conditionalTypeAssignabilityWhenDeferred.ts(28,20): error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 conditionalTypeAssignabilityWhenDeferred.ts(29,21): error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+conditionalTypeAssignabilityWhenDeferred.ts(38,3): error TS2322: Type '{ x: undefined; y: undefined; } | { x: null; y: null; } | { x: {}; y: {}; }' is not assignable to type '{ x: T; y: T; }'.
+  Type '{ x: undefined; y: undefined; }' is not assignable to type '{ x: T; y: T; }'.
+    Types of property 'x' are incompatible.
+      Type 'undefined' is not assignable to type 'T'.
+        'T' could be instantiated with an arbitrary type which could be unrelated to 'undefined'.
 conditionalTypeAssignabilityWhenDeferred.ts(39,3): error TS2322: Type '{ x: T; y: T; }' is not assignable to type 'T extends T ? { x: T; y: T; } : never'.
 conditionalTypeAssignabilityWhenDeferred.ts(46,3): error TS2322: Type 'string' is not assignable to type 'Foo<T>'.
-conditionalTypeAssignabilityWhenDeferred.ts(63,9): error TS2322: Type '{ a: number; b: number; }' is not assignable to type '[T] extends [[infer U]] ? U : { b: number; }'.
+conditionalTypeAssignabilityWhenDeferred.ts(63,9): error TS2322: Type '{ a: number; b: number; }' is not assignable to type '[T] extends [[infer U extends {} | null | undefined]] ? U : { b: number; }'.
 conditionalTypeAssignabilityWhenDeferred.ts(95,23): error TS2345: Argument of type 'string' is not assignable to parameter of type 'Unwrap<this["prop"]>'.
 conditionalTypeAssignabilityWhenDeferred.ts(106,3): error TS2322: Type 'Q' is not assignable to type 'InferBecauseWhyNot<Q>'.
   Type '(arg: any) => any' is not assignable to type 'InferBecauseWhyNot<Q>'.
@@ -10,7 +15,7 @@ conditionalTypeAssignabilityWhenDeferred.ts(116,3): error TS2322: Type 'Q' is no
   Type '(arg: any) => any' is not assignable to type 'InferBecauseWhyNotDistributive<Q>'.
 
 
-==== conditionalTypeAssignabilityWhenDeferred.ts (8 errors) ====
+==== conditionalTypeAssignabilityWhenDeferred.ts (9 errors) ====
     export type FilterPropsByType<T, TT> = {
       [K in keyof T]: T[K] extends TT ? K : never
     }[keyof T];
@@ -53,6 +58,12 @@ conditionalTypeAssignabilityWhenDeferred.ts(116,3): error TS2322: Type 'Q' is no
     
     function f2<T>(t1: { x: T; y: T }, t2: T extends T ? { x: T; y: T } : never) {
       t1 = t2; // OK
+      ~~
+!!! error TS2322: Type '{ x: undefined; y: undefined; } | { x: null; y: null; } | { x: {}; y: {}; }' is not assignable to type '{ x: T; y: T; }'.
+!!! error TS2322:   Type '{ x: undefined; y: undefined; }' is not assignable to type '{ x: T; y: T; }'.
+!!! error TS2322:     Types of property 'x' are incompatible.
+!!! error TS2322:       Type 'undefined' is not assignable to type 'T'.
+!!! error TS2322:         'T' could be instantiated with an arbitrary type which could be unrelated to 'undefined'.
       t2 = t1; // should fail
       ~~
 !!! error TS2322: Type '{ x: T; y: T; }' is not assignable to type 'T extends T ? { x: T; y: T; } : never'.
@@ -83,7 +94,7 @@ conditionalTypeAssignabilityWhenDeferred.ts(116,3): error TS2322: Type 'Q' is no
       // Infer type parameters: no good
       const o2: [T] extends [[infer U]] ? U : { b: number } = o;
             ~~
-!!! error TS2322: Type '{ a: number; b: number; }' is not assignable to type '[T] extends [[infer U]] ? U : { b: number; }'.
+!!! error TS2322: Type '{ a: number; b: number; }' is not assignable to type '[T] extends [[infer U extends {} | null | undefined]] ? U : { b: number; }'.
     
       // The next 4 are arguable - if you choose to ignore the `never` distribution case,
       // then they're all good. The `never` case _is_ a bit of an outlier - we say distributive types

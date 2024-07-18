@@ -1,0 +1,287 @@
+//// [tests/cases/compiler/testtest.ts] ////
+
+=== testtest.ts ===
+function f5<T extends {} | undefined | null>(a: T, b: T): boolean {
+>f5 : <T extends {} | undefined | null>(a: T, b: T) => boolean
+>   : ^ ^^^^^^^^^                     ^^ ^^ ^^ ^^ ^^^^^       
+>a : T
+>  : ^
+>b : T
+>  : ^
+
+    return a > b;
+>a > b : boolean
+>      : ^^^^^^^
+>a : T
+>  : ^
+>b : T
+>  : ^
+}
+
+function g5<T>(a: T, b: T): boolean {
+>g5 : <T extends {} | null | undefined>(a: T, b: T) => boolean
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^ ^^ ^^^^^       
+>a : T
+>  : ^
+>b : T
+>  : ^
+
+    return a > b;
+>a > b : boolean
+>      : ^^^^^^^
+>a : T
+>  : ^
+>b : T
+>  : ^
+}
+
+function h5<T extends unknown>(a: T, b: T): boolean {
+>h5 : <T extends unknown>(a: T, b: T) => boolean
+>   : ^ ^^^^^^^^^       ^^ ^^ ^^ ^^ ^^^^^       
+>a : T
+>  : ^
+>b : T
+>  : ^
+
+    return a > b;
+>a > b : boolean
+>      : ^^^^^^^
+>a : T
+>  : ^
+>b : T
+>  : ^
+}
+  
+
+function d<T, U extends T>(x: T, y: U, k: keyof T) {
+>d : <T extends {} | null | undefined, U extends T>(x: T, y: U, k: keyof T) => void
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^ ^^ ^^ ^^ ^^ ^^ ^^       ^^^^^^^^^
+>x : T
+>  : ^
+>y : U
+>  : ^
+>k : keyof T
+>  : ^^^^^^^
+
+    x[k] = y[k];
+>x[k] = y[k] : U[keyof T]
+>            : ^^^^^^^^^^
+>x[k] : T[keyof T]
+>     : ^^^^^^^^^^
+>x : T
+>  : ^
+>k : keyof T
+>  : ^^^^^^^
+>y[k] : U[keyof T]
+>     : ^^^^^^^^^^
+>y : U
+>  : ^
+>k : keyof T
+>  : ^^^^^^^
+
+    y[k] = x[k]; 
+>y[k] = x[k] : T[keyof T]
+>            : ^^^^^^^^^^
+>y[k] : U[keyof T]
+>     : ^^^^^^^^^^
+>y : U
+>  : ^
+>k : keyof T
+>  : ^^^^^^^
+>x[k] : T[keyof T]
+>     : ^^^^^^^^^^
+>x : T
+>  : ^
+>k : keyof T
+>  : ^^^^^^^
+}
+
+function f<T, K extends keyof T>(obj: T, key: K) {
+>f : <T extends {} | null | undefined, K extends keyof T>(obj: T, key: K) => T[K]
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^^^^^^^^
+>obj : T
+>    : ^
+>key : K
+>    : ^
+
+    return obj[key];
+>obj[key] : T[K]
+>         : ^^^^
+>obj : T
+>    : ^
+>key : K
+>    : ^
+}
+
+function f2<T extends {} | null | undefined , K extends keyof T>(obj: T, key: K) {
+>f2 : <T extends {} | null | undefined, K extends keyof T>(obj: T, key: K) => any
+>   : ^ ^^^^^^^^^                     ^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^^^^^^^
+>obj : T
+>    : ^
+>key : K
+>    : ^
+
+    return obj[key];
+>obj[key] : any
+>         : ^^^
+>obj : {} | null | undefined
+>    : ^^^^^^^^^^^^^^^^^^^^^
+>key : K
+>    : ^
+}
+
+function f3<T extends unknown, K extends keyof T>(obj: T, key: K) {
+>f3 : <T extends unknown, K extends keyof T>(obj: T, key: K) => T[K]
+>   : ^ ^^^^^^^^^       ^^ ^^^^^^^^^       ^^   ^^ ^^   ^^ ^^^^^^^^^
+>obj : T
+>    : ^
+>key : K
+>    : ^
+
+    return obj[key];
+>obj[key] : T[K]
+>         : ^^^^
+>obj : T
+>    : ^
+>key : K
+>    : ^
+}
+
+// ************
+function g1<T>(obj: T, key: keyof T) {
+>g1 : <T extends {} | null | undefined>(obj: T, key: keyof T) => T[keyof T]
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^   ^^       ^^^^^^^^^^^^^^^
+>obj : T
+>    : ^
+>key : keyof T
+>    : ^^^^^^^
+
+    return obj[key];
+>obj[key] : T[keyof T]
+>         : ^^^^^^^^^^
+>obj : T
+>    : ^
+>key : keyof T
+>    : ^^^^^^^
+}
+
+function g2<T extends {} | null | undefined>(obj: T, key: keyof T) {
+>g2 : <T extends {} | null | undefined>(obj: T, key: keyof T) => any
+>   : ^ ^^^^^^^^^                     ^^   ^^ ^^   ^^       ^^^^^^^^
+>obj : T
+>    : ^
+>key : keyof T
+>    : ^^^^^^^
+
+    return obj[key];
+>obj[key] : any
+>         : ^^^
+>obj : {} | null | undefined
+>    : ^^^^^^^^^^^^^^^^^^^^^
+>key : keyof T
+>    : ^^^^^^^
+}
+
+function g3<T extends unknown>(obj: T, key: keyof T) {
+>g3 : <T extends unknown>(obj: T, key: keyof T) => T[keyof T]
+>   : ^ ^^^^^^^^^       ^^   ^^ ^^   ^^       ^^^^^^^^^^^^^^^
+>obj : T
+>    : ^
+>key : keyof T
+>    : ^^^^^^^
+
+    return obj[key];
+>obj[key] : T[keyof T]
+>         : ^^^^^^^^^^
+>obj : T
+>    : ^
+>key : keyof T
+>    : ^^^^^^^
+}
+
+// **************
+function h1<T, K extends keyof T>(obj: T, other: T, key: K) {
+>h1 : <T extends {} | null | undefined, K extends keyof T>(obj: T, other: T, key: K) => void
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^       ^^   ^^ ^^     ^^ ^^   ^^ ^^^^^^^^^
+>obj : T
+>    : ^
+>other : T
+>      : ^
+>key : K
+>    : ^
+
+    obj[key]; 
+>obj[key] : T[K]
+>         : ^^^^
+>obj : T
+>    : ^
+>key : K
+>    : ^
+
+    other[key];
+>other[key] : T[K]
+>           : ^^^^
+>other : T
+>      : ^
+>key : K
+>    : ^
+
+    return;
+}
+
+function h2<T extends {} | null | undefined , K extends keyof T>(obj: T, other: T, key: K) {
+>h2 : <T extends {} | null | undefined, K extends keyof T>(obj: T, other: T, key: K) => void
+>   : ^ ^^^^^^^^^                     ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^ ^^   ^^ ^^^^^^^^^
+>obj : T
+>    : ^
+>other : T
+>      : ^
+>key : K
+>    : ^
+
+    obj[key]; 
+>obj[key] : any
+>         : ^^^
+>obj : {} | null | undefined
+>    : ^^^^^^^^^^^^^^^^^^^^^
+>key : K
+>    : ^
+
+    other[key];
+>other[key] : any
+>           : ^^^
+>other : {} | null | undefined
+>      : ^^^^^^^^^^^^^^^^^^^^^
+>key : K
+>    : ^
+
+    return;}
+
+function h3<T extends unknown, K extends keyof T>(obj: T, other: T, key: K) {
+>h3 : <T extends unknown, K extends keyof T>(obj: T, other: T, key: K) => void
+>   : ^ ^^^^^^^^^       ^^ ^^^^^^^^^       ^^   ^^ ^^     ^^ ^^   ^^ ^^^^^^^^^
+>obj : T
+>    : ^
+>other : T
+>      : ^
+>key : K
+>    : ^
+
+    obj[key]; 
+>obj[key] : T[K]
+>         : ^^^^
+>obj : T
+>    : ^
+>key : K
+>    : ^
+
+    other[key];
+>other[key] : T[K]
+>           : ^^^^
+>other : T
+>      : ^
+>key : K
+>    : ^
+
+    return;
+}

@@ -362,7 +362,7 @@ declare var g2: (...args: any[]) => {
         };
     };
 };
-declare const foo: <T>(object: T, partial: Partial<T>) => T;
+declare const foo: <T extends {} | null | undefined>(object: T, partial: Partial<T>) => T;
 declare let o: {
     a: number;
     b: number;

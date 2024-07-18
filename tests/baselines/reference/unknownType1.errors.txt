@@ -24,6 +24,8 @@ unknownType1.ts(150,17): error TS2355: A function whose declared type is neither
 unknownType1.ts(156,14): error TS2700: Rest types may only be created from object types.
 unknownType1.ts(162,5): error TS2564: Property 'a' has no initializer and is not definitely assigned in the constructor.
 unknownType1.ts(170,9): error TS2322: Type 'T' is not assignable to type '{}'.
+  Type '{} | null | undefined' is not assignable to type '{}'.
+    Type 'undefined' is not assignable to type '{}'.
 unknownType1.ts(171,9): error TS2322: Type 'U' is not assignable to type '{}'.
 unknownType1.ts(181,5): error TS2322: Type 'T' is not assignable to type '{}'.
 
@@ -250,7 +252,8 @@ unknownType1.ts(181,5): error TS2322: Type 'T' is not assignable to type '{}'.
         let x: {} = t;
             ~
 !!! error TS2322: Type 'T' is not assignable to type '{}'.
-!!! related TS2208 unknownType1.ts:169:14: This type parameter might need an `extends {}` constraint.
+!!! error TS2322:   Type '{} | null | undefined' is not assignable to type '{}'.
+!!! error TS2322:     Type 'undefined' is not assignable to type '{}'.
         let y: {} = u;
             ~
 !!! error TS2322: Type 'U' is not assignable to type '{}'.

@@ -1461,8 +1461,8 @@ class Utils {
 >      : ^^^^^
 
   static isDefined<T>(value: T): value is NonNullable<T> {
->isDefined : <T>(value: T) => value is NonNullable<T>
->          : ^ ^^     ^^ ^^^^^                       
+>isDefined : <T extends {} | null | undefined>(value: T) => value is NonNullable<T>
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                       
 >value : T
 >      : ^
 
@@ -1491,12 +1491,12 @@ class A53267 {
 >         : ^^^^^^^
 >Utils.isDefined(this.testNumber) : boolean
 >                                 : ^^^^^^^
->Utils.isDefined : <T>(value: T) => value is NonNullable<T>
->                : ^ ^^     ^^ ^^^^^                       
+>Utils.isDefined : <T extends {} | null | undefined>(value: T) => value is NonNullable<T>
+>                : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                       
 >Utils : typeof Utils
 >      : ^^^^^^^^^^^^
->isDefined : <T>(value: T) => value is NonNullable<T>
->          : ^ ^^     ^^ ^^^^^                       
+>isDefined : <T extends {} | null | undefined>(value: T) => value is NonNullable<T>
+>          : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^ ^^^^^                       
 >this.testNumber : number | undefined
 >                : ^^^^^^^^^^^^^^^^^^
 >this : this

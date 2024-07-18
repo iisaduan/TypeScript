@@ -1,4 +1,6 @@
 mappedTypes6.ts(23,5): error TS2322: Type 'T' is not assignable to type 'Required<T>'.
+  Type '{} | null | undefined' is not assignable to type 'Required<T>'.
+    Type 'undefined' is not assignable to type 'Required<T>'.
 mappedTypes6.ts(24,5): error TS2322: Type 'Partial<T>' is not assignable to type 'Required<T>'.
 mappedTypes6.ts(27,5): error TS2322: Type 'Partial<T>' is not assignable to type 'T'.
   'T' could be instantiated with an arbitrary type which could be unrelated to 'Partial<T>'.
@@ -22,8 +24,12 @@ mappedTypes6.ts(37,5): error TS2322: Type 'Required<T>' is not assignable to typ
                                   Type 'T[string] | T[number] | T[symbol]' is not assignable to type '{}'.
                                     Type 'T[string]' is not assignable to type '{}'.
 mappedTypes6.ts(38,5): error TS2322: Type 'T' is not assignable to type 'Denullified<T>'.
+  Type '{} | null | undefined' is not assignable to type 'Denullified<T>'.
+    Type 'undefined' is not assignable to type 'Denullified<T>'.
 mappedTypes6.ts(39,5): error TS2322: Type 'Partial<T>' is not assignable to type 'Denullified<T>'.
 mappedTypes6.ts(42,5): error TS2322: Type 'T' is not assignable to type 'Required<T>'.
+  Type '{} | null | undefined' is not assignable to type 'Required<T>'.
+    Type 'undefined' is not assignable to type 'Required<T>'.
 mappedTypes6.ts(43,5): error TS2322: Type 'Partial<T>' is not assignable to type 'Required<T>'.
 mappedTypes6.ts(47,5): error TS2322: Type 'Partial<T>' is not assignable to type 'T'.
   'T' could be instantiated with an arbitrary type which could be unrelated to 'Partial<T>'.
@@ -66,7 +72,8 @@ mappedTypes6.ts(120,4): error TS2540: Cannot assign to 'b' because it is a read-
         x = y;  // Error
         ~
 !!! error TS2322: Type 'T' is not assignable to type 'Required<T>'.
-!!! related TS2208 mappedTypes6.ts:21:13: This type parameter might need an `extends Required<T>` constraint.
+!!! error TS2322:   Type '{} | null | undefined' is not assignable to type 'Required<T>'.
+!!! error TS2322:     Type 'undefined' is not assignable to type 'Required<T>'.
         x = z;  // Error
         ~
 !!! error TS2322: Type 'Partial<T>' is not assignable to type 'Required<T>'.
@@ -109,7 +116,8 @@ mappedTypes6.ts(120,4): error TS2540: Cannot assign to 'b' because it is a read-
         w = y;  // Error
         ~
 !!! error TS2322: Type 'T' is not assignable to type 'Denullified<T>'.
-!!! related TS2208 mappedTypes6.ts:35:13: This type parameter might need an `extends Denullified<T>` constraint.
+!!! error TS2322:   Type '{} | null | undefined' is not assignable to type 'Denullified<T>'.
+!!! error TS2322:     Type 'undefined' is not assignable to type 'Denullified<T>'.
         w = z;  // Error
         ~
 !!! error TS2322: Type 'Partial<T>' is not assignable to type 'Denullified<T>'.
@@ -118,7 +126,8 @@ mappedTypes6.ts(120,4): error TS2540: Cannot assign to 'b' because it is a read-
         x = y;  // Error
         ~
 !!! error TS2322: Type 'T' is not assignable to type 'Required<T>'.
-!!! related TS2208 mappedTypes6.ts:35:13: This type parameter might need an `extends Required<T>` constraint.
+!!! error TS2322:   Type '{} | null | undefined' is not assignable to type 'Required<T>'.
+!!! error TS2322:     Type 'undefined' is not assignable to type 'Required<T>'.
         x = z;  // Error
         ~
 !!! error TS2322: Type 'Partial<T>' is not assignable to type 'Required<T>'.

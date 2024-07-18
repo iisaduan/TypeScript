@@ -10,12 +10,12 @@ export const yThen = y.map(item => item.length);
 >      : ^^^^^^^^
 >y.map(item => item.length) : number[]
 >                           : ^^^^^^^^
->y.map : (<U>(callbackfn: (value: never, index: number, array: never[]) => U, thisArg?: any) => U[]) | (<U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[])
->      : ^^ ^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^^^^^^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^
+>y.map : (<U extends {} | null | undefined>(callbackfn: (value: never, index: number, array: never[]) => U, thisArg?: any) => U[]) | (<U extends {} | null | undefined>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[])
+>      : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^
 >y : never[] | string[]
 >  : ^^^^^^^^^^^^^^^^^^
->map : (<U>(callbackfn: (value: never, index: number, array: never[]) => U, thisArg?: any) => U[]) | (<U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[])
->    : ^^ ^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^^^^^^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^
+>map : (<U extends {} | null | undefined>(callbackfn: (value: never, index: number, array: never[]) => U, thisArg?: any) => U[]) | (<U extends {} | null | undefined>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[])
+>    : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^
 >item => item.length : (item: string) => number
 >                    : ^    ^^^^^^^^^^^^^^^^^^^
 >item : string
@@ -37,12 +37,12 @@ export const yThen = y.map(item => item.length);
 >      : ^^^^^^^^
 >y.map(item => item.length) : number[]
 >                           : ^^^^^^^^
->y.map : (<U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]) | (<U>(callbackfn: (value: number[], index: number, array: number[][]) => U, thisArg?: any) => U[])
->      : ^^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^^^^^^ ^^          ^^^     ^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^
+>y.map : (<U extends {} | null | undefined>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]) | (<U extends {} | null | undefined>(callbackfn: (value: number[], index: number, array: number[][]) => U, thisArg?: any) => U[])
+>      : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^
 >y : string[] | number[][]
 >  : ^^^^^^^^^^^^^^^^^^^^^
->map : (<U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]) | (<U>(callbackfn: (value: number[], index: number, array: number[][]) => U, thisArg?: any) => U[])
->    : ^^ ^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^^^^^^ ^^          ^^^     ^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^
+>map : (<U extends {} | null | undefined>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]) | (<U extends {} | null | undefined>(callbackfn: (value: number[], index: number, array: number[][]) => U, thisArg?: any) => U[])
+>    : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          ^^^     ^^^^^^^^^^^^     ^^      ^^     ^^^^^^^^^^^^^^^^^^^^       ^^^   ^^^^^^^^^
 >item => item.length : (item: string | number[]) => number
 >                    : ^    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >item : string | number[]
@@ -110,8 +110,8 @@ interface Task<T> {
 }
 
 export function series<T>(tasks: Task<T>[], callback: Callback<T[]>): void {
->series : <T>(tasks: Task<T>[], callback: Callback<T[]>) => void
->       : ^ ^^     ^^         ^^        ^^             ^^^^^    
+>series : <T extends {} | null | undefined>(tasks: Task<T>[], callback: Callback<T[]>) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^         ^^        ^^             ^^^^^    
 >tasks : Task<T>[]
 >      : ^^^^^^^^^
 >callback : Callback<T[]>
@@ -218,16 +218,16 @@ export function series<T>(tasks: Task<T>[], callback: Callback<T[]>): void {
 series([
 >series([    cb => setTimeout(() => cb(null, 1), 300),    cb => setTimeout(() => cb(null, 2), 200),    cb => setTimeout(() => cb(null, 3), 100),], (error, results) => {    if (error) {        console.error(error)    } else {        console.log(results)    }}) : void
 >                                                                                                                                                                                                                                                                   : ^^^^
->series : <T>(tasks: Task<T>[], callback: Callback<T[]>) => void
->       : ^ ^^     ^^         ^^        ^^             ^^^^^    
->[    cb => setTimeout(() => cb(null, 1), 300),    cb => setTimeout(() => cb(null, 2), 200),    cb => setTimeout(() => cb(null, 3), 100),] : ((cb: Callback<unknown>) => number)[]
->                                                                                                                                          : ^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>series : <T extends {} | null | undefined>(tasks: Task<T>[], callback: Callback<T[]>) => void
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^         ^^        ^^             ^^^^^    
+>[    cb => setTimeout(() => cb(null, 1), 300),    cb => setTimeout(() => cb(null, 2), 200),    cb => setTimeout(() => cb(null, 3), 100),] : ((cb: Callback<{} | null | undefined>) => number)[]
+>                                                                                                                                          : ^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     cb => setTimeout(() => cb(null, 1), 300),
->cb => setTimeout(() => cb(null, 1), 300) : (cb: Callback<unknown>) => number
->                                         : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->cb : Callback<unknown>
->   : ^^^^^^^^^^^^^^^^^
+>cb => setTimeout(() => cb(null, 1), 300) : (cb: Callback<{} | null | undefined>) => number
+>                                         : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>cb : Callback<{} | null | undefined>
+>   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >setTimeout(() => cb(null, 1), 300) : number
 >                                   : ^^^^^^
 >setTimeout : (handler: TimerHandler, timeout?: number, ...arguments: any[]) => number
@@ -236,18 +236,18 @@ series([
 >                  : ^^^^^^^^^^^^^
 >cb(null, 1) : unknown
 >            : ^^^^^^^
->cb : Callback<unknown>
->   : ^^^^^^^^^^^^^^^^^
+>cb : Callback<{} | null | undefined>
+>   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >1 : 1
 >  : ^
 >300 : 300
 >    : ^^^
 
     cb => setTimeout(() => cb(null, 2), 200),
->cb => setTimeout(() => cb(null, 2), 200) : (cb: Callback<unknown>) => number
->                                         : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->cb : Callback<unknown>
->   : ^^^^^^^^^^^^^^^^^
+>cb => setTimeout(() => cb(null, 2), 200) : (cb: Callback<{} | null | undefined>) => number
+>                                         : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>cb : Callback<{} | null | undefined>
+>   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >setTimeout(() => cb(null, 2), 200) : number
 >                                   : ^^^^^^
 >setTimeout : (handler: TimerHandler, timeout?: number, ...arguments: any[]) => number
@@ -256,18 +256,18 @@ series([
 >                  : ^^^^^^^^^^^^^
 >cb(null, 2) : unknown
 >            : ^^^^^^^
->cb : Callback<unknown>
->   : ^^^^^^^^^^^^^^^^^
+>cb : Callback<{} | null | undefined>
+>   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >2 : 2
 >  : ^
 >200 : 200
 >    : ^^^
 
     cb => setTimeout(() => cb(null, 3), 100),
->cb => setTimeout(() => cb(null, 3), 100) : (cb: Callback<unknown>) => number
->                                         : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->cb : Callback<unknown>
->   : ^^^^^^^^^^^^^^^^^
+>cb => setTimeout(() => cb(null, 3), 100) : (cb: Callback<{} | null | undefined>) => number
+>                                         : ^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>cb : Callback<{} | null | undefined>
+>   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >setTimeout(() => cb(null, 3), 100) : number
 >                                   : ^^^^^^
 >setTimeout : (handler: TimerHandler, timeout?: number, ...arguments: any[]) => number
@@ -276,20 +276,20 @@ series([
 >                  : ^^^^^^^^^^^^^
 >cb(null, 3) : unknown
 >            : ^^^^^^^
->cb : Callback<unknown>
->   : ^^^^^^^^^^^^^^^^^
+>cb : Callback<{} | null | undefined>
+>   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >3 : 3
 >  : ^
 >100 : 100
 >    : ^^^
 
 ], (error, results) => {
->(error, results) => {    if (error) {        console.error(error)    } else {        console.log(results)    }} : (error: Error | null, results: unknown[] | null) => void
->                                                                                                                : ^     ^^^^^^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>(error, results) => {    if (error) {        console.error(error)    } else {        console.log(results)    }} : (error: Error | null, results: ({} | null | undefined)[] | null) => void
+>                                                                                                                : ^     ^^^^^^^^^^^^^^^^       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >error : Error | null
 >      : ^^^^^^^^^^^^
->results : unknown[] | null
->        : ^^^^^^^^^^^^^^^^
+>results : ({} | null | undefined)[] | null
+>        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     if (error) {
 >error : Error | null
@@ -317,8 +317,8 @@ series([
 >        : ^^^^^^^
 >log : (...data: any[]) => void
 >    : ^^^^    ^^     ^^^^^    
->results : unknown[] | null
->        : ^^^^^^^^^^^^^^^^
+>results : ({} | null | undefined)[] | null
+>        : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     }
 })
 

@@ -2,68 +2,68 @@
 
 === instantiationExpressionErrors.ts ===
 declare let f: { <T>(): T, g<U>(): U };
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
->g : <U>() => U
->  : ^ ^^^^^^^ 
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>g : <U extends {} | null | undefined>() => U
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
 // Type arguments in member expressions
 
 const a1 = f<number>;  // { (): number; g<U>(): U; }
->a1 : { (): number; g<U>(): U; }
->   : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<number> : { (): number; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>a1 : { (): number; g<U extends {} | null | undefined>(): U; }
+>   : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<number> : { (): number; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
 const a2 = f.g<number>;  // () => number
 >a2 : () => number
 >   : ^^^^^^^^^^^^
 >f.g<number> : () => number
 >            : ^^^^^^^^^^^^
->f.g : <U>() => U
->    : ^ ^^^^^^^ 
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
->g : <U>() => U
->  : ^ ^^^^^^^ 
+>f.g : <U extends {} | null | undefined>() => U
+>    : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>g : <U extends {} | null | undefined>() => U
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
 const a3 = f<number>.g;  // <U>() => U
->a3 : <U>() => U
->   : ^ ^^^^^^^ 
->f<number>.g : <U>() => U
->            : ^ ^^^^^^^ 
->f<number> : { (): number; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
->g : <U>() => U
->  : ^ ^^^^^^^ 
+>a3 : <U extends {} | null | undefined>() => U
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+>f<number>.g : <U extends {} | null | undefined>() => U
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+>f<number> : { (): number; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>g : <U extends {} | null | undefined>() => U
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
 const a4 = f<number>.g<number>;  // () => number
 >a4 : () => number
 >   : ^^^^^^^^^^^^
 >f<number>.g<number> : () => number
 >                    : ^^^^^^^^^^^^
->f<number>.g : <U>() => U
->            : ^ ^^^^^^^ 
->f<number> : { (): number; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
->g : <U>() => U
->  : ^ ^^^^^^^ 
+>f<number>.g : <U extends {} | null | undefined>() => U
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+>f<number> : { (): number; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>g : <U extends {} | null | undefined>() => U
+>  : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
 const a5 = f['g']<number>;  // () => number
 >a5 : () => number
 >   : ^^^^^^^^^^^^
 >f['g']<number> : () => number
 >               : ^^^^^^^^^^^^
->f['g'] : <U>() => U
->       : ^ ^^^^^^^ 
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f['g'] : <U extends {} | null | undefined>() => U
+>       : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >'g' : "g"
 >    : ^^^
 
@@ -76,8 +76,8 @@ const a6 = f<number>['g'];  // Error
 >               : ^^^^^^^
 >f<number : boolean
 >         : ^^^^^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >number : any
 >       : ^^^
 >['g'] : string[]
@@ -86,16 +86,16 @@ const a6 = f<number>['g'];  // Error
 >    : ^^^
 
 const a7 = (f<number>)['g'];
->a7 : <U>() => U
->   : ^ ^^^^^^^ 
->(f<number>)['g'] : <U>() => U
->                 : ^ ^^^^^^^ 
->(f<number>) : { (): number; g<U>(): U; }
->            : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<number> : { (): number; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>a7 : <U extends {} | null | undefined>() => U
+>   : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+>(f<number>)['g'] : <U extends {} | null | undefined>() => U
+>                 : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+>(f<number>) : { (): number; g<U extends {} | null | undefined>(): U; }
+>            : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<number> : { (): number; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >'g' : "g"
 >    : ^^^
 
@@ -108,8 +108,8 @@ const a8 = f<number><number>;  // Relational operator error
 >                  : ^^^^^^^
 >f<number : boolean
 >         : ^^^^^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >number : any
 >       : ^^^
 ><number> : number
@@ -118,16 +118,16 @@ const a8 = f<number><number>;  // Relational operator error
 > : ^^^
 
 const a9 = (f<number>)<number>;  // Error, no applicable signatures
->a9 : { g<U>(): U; }
->   : ^^^^ ^^^^^ ^^^
->(f<number>)<number> : { g<U>(): U; }
->                    : ^^^^ ^^^^^ ^^^
->(f<number>) : { (): number; g<U>(): U; }
->            : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<number> : { (): number; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>a9 : { g<U extends {} | null | undefined>(): U; }
+>   : ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>(f<number>)<number> : { g<U extends {} | null | undefined>(): U; }
+>                    : ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>(f<number>) : { (): number; g<U extends {} | null | undefined>(): U; }
+>            : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<number> : { (): number; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
 // Type arguments with `?.` token
 
@@ -136,42 +136,42 @@ const b1 = f?.<number>;  // Error, `(` expected
 >   : ^^^^^^
 >f?.<number> : number
 >            : ^^^^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
 const b2 = f?.<number>();
 >b2 : number
 >   : ^^^^^^
 >f?.<number>() : number
 >              : ^^^^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
 const b3 = f<number>?.();
 >b3 : number
 >   : ^^^^^^
 >f<number>?.() : number
 >              : ^^^^^^
->f<number> : { (): number; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f<number> : { (): number; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
 const b4 = f<number>?.<number>();  // Error, expected no type arguments
 >b4 : number
 >   : ^^^^^^
 >f<number>?.<number>() : number
 >                      : ^^^^^^
->f<number> : { (): number; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f<number> : { (): number; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
 // Instantiation expression and binary operators
 
 declare let g: (<T>(x: T) => T) | undefined;
->g : (<T>(x: T) => T) | undefined
->  : ^^ ^^ ^^ ^^^^^ ^^^^^^^^^^^^^
+>g : (<T extends {} | null | undefined>(x: T) => T) | undefined
+>  : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ ^^^^^^^^^^^^^
 >x : T
 >  : ^
 
@@ -182,8 +182,8 @@ const c1 = g<string> || ((x: string) => x);
 >                                : ^ ^^      ^^^^^^^^^^^
 >g<string> : ((x: string) => string) | undefined
 >          : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->g : (<T>(x: T) => T) | undefined
->  : ^^ ^^ ^^ ^^^^^ ^^^^^^^^^^^^^
+>g : (<T extends {} | null | undefined>(x: T) => T) | undefined
+>  : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ ^^^^^^^^^^^^^
 >((x: string) => x) : (x: string) => string
 >                   : ^ ^^      ^^^^^^^^^^^
 >(x: string) => x : (x: string) => string
@@ -200,8 +200,8 @@ const c2 = g<string> ?? ((x: string) => x);
 >                                : ^ ^^      ^^^^^^^^^^^
 >g<string> : ((x: string) => string) | undefined
 >          : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->g : (<T>(x: T) => T) | undefined
->  : ^^ ^^ ^^ ^^^^^ ^^^^^^^^^^^^^
+>g : (<T extends {} | null | undefined>(x: T) => T) | undefined
+>  : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ ^^^^^^^^^^^^^
 >((x: string) => x) : (x: string) => string
 >                   : ^ ^^      ^^^^^^^^^^^
 >(x: string) => x : (x: string) => string
@@ -218,8 +218,8 @@ const c3 = g<string> && ((x: string) => x);
 >                                : ^^ ^^      ^^^^^^^^^^^^^^^^^^^^^^^^
 >g<string> : ((x: string) => string) | undefined
 >          : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->g : (<T>(x: T) => T) | undefined
->  : ^^ ^^ ^^ ^^^^^ ^^^^^^^^^^^^^
+>g : (<T extends {} | null | undefined>(x: T) => T) | undefined
+>  : ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^ ^^^^^ ^^^^^^^^^^^^^
 >((x: string) => x) : (x: string) => string
 >                   : ^ ^^      ^^^^^^^^^^^
 >(x: string) => x : (x: string) => string
@@ -236,8 +236,8 @@ const x1 = f<true>
 >   : ^^^^
 >f<true>(true) : true
 >              : ^^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -254,8 +254,8 @@ const r1 = f < true > true;
 >                : ^^^^^^^
 >f < true : boolean
 >         : ^^^^^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 >true : true
@@ -268,8 +268,8 @@ const r2 = f < true > +1;
 >              : ^^^^^^^
 >f < true : boolean
 >         : ^^^^^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 >+1 : 1
@@ -284,8 +284,8 @@ const r3 = f < true > -1;
 >              : ^^^^^^^
 >f < true : boolean
 >         : ^^^^^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 >-1 : -1
@@ -296,12 +296,12 @@ const r3 = f < true > -1;
 // All of the following are parsed as instantiation expressions
 
 const x2 = f<true>
->x2 : { (): true; g<U>(): U; }
->   : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x2 : { (): true; g<U extends {} | null | undefined>(): U; }
+>   : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -310,12 +310,12 @@ true;
 >     : ^^^^
 
 const x3 = f<true>;
->x3 : { (): true; g<U>(): U; }
->   : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x3 : { (): true; g<U extends {} | null | undefined>(): U; }
+>   : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -324,12 +324,12 @@ true;
 >     : ^^^^
 
 const x4 = f<true>
->x4 : { (): true; g<U>(): U; }
->   : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x4 : { (): true; g<U extends {} | null | undefined>(): U; }
+>   : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -338,12 +338,12 @@ if (true) {}
 >     : ^^^^
 
 const x5 = f<true>
->x5 : { (): true; g<U>(): U; }
->   : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x5 : { (): true; g<U extends {} | null | undefined>(): U; }
+>   : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -354,24 +354,24 @@ let yy = 0;
 >  : ^
 
 const x6 = f<true>
->x6 : { (): true; g<U>(): U; }
->   : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x6 : { (): true; g<U extends {} | null | undefined>(): U; }
+>   : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
 interface I {}
 
 let x10 = f<true>
->x10 : { (): true; g<U>(): U; }
->    : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x10 : { (): true; g<U extends {} | null | undefined>(): U; }
+>    : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -386,12 +386,12 @@ this.bar()
 >    : ^^^^^^^^^^
 
 let x11 = f<true>
->x11 : { (): true; g<U>(): U; }
->    : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x11 : { (): true; g<U extends {} | null | undefined>(): U; }
+>    : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -400,12 +400,12 @@ function bar() {}
 >    : ^^^^^^^^^^
 
 let x12 = f<true>
->x12 : { (): true; g<U>(): U; }
->    : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x12 : { (): true; g<U extends {} | null | undefined>(): U; }
+>    : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -414,12 +414,12 @@ class C {}
 >  : ^
 
 let x13 = f<true>
->x13 : { (): true; g<U>(): U; }
->    : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x13 : { (): true; g<U extends {} | null | undefined>(): U; }
+>    : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -430,12 +430,12 @@ bar()
 >    : ^^^^^^^^^^
 
 let x14 = f<true>
->x14 : { (): true; g<U>(): U; }
->    : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<true> : { (): true; g<U>(): U; }
->        : ^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>x14 : { (): true; g<U extends {} | null | undefined>(): U; }
+>    : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<true> : { (): true; g<U extends {} | null | undefined>(): U; }
+>        : ^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 >true : true
 >     : ^^^^
 
@@ -452,12 +452,12 @@ class C1 {
 >   : ^^
 
     static specialFoo = f<string>
->specialFoo : { (): string; g<U>(): U; }
->           : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<string> : { (): string; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>specialFoo : { (): string; g<U extends {} | null | undefined>(): U; }
+>           : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<string> : { (): string; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
     static bar = 123
 >bar : number
@@ -471,12 +471,12 @@ class C2 {
 >   : ^^
 
     public specialFoo = f<string>
->specialFoo : { (): string; g<U>(): U; }
->           : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<string> : { (): string; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>specialFoo : { (): string; g<U extends {} | null | undefined>(): U; }
+>           : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<string> : { (): string; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
     public bar = 123
 >bar : number
@@ -490,12 +490,12 @@ class C3 {
 >   : ^^
 
     private specialFoo = f<string>
->specialFoo : { (): string; g<U>(): U; }
->           : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<string> : { (): string; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>specialFoo : { (): string; g<U extends {} | null | undefined>(): U; }
+>           : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<string> : { (): string; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
     private bar = 123
 >bar : number
@@ -509,12 +509,12 @@ class C4 {
 >   : ^^
 
     protected specialFoo = f<string>
->specialFoo : { (): string; g<U>(): U; }
->           : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f<string> : { (): string; g<U>(): U; }
->          : ^^^^^^^^^^^^^^^^ ^^^^^ ^^^
->f : { <T>(): T; g<U>(): U; }
->  : ^^^ ^^^^^ ^^^^ ^^^^^ ^^^
+>specialFoo : { (): string; g<U extends {} | null | undefined>(): U; }
+>           : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f<string> : { (): string; g<U extends {} | null | undefined>(): U; }
+>          : ^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
+>f : { <T extends {} | null | undefined>(): T; g<U extends {} | null | undefined>(): U; }
+>  : ^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^
 
     protected bar = 123
 >bar : number

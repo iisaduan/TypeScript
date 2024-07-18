@@ -639,8 +639,8 @@ type ObjectDescriptor<D, M> = {
 }
 
 declare function makeObject<D, M>(desc: ObjectDescriptor<D, M>): D & M;
->makeObject : <D, M>(desc: ObjectDescriptor<D, M>) => D & M
->           : ^ ^^ ^^    ^^                      ^^^^^     
+>makeObject : <D extends {} | null | undefined, M extends {} | null | undefined>(desc: ObjectDescriptor<D, M>) => D & M
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^                      ^^^^^     
 >desc : ObjectDescriptor<D, M>
 >     : ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -649,8 +649,8 @@ let x1 = makeObject({
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^      ^^  ^^      ^^^^^^^^^^
 >makeObject({    data: { x: 0, y: 0 },    methods: {        moveBy(dx: number, dy: number) {            this.x += dx;  // Strongly typed this            this.y += dy;  // Strongly typed this        }    }}) : { x: number; y: number; } & { moveBy(dx: number, dy: number): void; }
 >                                                                                                                                                                                                              : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^      ^^  ^^      ^^^^^^^^^^
->makeObject : <D, M>(desc: ObjectDescriptor<D, M>) => D & M
->           : ^ ^^ ^^    ^^                      ^^^^^     
+>makeObject : <D extends {} | null | undefined, M extends {} | null | undefined>(desc: ObjectDescriptor<D, M>) => D & M
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^                      ^^^^^     
 >{    data: { x: 0, y: 0 },    methods: {        moveBy(dx: number, dy: number) {            this.x += dx;  // Strongly typed this            this.y += dy;  // Strongly typed this        }    }} : { data: { x: number; y: number; }; methods: { moveBy(dx: number, dy: number): void; }; }
 >                                                                                                                                                                                                  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^      ^^  ^^      ^^^^^^^^^^^^^
 
@@ -726,8 +726,8 @@ type ObjectDescriptor2<D, M> = ThisType<D & M> & {
 }
 
 declare function makeObject2<D, M>(desc: ObjectDescriptor<D, M>): D & M;
->makeObject2 : <D, M>(desc: ObjectDescriptor<D, M>) => D & M
->            : ^ ^^ ^^    ^^                      ^^^^^     
+>makeObject2 : <D extends {} | null | undefined, M extends {} | null | undefined>(desc: ObjectDescriptor<D, M>) => D & M
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^                      ^^^^^     
 >desc : ObjectDescriptor<D, M>
 >     : ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -736,8 +736,8 @@ let x2 = makeObject2({
 >   : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^      ^^  ^^      ^^^^^^^^^^
 >makeObject2({    data: { x: 0, y: 0 },    methods: {        moveBy(dx: number, dy: number) {            this.x += dx;  // Strongly typed this            this.y += dy;  // Strongly typed this        }    }}) : { x: number; y: number; } & { moveBy(dx: number, dy: number): void; }
 >                                                                                                                                                                                                               : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^      ^^  ^^      ^^^^^^^^^^
->makeObject2 : <D, M>(desc: ObjectDescriptor<D, M>) => D & M
->            : ^ ^^ ^^    ^^                      ^^^^^     
+>makeObject2 : <D extends {} | null | undefined, M extends {} | null | undefined>(desc: ObjectDescriptor<D, M>) => D & M
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^    ^^                      ^^^^^     
 >{    data: { x: 0, y: 0 },    methods: {        moveBy(dx: number, dy: number) {            this.x += dx;  // Strongly typed this            this.y += dy;  // Strongly typed this        }    }} : { data: { x: number; y: number; }; methods: { moveBy(dx: number, dy: number): void; }; }
 >                                                                                                                                                                                                  : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^      ^^  ^^      ^^^^^^^^^^^^^
 
@@ -825,8 +825,8 @@ type PropDescMap<T> = {
 }
 
 declare function defineProp<T, K extends string, U>(obj: T, name: K, desc: PropDesc<U> & ThisType<T>): T & Record<K, U>;
->defineProp : <T, K extends string, U>(obj: T, name: K, desc: PropDesc<U> & ThisType<T>) => T & Record<K, U>
->           : ^ ^^ ^^^^^^^^^      ^^ ^^   ^^ ^^    ^^ ^^    ^^                         ^^^^^                
+>defineProp : <T extends {} | null | undefined, K extends string, U extends {} | null | undefined>(obj: T, name: K, desc: PropDesc<U> & ThisType<T>) => T & Record<K, U>
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^      ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^    ^^ ^^    ^^                         ^^^^^                
 >obj : T
 >    : ^
 >name : K
@@ -835,8 +835,8 @@ declare function defineProp<T, K extends string, U>(obj: T, name: K, desc: PropD
 >     : ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 declare function defineProps<T, U>(obj: T, descs: PropDescMap<U> & ThisType<T>): T & U;
->defineProps : <T, U>(obj: T, descs: PropDescMap<U> & ThisType<T>) => T & U
->            : ^ ^^ ^^   ^^ ^^     ^^                            ^^^^^     
+>defineProps : <T extends {} | null | undefined, U extends {} | null | undefined>(obj: T, descs: PropDescMap<U> & ThisType<T>) => T & U
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^     ^^                            ^^^^^     
 >obj : T
 >    : ^
 >descs : PropDescMap<U> & ThisType<T>
@@ -847,8 +847,8 @@ let p10 = defineProp(p1, "foo", { value: 42 });
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >defineProp(p1, "foo", { value: 42 }) : Point & Record<"foo", number>
 >                                     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->defineProp : <T, K extends string, U>(obj: T, name: K, desc: PropDesc<U> & ThisType<T>) => T & Record<K, U>
->           : ^ ^^ ^^^^^^^^^      ^^ ^^   ^^ ^^    ^^ ^^    ^^                         ^^^^^                
+>defineProp : <T extends {} | null | undefined, K extends string, U extends {} | null | undefined>(obj: T, name: K, desc: PropDesc<U> & ThisType<T>) => T & Record<K, U>
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^      ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^    ^^ ^^    ^^                         ^^^^^                
 >p1 : Point
 >   : ^^^^^
 >"foo" : "foo"
@@ -885,8 +885,8 @@ let p11 = defineProp(p1, "bar", {
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >defineProp(p1, "bar", {    get() {        return this.x;    },    set(value: number) {        this.x = value;    }}) : Point & Record<"bar", number>
 >                                                                                                                     : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->defineProp : <T, K extends string, U>(obj: T, name: K, desc: PropDesc<U> & ThisType<T>) => T & Record<K, U>
->           : ^ ^^ ^^^^^^^^^      ^^ ^^   ^^ ^^    ^^ ^^    ^^                         ^^^^^                
+>defineProp : <T extends {} | null | undefined, K extends string, U extends {} | null | undefined>(obj: T, name: K, desc: PropDesc<U> & ThisType<T>) => T & Record<K, U>
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^      ^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^    ^^ ^^    ^^                         ^^^^^                
 >p1 : Point
 >   : ^^^^^
 >"bar" : "bar"
@@ -951,8 +951,8 @@ let p12 = defineProps(p1, {
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >defineProps(p1, {    foo: {        value: 42    },    bar: {        get(): number {            return this.x;        },        set(value: number) {            this.x = value;        }    }}) : Point & { foo: number; bar: number; }
 >                                                                                                                                                                                               : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->defineProps : <T, U>(obj: T, descs: PropDescMap<U> & ThisType<T>) => T & U
->            : ^ ^^ ^^   ^^ ^^     ^^                            ^^^^^     
+>defineProps : <T extends {} | null | undefined, U extends {} | null | undefined>(obj: T, descs: PropDescMap<U> & ThisType<T>) => T & U
+>            : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^ ^^     ^^                            ^^^^^     
 >p1 : Point
 >   : ^^^^^
 >{    foo: {        value: 42    },    bar: {        get(): number {            return this.x;        },        set(value: number) {            this.x = value;        }    }} : { foo: { value: number; }; bar: { get(): number; set(value: number): void; }; }
@@ -1095,8 +1095,8 @@ type VueOptions<D, M, P> = ThisType<D & M & P> & {
 }
 
 declare const Vue: new <D, M, P>(options: VueOptions<D, M, P>) => D & M & P;
->Vue : new <D, M, P>(options: VueOptions<D, M, P>) => D & M & P
->    : ^^^^^ ^^ ^^ ^^       ^^                   ^^^^^         
+>Vue : new <D extends {} | null | undefined, M extends {} | null | undefined, P extends {} | null | undefined>(options: VueOptions<D, M, P>) => D & M & P
+>    : ^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                   ^^^^^         
 >options : VueOptions<D, M, P>
 >        : ^^^^^^^^^^^^^^^^^^^
 
@@ -1105,8 +1105,8 @@ let vue = new Vue({
 >    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >new Vue({    data: () => ({ x: 1, y: 2 }),    methods: {        f(x: string) {            return this.x;        }    },    computed: {        test(): number {            return this.x;        },        hello: {            get() {                return "hi";            },            set(value: string) {            }        }    }}) : { x: number; y: number; } & { f(x: string): number; } & { test: number; hello: string; }
 >                                                                                                                                                                                                                                                                                                                                             : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->Vue : new <D, M, P>(options: VueOptions<D, M, P>) => D & M & P
->    : ^^^^^ ^^ ^^ ^^       ^^                   ^^^^^         
+>Vue : new <D extends {} | null | undefined, M extends {} | null | undefined, P extends {} | null | undefined>(options: VueOptions<D, M, P>) => D & M & P
+>    : ^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ^^                   ^^^^^         
 >{    data: () => ({ x: 1, y: 2 }),    methods: {        f(x: string) {            return this.x;        }    },    computed: {        test(): number {            return this.x;        },        hello: {            get() {                return "hi";            },            set(value: string) {            }        }    }} : { data: () => { x: number; y: number; }; methods: { f(x: string): number; }; computed: { test(): number; hello: { get(): string; set(value: string): void; }; }; }
 >                                                                                                                                                                                                                                                                                                                                    : ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^      ^^^^^^^^^^^^^^^^
 

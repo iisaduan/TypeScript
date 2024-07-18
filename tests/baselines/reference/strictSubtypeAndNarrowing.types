@@ -148,8 +148,8 @@ const a42 = [x41, x42];
 // (...args: A) => R, where A is any, any[], never, or never[] and R is any or unknown, is supertype of all function types.
 
 declare function isFunction<T>(x: unknown): x is T;
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >x : unknown
 >  : ^^^^^^^
 
@@ -190,8 +190,8 @@ function fx1(f: (() => void) | undefined) {
     if (isFunction<A>(f)) {
 >isFunction<A>(f) : boolean
 >                 : ^^^^^^^
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >f : (() => void) | undefined
 >  : ^^^^^^^    ^^^^^^^^^^^^^
 
@@ -218,8 +218,8 @@ function fx2(f: (() => void) | undefined) {
     if (isFunction<B>(f)) {
 >isFunction<B>(f) : boolean
 >                 : ^^^^^^^
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >f : (() => void) | undefined
 >  : ^^^^^^^    ^^^^^^^^^^^^^
 
@@ -246,8 +246,8 @@ function fx3(f: (() => void) | undefined) {
     if (isFunction<C>(f)) {
 >isFunction<C>(f) : boolean
 >                 : ^^^^^^^
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >f : (() => void) | undefined
 >  : ^^^^^^^    ^^^^^^^^^^^^^
 
@@ -274,8 +274,8 @@ function fx4(f: (() => void) | undefined) {
     if (isFunction<D>(f)) {
 >isFunction<D>(f) : boolean
 >                 : ^^^^^^^
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >f : (() => void) | undefined
 >  : ^^^^^^^    ^^^^^^^^^^^^^
 
@@ -302,8 +302,8 @@ function checkA(f: FnTypes) {
     if (isFunction<A>(f)) {
 >isFunction<A>(f) : boolean
 >                 : ^^^^^^^
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >f : FnTypes
 >  : ^^^^^^^
 
@@ -330,8 +330,8 @@ function checkB(f: FnTypes) {
     if (isFunction<B>(f)) {
 >isFunction<B>(f) : boolean
 >                 : ^^^^^^^
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >f : FnTypes
 >  : ^^^^^^^
 
@@ -358,8 +358,8 @@ function checkC(f: FnTypes) {
     if (isFunction<C>(f)) {
 >isFunction<C>(f) : boolean
 >                 : ^^^^^^^
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >f : FnTypes
 >  : ^^^^^^^
 
@@ -386,8 +386,8 @@ function checkD(f: FnTypes) {
     if (isFunction<C>(f)) {
 >isFunction<C>(f) : boolean
 >                 : ^^^^^^^
->isFunction : <T>(x: unknown) => x is T
->           : ^ ^^ ^^       ^^^^^      
+>isFunction : <T extends {} | null | undefined>(x: unknown) => x is T
+>           : ^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^       ^^^^^      
 >f : FnTypes
 >  : ^^^^^^^
 
@@ -633,8 +633,8 @@ type NarrowByDeepValue<ObjT, DeepPathT, ValueT> = DeepPathT extends readonly [
 
 
 declare function doesValueAtDeepPathSatisfy<
->doesValueAtDeepPathSatisfy : <ObjT extends object, const DeepPathT extends ReadonlyArray<number | string>, ValueT>(obj: ObjT, deepPath: DeepPathT, predicate: (arg: unknown) => arg is ValueT) => obj is NarrowByDeepValue<ObjT, DeepPathT, ValueT>
->                           : ^    ^^^^^^^^^      ^^^^^^^^         ^^^^^^^^^                              ^^      ^^   ^^    ^^        ^^         ^^         ^^                               ^^^^^                                                 
+>doesValueAtDeepPathSatisfy : <ObjT extends object, const DeepPathT extends ReadonlyArray<number | string>, ValueT extends {} | null | undefined>(obj: ObjT, deepPath: DeepPathT, predicate: (arg: unknown) => arg is ValueT) => obj is NarrowByDeepValue<ObjT, DeepPathT, ValueT>
+>                           : ^    ^^^^^^^^^      ^^^^^^^^         ^^^^^^^^^                              ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^    ^^        ^^         ^^         ^^                               ^^^^^                                                 
 
     ObjT extends object,
     const DeepPathT extends ReadonlyArray<number | string>,
@@ -710,8 +710,8 @@ function test1(foo: Foo): {value: {type: 'A'}; a?: number} {
 >       : ^         ^^       ^^^^^                 
 >doesValueAtDeepPathSatisfy(foo, ['value', 'type'], isA) : boolean
 >                                                        : ^^^^^^^
->doesValueAtDeepPathSatisfy : <ObjT extends object, const DeepPathT extends ReadonlyArray<number | string>, ValueT>(obj: ObjT, deepPath: DeepPathT, predicate: (arg: unknown) => arg is ValueT) => obj is NarrowByDeepValue<ObjT, DeepPathT, ValueT>
->                           : ^    ^^^^^^^^^      ^^^^^^^^         ^^^^^^^^^                              ^^      ^^   ^^    ^^        ^^         ^^         ^^                               ^^^^^                                                 
+>doesValueAtDeepPathSatisfy : <ObjT extends object, const DeepPathT extends ReadonlyArray<number | string>, ValueT extends {} | null | undefined>(obj: ObjT, deepPath: DeepPathT, predicate: (arg: unknown) => arg is ValueT) => obj is NarrowByDeepValue<ObjT, DeepPathT, ValueT>
+>                           : ^    ^^^^^^^^^      ^^^^^^^^         ^^^^^^^^^                              ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^    ^^        ^^         ^^         ^^                               ^^^^^                                                 
 >foo : Foo
 >    : ^^^
 >['value', 'type'] : ["value", "type"]
@@ -749,8 +749,8 @@ function test2(foo: Foo): {value: {type: 'A'}; a?: number} {
 >                                                         : ^^^^^^^
 >doesValueAtDeepPathSatisfy(foo, ['value', 'type'], isB) : boolean
 >                                                        : ^^^^^^^
->doesValueAtDeepPathSatisfy : <ObjT extends object, const DeepPathT extends ReadonlyArray<number | string>, ValueT>(obj: ObjT, deepPath: DeepPathT, predicate: (arg: unknown) => arg is ValueT) => obj is NarrowByDeepValue<ObjT, DeepPathT, ValueT>
->                           : ^    ^^^^^^^^^      ^^^^^^^^         ^^^^^^^^^                              ^^      ^^   ^^    ^^        ^^         ^^         ^^                               ^^^^^                                                 
+>doesValueAtDeepPathSatisfy : <ObjT extends object, const DeepPathT extends ReadonlyArray<number | string>, ValueT extends {} | null | undefined>(obj: ObjT, deepPath: DeepPathT, predicate: (arg: unknown) => arg is ValueT) => obj is NarrowByDeepValue<ObjT, DeepPathT, ValueT>
+>                           : ^    ^^^^^^^^^      ^^^^^^^^         ^^^^^^^^^                              ^^      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   ^^    ^^        ^^         ^^         ^^                               ^^^^^                                                 
 >foo : Foo
 >    : ^^^
 >['value', 'type'] : ["value", "type"]

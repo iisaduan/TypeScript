@@ -1,5 +1,8 @@
 conditionalTypes1.ts(12,5): error TS2322: Type 'T' is not assignable to type 'NonNullable<T>'.
-  Type 'T' is not assignable to type '{}'.
+  Type '{} | null | undefined' is not assignable to type 'NonNullable<T>'.
+    Type 'undefined' is not assignable to type 'NonNullable<T>'.
+      Type 'undefined' is not assignable to type 'T'.
+        'T' could be instantiated with an arbitrary type which could be unrelated to 'undefined'.
 conditionalTypes1.ts(17,5): error TS2322: Type 'T' is not assignable to type 'NonNullable<T>'.
   Type 'string | undefined' is not assignable to type 'NonNullable<T>'.
     Type 'undefined' is not assignable to type 'NonNullable<T>'.
@@ -94,9 +97,10 @@ conditionalTypes1.ts(288,43): error TS2322: Type 'T95<U>' is not assignable to t
         y = x;  // Error
         ~
 !!! error TS2322: Type 'T' is not assignable to type 'NonNullable<T>'.
-!!! error TS2322:   Type 'T' is not assignable to type '{}'.
-!!! related TS2208 conditionalTypes1.ts:10:13: This type parameter might need an `extends {}` constraint.
-!!! related TS2208 conditionalTypes1.ts:10:13: This type parameter might need an `extends NonNullable<T>` constraint.
+!!! error TS2322:   Type '{} | null | undefined' is not assignable to type 'NonNullable<T>'.
+!!! error TS2322:     Type 'undefined' is not assignable to type 'NonNullable<T>'.
+!!! error TS2322:       Type 'undefined' is not assignable to type 'T'.
+!!! error TS2322:         'T' could be instantiated with an arbitrary type which could be unrelated to 'undefined'.
     }
     
     function f2<T extends string | undefined>(x: T, y: NonNullable<T>) {

@@ -8,10 +8,10 @@ function f() {
 >  : ^^^^^^^^^^
 
     const b = new Bar();
->b : Bar<unknown>
->  : ^^^^^^^^^^^^
->new Bar() : Bar<unknown>
->          : ^^^^^^^^^^^^
+>b : Bar<{} | null | undefined>
+>  : ^^^^^^^^^^^^^^^^^^^^^^^^^^
+>new Bar() : Bar<{} | null | undefined>
+>          : ^^^^^^^^^^^^^^^^^^^^^^^^^^
 >Bar : typeof Bar
 >    : ^^^^^^^^^^
 
@@ -27,8 +27,8 @@ function f() {
 >    : ^^^^    ^^     ^^^^^    
 >b.Value : number
 >        : ^^^^^^
->b : Bar<unknown>
->  : ^^^^^^^^^^^^
+>b : Bar<{} | null | undefined>
+>  : ^^^^^^^^^^^^^^^^^^^^^^^^^^
 >Value : number
 >      : ^^^^^^
 }
