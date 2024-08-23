@@ -505,6 +505,7 @@ export function mapDefined<T, U>(array: readonly T[] | undefined, mapFn: (x: T, 
 }
 
 /** @internal */
+// eslint-disable-next-line no-restricted-syntax
 export function* mapDefinedIterator<T, U>(iter: Iterable<T>, mapFn: (x: T) => U | undefined): Generator<U & ({} | null), void, unknown> {
     for (const x of iter) {
         const value = mapFn(x);

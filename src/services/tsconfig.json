@@ -1,6 +1,7 @@
 {
     "extends": "../tsconfig-base",
     "compilerOptions": {
+        "isolatedDeclarations": true
     },
     "references": [
         { "path": "../compiler" },
