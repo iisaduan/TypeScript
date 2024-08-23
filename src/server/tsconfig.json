@@ -3,7 +3,8 @@
     "compilerOptions": {
         "types": [
             "node"
-        ]
+        ],
+        "isolatedDeclarations": true
     },
     "references": [
         { "path": "../compiler" },
