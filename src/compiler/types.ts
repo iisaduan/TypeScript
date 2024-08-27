@@ -4866,11 +4866,14 @@ export interface Program extends ScriptReferenceHost {
      */
     redirectTargetsMap: MultiMap<Path, string>;
     /**
-     * Whether any (non-external, non-declaration) source files use `node:`-prefixed module specifiers.
+     * Whether any (non-external, non-declaration) source files use `node:`-prefixed module specifiers
+     * (except for those that are not available without the prefix).
+     * `false` indicates that an unprefixed builtin module was seen; `undefined` indicates that no
+     * builtin modules (or only modules exclusively available with the prefix) were seen.
      *
      * @internal
      */
-    readonly usesUriStyleNodeCoreModules: boolean;
+    readonly usesUriStyleNodeCoreModules: boolean | undefined;
     /**
      * Map from libFileName to actual resolved location of the lib
      * @internal
@@ -5970,7 +5973,7 @@ export interface Symbol {
     /** @internal */ exportSymbol?: Symbol; // Exported symbol associated with this symbol
     /** @internal */ constEnumOnlyModule: boolean | undefined; // True if module contains only const enums or other modules with only const enums
     /** @internal */ isReferenced?: SymbolFlags; // True if the symbol is referenced elsewhere. Keeps track of the meaning of a reference in case a symbol is both a type parameter and parameter.
-    /** @internal */ lastAssignmentPos?: number; // Source position of last node that assigns value to symbol
+    /** @internal */ lastAssignmentPos?: number; // Source position of last node that assigns value to symbol. Negative if it is assigned anywhere definitely
     /** @internal */ isReplaceableByMethod?: boolean; // Can this Javascript class property be replaced by a method symbol?
     /** @internal */ assignmentDeclarationMembers?: Map<number, Declaration>; // detected late-bound assignment declarations associated with the symbol
 }

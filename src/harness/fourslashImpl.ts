@@ -1037,8 +1037,8 @@ export class TestState {
 
         if (ts.hasProperty(options, "defaultCommitCharacters")) {
             assert.deepEqual(
-                actualCompletions.defaultCommitCharacters?.sort(),
-                options.defaultCommitCharacters?.sort(),
+                actualCompletions.defaultCommitCharacters?.slice().sort(),
+                options.defaultCommitCharacters?.slice().sort(),
                 "Expected 'defaultCommitCharacters' properties to match",
             );
         }
@@ -1191,8 +1191,8 @@ export class TestState {
         assert.equal(actual.sortText, expected.sortText || ts.Completions.SortText.LocationPriority, `At entry ${actual.name}: Expected 'sortText' properties to match`);
         if (ts.hasProperty(expected, "commitCharacters")) {
             assert.deepEqual(
-                actual.commitCharacters?.sort(),
-                expected.commitCharacters?.sort(),
+                actual.commitCharacters?.slice().sort(),
+                expected.commitCharacters?.slice().sort(),
                 `At entry ${actual.name}: Expected 'commitCharacters' values to match`,
             );
         }
@@ -3368,8 +3368,8 @@ export class TestState {
         this.verifyTextMatches(this.rangeText(this.getOnlyRange()), !!includeWhiteSpace, expectedText);
     }
 
-    private getOnlyRange() {
-        const ranges = this.getRanges();
+    private getOnlyRange(fileName?: string) {
+        const ranges = fileName ? this.getRangesInFile(fileName) : this.getRanges();
         if (ranges.length !== 1) {
             this.raiseError("Exactly one range should be specified in the testfile.");
         }
@@ -3455,7 +3455,7 @@ export class TestState {
             const change = ts.first(changes);
             assert(change.fileName = this.activeFile.fileName);
             const newText = ts.textChanges.applyChanges(this.getFileContent(this.activeFile.fileName), change.textChanges);
-            const newRange = updateTextRangeForTextChanges(this.getOnlyRange(), change.textChanges);
+            const newRange = updateTextRangeForTextChanges(this.getOnlyRange(this.activeFile.fileName), change.textChanges);
             const actualText = newText.slice(newRange.pos, newRange.end);
             this.verifyTextMatches(actualText, /*includeWhitespace*/ true, newRangeContent);
         }
